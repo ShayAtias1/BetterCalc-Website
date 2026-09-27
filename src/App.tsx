@@ -8,6 +8,7 @@ import { CompareStory, StaticCompare } from './components/CompareStory'
 import { Audience, FinalCta, SiteFooter } from './components/Ending'
 import { APP_URL } from './data/site'
 import { useStoryScroll } from './hooks/useStoryScroll'
+import { useWheelDamping } from './hooks/useWheelDamping'
 
 const reducedQuery = '(prefers-reduced-motion: reduce)'
 const subscribeReduced = (onChange: () => void) => {
@@ -92,6 +93,7 @@ function StaticStory() {
 
 function App() {
   const reduced = useSyncExternalStore(subscribeReduced, getReduced, () => false)
+  useWheelDamping()
 
   return (
     <div className="site-shell" dir="rtl">

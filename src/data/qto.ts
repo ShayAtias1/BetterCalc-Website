@@ -4,6 +4,9 @@
 // (BetterCalc/demo/qto-demo.mjs, "ROOMS"), converted to sheet coordinates (y from the top).
 // Values are the demo's exported quantities (qto-quantities.xlsx, sheet "כתב כמויות", column
 // "שטח ריצוף רגיל", waste 0%). Keep this file in sync with those exports as one versioned set.
+// The export was regenerated on 2026-09-27 with one regular-tiling item per room: the earlier demo
+// run added tiling twice per room (room type pre-fills it, then "+ ריצוף" added a second), which
+// doubled every area (98.91 instead of 49.46). BetterCalc's calculation itself was correct.
 
 import { PLAN_HEIGHT } from './plan'
 import { WORKBOOK_SHEETS } from './qtoWorkbook'
@@ -23,17 +26,17 @@ export type Room = {
 
 export const ROOMS: Room[] = [
   {
-    id: 'master', index: '01', name: 'חדר הורים', area: '25.48',
+    id: 'master', index: '01', name: 'חדר הורים', area: '12.74',
     rect: { x0: 135, y0: fromPdfY(694.04), x1: 389.68, y1: fromPdfY(490.52) },
     tag: { x: 262, y: 268 },
   },
   {
-    id: 'bedroom', index: '02', name: 'חדר שינה', area: '26.21',
+    id: 'bedroom', index: '02', name: 'חדר שינה', area: '13.11',
     rect: { x0: 135, y0: fromPdfY(480.28), x1: 325.68, y1: fromPdfY(199.96) },
     tag: { x: 230, y: 462 },
   },
   {
-    id: 'living', index: '03', name: 'סלון', area: '47.22',
+    id: 'living', index: '03', name: 'סלון', area: '23.61',
     rect: { x0: 658.72, y0: fromPdfY(531.48), x1: 949.04, y1: fromPdfY(199.96) },
     tag: { x: 804, y: 428 },
   },
@@ -41,7 +44,7 @@ export const ROOMS: Room[] = [
 
 export const WORK_ITEM = 'ריצוף רגיל'
 export const WASTE = '0%'
-export const TOTAL = '98.91'
+export const TOTAL = '49.46'
 
 // Guard: the ledger total must be the sum of the visible rows.
 const sum = ROOMS.reduce((acc, room) => acc + Math.round(Number(room.area) * 100), 0) / 100

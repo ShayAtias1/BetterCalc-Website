@@ -31,7 +31,9 @@ npm run preview
   viewport heights (`V` in `useStoryScroll.ts`); the whole story pins for 240svh.
 - `src/data/qto.ts` holds every room rectangle and quantity. At module load it asserts that the rows sum to
   the total and that each value matches the real Excel export.
-- Real exports live in `assets-source/reports/` (copied from `BetterCalc/demo/output/reports/`). Derived assets:
+- Real exports live in `assets-source/reports/`. `compare-report.pdf` is copied from `BetterCalc/demo/output/reports/`; the two QTO
+  exports were re-exported from BetterCalc on 2026-09-27 with one regular-tiling item per room (the older demo run added
+  tiling twice per room, doubling every area to 98.91 m²; the correct total is 49.46 m²). Derived assets:
   - `swift scripts/render-report-previews.swift` → `public/assets/report-previews/*.{avif,png}` (from `qto-report.pdf` and
     `compare-report.pdf`; opaque, even-sized renders — the system AVIF encoder produces undecodable files otherwise)
   - `python3 scripts/extract-xlsx.py > src/data/qtoWorkbook.ts` (from `qto-quantities.xlsx`)
