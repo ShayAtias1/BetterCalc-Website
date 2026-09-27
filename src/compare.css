@@ -10,7 +10,7 @@
   --demolition: #c58a12;
   --demolition-ink: #8f6208;
   --construction: #16803d;
-  --travel: 278svh;
+  --travel: 342svh;
   position: relative;
   height: calc(100svh + var(--travel));
   border-block-start: 1px solid var(--ink);

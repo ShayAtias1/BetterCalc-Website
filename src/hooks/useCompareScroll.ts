@@ -46,30 +46,30 @@ type FrameName = 'intro' | 'pair' | 'overlay' | 'focus' | 'swipe' | 'mark'
 
 // Timeline, in viewport heights of scroll from the moment the stage pins.
 const V = {
-  questionOut: [0.1, 0.3],
-  revisionIn: [0.06, 0.3],
-  alignRev: [0.34, 0.58],
-  tabsOut: [0.46, 0.58],
-  panelIn: [0.42, 0.64],
+  questionOut: [0.1, 0.38],
+  revisionIn: [0.06, 0.46],
+  alignRev: [0.56, 0.94],
+  tabsOut: [0.74, 0.94],
+  panelIn: [0.66, 0.96],
   // Overlay: revision lands dominant (original ghosted), then settles to a balanced pair.
-  ghostOriginal: [0.46, 0.6],
-  balance: [0.74, 0.9],
-  swipeFull: [1.06, 1.14],
-  sweep: [1.16, 1.42],
-  settle: [1.42, 1.52],
+  ghostOriginal: [0.74, 0.94],
+  balance: [1.1, 1.38],
+  swipeFull: [1.56, 1.68],
+  sweep: [1.7, 2.04],
+  settle: [2.04, 2.16],
   // Beat thresholds.
-  pair: 0.12,
-  align: 0.34,
-  overlay: 0.56,
-  read: 0.94,
-  swipe: 1.12,
-  free: 1.52,
-  work: 1.72,
-  demolition: 1.86,
-  construction: 2.08,
-  changes: 2.3,
-  export: 2.52,
-  end: 2.78,
+  pair: 0.14,
+  align: 0.56,
+  overlay: 0.91,
+  read: 1.4,
+  swipe: 1.65,
+  free: 2.16,
+  work: 2.36,
+  demolition: 2.5,
+  construction: 2.72,
+  changes: 2.94,
+  export: 3.16,
+  end: 3.42,
 } as const
 
 export const COMPARE_TRAVEL = V.end
@@ -81,12 +81,12 @@ const SWEEP_TO = 300
 const SWEEP_REST = 600
 
 const CAMERA_SIDE: [number, FrameName][] = [
-  [0.02, 'intro'], [0.3, 'pair'], [0.36, 'pair'], [0.6, 'overlay'], [0.68, 'overlay'], [0.9, 'focus'],
-  [1.62, 'focus'], [1.8, 'mark'],
+  [0.02, 'intro'], [0.44, 'pair'], [0.56, 'pair'], [0.96, 'overlay'], [1.1, 'overlay'], [1.36, 'focus'],
+  [2.26, 'focus'], [2.44, 'mark'],
 ]
 const CAMERA_STACKED: [number, FrameName][] = [
-  [0.02, 'intro'], [0.3, 'pair'], [0.36, 'pair'], [0.6, 'overlay'], [0.68, 'overlay'], [0.9, 'focus'],
-  [1.06, 'focus'], [1.14, 'swipe'], [1.62, 'swipe'], [1.8, 'mark'],
+  [0.02, 'intro'], [0.44, 'pair'], [0.56, 'pair'], [0.96, 'overlay'], [1.1, 'overlay'], [1.36, 'focus'],
+  [1.56, 'focus'], [1.68, 'swipe'], [2.26, 'swipe'], [2.44, 'mark'],
 ]
 
 function stageAt(v: number): CompareStage {
