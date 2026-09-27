@@ -10,7 +10,7 @@
   --demolition: #c58a12;
   --demolition-ink: #8f6208;
   --construction: #16803d;
-  --travel: 342svh;
+  --travel: 467svh; /* = timeline(false).end in useCompareScroll.ts */
   position: relative;
   height: calc(100svh + var(--travel));
   border-block-start: 1px solid var(--ink);
@@ -268,6 +268,7 @@
 
 /* ── Stacked layout ── */
 @media (max-width: 759px), (max-aspect-ratio: 9/10) {
+  .compare { --travel: 412svh; } /* = timeline(true).end: shorter holds on phones */
   .compare__stage::before { background: repeating-linear-gradient(to right, var(--rule-faint) 0 1px, transparent 1px calc(100% / 4)); }
   .compare-question { inset-block-start: calc(var(--header-height) + clamp(18px, 3.5vh, 40px)); display: block; }
   .compare-question__title { font-size: clamp(2.2rem, min(10vw, 7vh), 4.6rem); }

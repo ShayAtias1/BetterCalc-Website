@@ -44,35 +44,59 @@ export type CompareController = {
 
 type FrameName = 'intro' | 'pair' | 'overlay' | 'focus' | 'swipe' | 'mark'
 
-// Timeline, in viewport heights of scroll from the moment the stage pins.
-const V = {
-  questionOut: [0.1, 0.38],
-  revisionIn: [0.06, 0.46],
-  alignRev: [0.56, 0.94],
-  tabsOut: [0.74, 0.94],
-  panelIn: [0.66, 0.96],
-  // Overlay: revision lands dominant (original ghosted), then settles to a balanced pair.
-  ghostOriginal: [0.74, 0.94],
-  balance: [1.1, 1.38],
-  swipeFull: [1.56, 1.68],
-  sweep: [1.7, 2.04],
-  settle: [2.04, 2.16],
-  // Beat thresholds.
-  pair: 0.14,
-  align: 0.56,
-  overlay: 0.91,
-  read: 1.4,
-  swipe: 1.65,
-  free: 2.16,
-  work: 2.36,
-  demolition: 2.5,
-  construction: 2.72,
-  changes: 2.94,
-  export: 3.16,
-  end: 3.42,
-} as const
+type Span = readonly [number, number]
+type Timeline = Record<'questionOut' | 'revisionIn' | 'alignRev' | 'tabsOut' | 'panelIn' | 'ghostOriginal' | 'balance' | 'swipeFull' | 'sweep' | 'settle', Span>
+  & Record<Exclude<CompareStage, 'intro'> | 'end', number>
+  & { camera: [number, FrameName][] }
 
-export const COMPARE_TRAVEL = V.end
+/*
+ * Timeline, in viewport heights of scroll from the moment the stage pins. The opening is paced as
+ * hold → move → hold → move → hold: the section settles, A-101-B arrives beside A-101, the pair stays
+ * put, the revision slides into registration, the overlay stays put — each hold is real scroll distance
+ * where nothing moves. Everything from the balanced overlay on keeps its spacing and shifts as a block.
+ * Phones get shorter holds (a touch flick already covers most of a screen). --travel in compare.css
+ * must equal `end` for each layout.
+ */
+function timeline(stacked: boolean): Timeline {
+  const settle = stacked ? 0.2 : 0.35 // arrival: the section enters and rests
+  const hold = stacked ? 0.3 : 0.5 // two plans apart, then two plans registered
+  const move = 0.5
+  const a = settle // A-101-B arrives
+  const b = a + move + hold // A-101-B moves into registration
+  const c = b + move + hold // registered overlay has been held; the story continues
+  const at = (t: number) => c + t // later beats, relative to the end of the overlay hold
+  return {
+    questionOut: [a, a + 0.3],
+    revisionIn: [a + 0.05, a + move],
+    alignRev: [b, b + 0.45],
+    tabsOut: [b + 0.25, b + 0.45],
+    panelIn: [b + 0.15, b + move],
+    // Overlay: revision lands dominant (original ghosted), then settles to a balanced pair.
+    ghostOriginal: [b + 0.25, b + 0.45],
+    balance: [at(0), at(0.28)],
+    swipeFull: [at(0.46), at(0.58)],
+    sweep: [at(0.6), at(0.94)],
+    settle: [at(0.94), at(1.06)],
+    // Beat thresholds.
+    pair: a + 0.1,
+    align: b,
+    overlay: b + 0.41,
+    read: at(0.3),
+    swipe: at(0.55),
+    free: at(1.06),
+    work: at(1.26),
+    demolition: at(1.4),
+    construction: at(1.62),
+    changes: at(1.84),
+    export: at(2.06),
+    end: at(2.32),
+    camera: stacked
+      ? [[a, 'intro'], [a + move, 'pair'], [b, 'pair'], [b + move, 'overlay'], [at(0), 'overlay'], [at(0.26), 'focus'],
+          [at(0.46), 'focus'], [at(0.58), 'swipe'], [at(1.16), 'swipe'], [at(1.34), 'mark']]
+      : [[a, 'intro'], [a + move, 'pair'], [b, 'pair'], [b + move, 'overlay'], [at(0), 'overlay'], [at(0.26), 'focus'],
+          [at(1.16), 'focus'], [at(1.34), 'mark']],
+  }
+}
 
 // Guided swipe, in sheet points: sweep across every change (screen wall → bathroom → partition), then rest
 // inside the bathroom, where its moved north wall visibly steps at the divider before anyone drags.
@@ -80,16 +104,7 @@ const SWEEP_FROM = 752
 const SWEEP_TO = 300
 const SWEEP_REST = 600
 
-const CAMERA_SIDE: [number, FrameName][] = [
-  [0.02, 'intro'], [0.44, 'pair'], [0.56, 'pair'], [0.96, 'overlay'], [1.1, 'overlay'], [1.36, 'focus'],
-  [2.26, 'focus'], [2.44, 'mark'],
-]
-const CAMERA_STACKED: [number, FrameName][] = [
-  [0.02, 'intro'], [0.44, 'pair'], [0.56, 'pair'], [0.96, 'overlay'], [1.1, 'overlay'], [1.36, 'focus'],
-  [1.56, 'focus'], [1.68, 'swipe'], [2.26, 'swipe'], [2.44, 'mark'],
-]
-
-function stageAt(v: number): CompareStage {
+function stageAt(V: Timeline, v: number): CompareStage {
   let current: CompareStage = 'intro'
   for (const name of STAGES) if (name !== 'intro' && v >= V[name]) current = name
   return current
@@ -154,7 +169,7 @@ export function useCompareScroll(refs: CompareRefs, enabled: boolean) {
     let view = { x0: 0, y0: 0, x1: 1, y1: 1 }
     let revOffset = { x: -1.1, y: 0 }
     let frames = {} as Record<FrameName, Frame>
-    let camera = CAMERA_SIDE
+    let V = timeline(false)
     let cam: Frame = { x: 0, y: 0, w: 1 }
     let last = -1
     let frame = 0
@@ -199,7 +214,7 @@ export function useCompareScroll(refs: CompareRefs, enabled: boolean) {
       question.style.opacity = String(1 - q)
       question.style.visibility = q >= 1 ? 'hidden' : ''
 
-      cam = cameraAt(v, camera, frames)
+      cam = cameraAt(v, V.camera, frames)
       rig.style.transform = `translate3d(${cam.x}px, ${cam.y}px, 0) scale(${cam.w / baseW})`
 
       // A-101-B arrives beside A-101, then slides into registration on top of it.
@@ -251,14 +266,14 @@ export function useCompareScroll(refs: CompareRefs, enabled: boolean) {
         origClip.style.transform = origInner.style.transform = revClip.style.transform = revInner.style.transform = 'none'
       }
 
-      setStage(stageAt(v))
+      setStage(stageAt(V, v))
     }
 
     const measure = () => {
       const W = window.innerWidth
       H = stage.clientHeight
       stacked = isStackedLayout(W, H)
-      camera = stacked ? CAMERA_STACKED : CAMERA_SIDE
+      V = timeline(stacked)
       section.dataset.layout = stacked ? 'stacked' : 'side'
       panel.style.transform = 'none'
       question.style.transform = 'none'
