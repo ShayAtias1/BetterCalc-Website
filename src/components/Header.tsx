@@ -1,5 +1,6 @@
 import { useEffect, useRef, type RefObject } from 'react'
 import { APP_URL, NAV } from '../data/site'
+import logo from '../assets/logo/bettercalc-logo.svg'
 
 /** Marks the story section currently crossing the middle of the viewport (DOM write, no re-render). */
 function useCurrentSection(nav: RefObject<HTMLElement | null>) {
@@ -29,8 +30,7 @@ export function Header() {
   return (
     <header className="site-header">
       <a className="brand" href="#main-content" aria-label="BetterCalc — ראש העמוד">
-        <span className="brand__mark" aria-hidden="true" />
-        <span lang="en" dir="ltr">BetterCalc</span>
+        <img className="brand__logo" src={logo} width={120} height={20} alt="" />
       </a>
       <nav className="primary-nav" aria-label="ניווט ראשי" ref={nav}>
         {NAV.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}

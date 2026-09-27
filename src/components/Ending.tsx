@@ -1,5 +1,6 @@
 import { useEffect, useRef, type CSSProperties } from 'react'
 import { APP_URL, NAV } from '../data/site'
+import logo from '../assets/logo/bettercalc-logo.svg'
 import '../ending.css'
 
 const AUDIENCE = [
@@ -87,8 +88,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="site-footer__id">
         <a className="brand site-footer__brand" href="#main-content" aria-label="BetterCalc — ראש העמוד">
-          <span className="brand__mark" aria-hidden="true" />
-          <span lang="en" dir="ltr">BetterCalc</span>
+          <img className="brand__logo" src={logo} width={120} height={20} alt="" loading="lazy" />
         </a>
         <p className="site-footer__line">חישוב כמויות והשוואת גרסאות, ישירות מקובצי <bdi dir="ltr">PDF</bdi>.</p>
       </div>
