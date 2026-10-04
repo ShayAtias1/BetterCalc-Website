@@ -75,7 +75,7 @@ export function useDeviceStory() {
         })
         const hardware = elements.map(group => group.querySelector<HTMLElement>('.device-frame')!)
         const ratios = [1.6, 4 / 3, 390 / 844]
-        const limits = [1100, 850, 300]
+        const limits = [1100, 850, window.innerWidth <= 639 ? Math.min(190, groupWidth * .55) : 300]
         hardware.forEach((device,index) => {
           const available = Math.max(120, height - captions[index].offsetHeight - 36)
           const base = Math.min(groupWidth, available * ratios[index], limits[index])

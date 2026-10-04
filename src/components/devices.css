@@ -45,7 +45,7 @@
 @media (max-width: 639px) {
   .field-story__axis li { font-size: .7rem; }
   .field-story__axis bdi { display: block; margin-block-end: 6px; }
-  .field-story--static .field-story__device--iphone > .device-frame { max-width: 200px; margin-inline: auto; }
+  .field-story--static .field-story__device--iphone > .device-frame { max-width: min(190px, 55vw); margin-inline: auto; }
 }
 
 /* Mobile/tablet: the whole device + caption group travels between one center anchor. */
