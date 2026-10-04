@@ -2,7 +2,7 @@ import { useEffect, useRef, type RefObject } from 'react'
 import { APP_URL, NAV } from '../data/site'
 import logo from '../assets/logo/bettercalc-logo.svg'
 
-/** Marks the story section currently crossing the middle of the viewport (DOM write, no re-render). */
+/** Marks the product section currently crossing the middle of the viewport (DOM write, no re-render). */
 function useCurrentSection(nav: RefObject<HTMLElement | null>) {
   useEffect(() => {
     const links = Array.from(nav.current?.querySelectorAll<HTMLAnchorElement>('a[href^="#"]') ?? [])
@@ -18,7 +18,7 @@ function useCurrentSection(nav: RefObject<HTMLElement | null>) {
         if (entry.isIntersecting) link.setAttribute('aria-current', 'true')
         else link.removeAttribute('aria-current')
       })
-    }, { rootMargin: '-50% 0px -50% 0px' })
+    }, { rootMargin: '-20% 0px -60% 0px' })
     sections.forEach((_, section) => observer.observe(section))
     return () => observer.disconnect()
   }, [nav])
@@ -35,6 +35,12 @@ export function Header() {
       <nav className="primary-nav" aria-label="ניווט ראשי" ref={nav}>
         {NAV.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
       </nav>
+      <details className="mobile-nav">
+        <summary aria-label="פתיחת ניווט באתר">תפריט</summary>
+        <nav aria-label="ניווט באתר לנייד">
+          {NAV.map((item) => <a key={item.href} href={item.href} onClick={(event) => event.currentTarget.closest('details')?.removeAttribute('open')}>{item.label}</a>)}
+        </nav>
+      </details>
       <a className="header-action" href={APP_URL}><span>פתחו את <bdi dir="ltr">BetterCalc</bdi></span><span aria-hidden="true">←</span></a>
     </header>
   )

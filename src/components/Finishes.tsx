@@ -11,8 +11,8 @@ export function Finishes() {
       </div>
       <div className="finishes-layout">
         <figure className="landing-plan finishes-plan" data-stage="total" data-reached="hero handoff marking measured calibrated rooms room1 room2 room3 total">
-          <PlanSheet />
-          <figcaption>דוגמת ריצוף: שלושה חדרים שסומנו על התוכנית. המחשה המבוססת על תוכנית הדמו והייצוא שלה.</figcaption>
+          <div className="finishes-plan__window"><PlanSheet /></div>
+          <figcaption>דוגמת סימון חדרים על תוכנית הדמו. הכמויות מוצגות לצד התוכנית ומבוססות על הייצוא שלה.</figcaption>
         </figure>
         <div className="quantity-result">
           <p className="section-kicker">כמויות לפי חדר</p>
