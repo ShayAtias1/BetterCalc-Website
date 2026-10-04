@@ -1,5 +1,5 @@
 /* Compact material selection belongs to Takeoff; no second scroll story or phase index. */
-.takeoff-materials { padding: 32px var(--gutter) 24px; border-block-start: 1px solid var(--rule); }
+.takeoff-materials { padding: 48px var(--gutter) 24px; border-block-start: 1px solid var(--rule); }
 .takeoff-materials__head { max-width: 1240px; margin: 0 auto 24px; }
 .takeoff-materials h2 { margin: 0 0 20px; color: var(--ink); font-size: clamp(3.6rem, 5.4vw, 5rem); font-weight: 760; line-height: .95; letter-spacing: -.025em; }
 .takeoff-materials h2 span { display: block; }

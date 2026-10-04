@@ -240,7 +240,7 @@ html { scroll-padding-top: calc(var(--header-height) + 20px); }
 }
 
 /* Desk / Field entry only: leave the preceding Compare chapter untouched. */
-.landing-section.devices { padding-block-start: 32px; }
+.landing-section.devices { padding-block: 48px 20px; }
 @media (max-width: 639px) {
   .landing-section.devices { padding-block: 48px 20px; }
 }

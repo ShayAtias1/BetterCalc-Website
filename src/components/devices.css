@@ -13,7 +13,7 @@
 }
 .devices .product-heading__title span { display: inline; }
 .devices-title__accent { color: var(--blue); }
-.field-story { --field-stage-height: calc(100svh - var(--header-height)); height: calc(var(--field-stage-height) + var(--field-travel, 180svh)); max-width: 1500px; margin-inline: auto; }
+.field-story { --field-stage-height: min(650px, calc(100svh - var(--header-height))); height: calc(var(--field-stage-height) + var(--field-travel, 180svh)); max-width: 1500px; margin-inline: auto; }
 .field-story__stage { position: sticky; top: var(--header-height); height: var(--field-stage-height); display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 16px; padding-block: 20px; }
 .field-story__axis { display: grid; grid-template-columns: repeat(3, 1fr); list-style: none; padding: 0; margin: 0; border-block-start: 1px solid var(--ink); }
 .field-story__axis li { padding-block: 12px; border-block-start: 2px solid transparent; margin-block-start: -1px; color: var(--muted); font: .8rem var(--mono); }
