@@ -1,0 +1,40 @@
+/* Dedicated phone/tablet composition. Desktop and reduced-motion figures retain their CSS. */
+@media (max-width: 900px) {
+  .story--mobile { border-block-start: 1px solid var(--ink); }
+  .story--mobile .story__stage { overflow: clip; }
+  .story--mobile .story-panel { inset: auto 0 0; width: auto; height: clamp(280px, 38svh, 340px); padding: 16px var(--gutter) calc(12px + env(safe-area-inset-bottom)); }
+  .story--mobile .story-panel__status { display: none; }
+  .story--mobile .chapter-index { margin-block-end: 8px; font-size: .8rem; }
+  .story--mobile .chapter__title { font-size: clamp(1.65rem, 6.5vw, 2.1rem); line-height: 1.05; }
+  .story--mobile .chapter .chapter__body { display: block; font-size: .82rem; line-height: 1.45; margin-block-start: 8px; max-width: 38em; }
+  .story--mobile .panel-foot { padding-block-start: 12px; }
+  .story--mobile .ledger__caption { display: none; }
+  .story--mobile .ledger__table thead { display: none; }
+  .story--mobile .ledger__table th, .story--mobile .ledger__table td { padding-block: 5px; }
+  .story--mobile .ledger__opt { display: none; }
+  .story--mobile .ledger__total-value { font-size: 1.6rem; }
+  .story--mobile .calib-field { padding: 8px 12px; }
+  .story--mobile .calib-field__value { font-size: 1.6rem; }
+  .story--mobile .calib-instrument > div { display: grid; grid-template-columns: auto 1fr; }
+  .story--mobile .calib-status { min-height: 0; font-size: .8rem; padding: 8px; }
+  .story--mobile .calib-legend { display: none; }
+  .story--mobile .export-proof { inset: calc(var(--header-height) + 16px) 16px calc(clamp(280px, 38svh, 340px) + 16px); }
+  .story--mobile .doc--pdf { width: 65%; }
+  .story--mobile .doc--xlsx { width: 100%; }
+  .story--mobile .doc__detail { display: none; }
+  .story--mobile .doc__tab { font-size: 10px; }
+  .story--mobile .xl { font-size: 10px; }
+  .story--mobile .xl__grid th, .story--mobile .xl__grid td { height: 20px; padding: 2px 4px; }
+  .story--mobile .xl__grid tbody tr:nth-child(5), .story--mobile .xl__grid tbody tr:nth-child(6) { display: none; }
+  .story--mobile .xl__tabs { flex-wrap: wrap; }
+  .story--mobile .xl__tab { font-size: 10px; padding: 4px 8px; }
+  .story--mobile .ledger__exports { gap: 8px; margin-block-start: 10px; }
+  .story--mobile .ledger__export { padding: 8px; font-size: .8rem; }
+}
+@media (max-width: 900px) and (max-height: 700px) {
+  .story--mobile .story-panel { height: 260px; padding-block: 12px; }
+  .story--mobile .chapter__title { font-size: 1.5rem; }
+  .story--mobile .chapter .chapter__body { font-size: .76rem; margin-block-start: 6px; }
+  .story--mobile .export-proof { inset-block-end: 276px; }
+  .story--mobile .output-workflow p { display: none; }
+}

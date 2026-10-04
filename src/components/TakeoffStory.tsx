@@ -2,7 +2,9 @@ import { PlanSheet } from './PlanSheet'
 import { StoryPanel } from './StoryPanel'
 import { ExportProof } from './ExportProof'
 import { HeroCopy } from './Hero'
-import { useStoryScroll } from '../hooks/useStoryScroll'
+import { MOBILE_STORY_TRAVEL, useStoryScroll } from '../hooks/useStoryScroll'
+import type { CSSProperties } from 'react'
+import './mobile-takeoff.css'
 
 export function MotionStory() {
   const { section, stage, heroCopy, rig, panel, register } = useStoryScroll(true)
@@ -19,6 +21,28 @@ export function MotionStory() {
       </div>
     </section>
   )
+}
+
+/** Mobile uses the same sheet, overlays, ledger and scroll owner; only composition differs. */
+export function MobileTakeoffStory() {
+  const { section, stage, rig, panel, register } = useStoryScroll(true, true)
+  return <>
+    <StaticHero />
+    <section ref={section} className="story story--mobile" id="takeoff" data-stage="handoff" data-reached="hero handoff" aria-label="מהתוכנית לכמויות" style={{ '--travel': `${MOBILE_STORY_TRAVEL * 100}svh` } as CSSProperties}>
+      <div ref={stage} className="story__stage">
+        <PlanSheet ref={rig} register={register} probe />
+        <ExportProof storytelling />
+        <StoryPanel panelRef={panel} />
+      </div>
+    </section>
+  </>
+}
+
+function StaticHero() {
+  return <section className="static-hero" data-stage="hero" data-reached="hero" aria-labelledby="hero-title">
+    <HeroCopy />
+    <div className="static-hero__plan"><PlanSheet probe /></div>
+  </section>
 }
 
 const CALIBRATED = 'hero handoff marking measured calibrated'
@@ -41,12 +65,7 @@ function StaticFigure({ stage, reached, label, id }: { stage: string; reached: s
 export function StaticStory() {
   return (
     <>
-      <section className="static-hero" data-stage="hero" data-reached="hero" aria-labelledby="hero-title">
-        <HeroCopy />
-        <div className="static-hero__plan">
-          <PlanSheet probe />
-        </div>
-      </section>
+      <StaticHero />
       <StaticFigure stage="calibrated" reached={CALIBRATED} label="כיול" id="takeoff" />
       <StaticFigure stage="total" reached={QUANTITIES} label="סימון חדרים וכמויות" />
       <StaticFigure stage="export" reached={EXPORT} label="ייצוא" />

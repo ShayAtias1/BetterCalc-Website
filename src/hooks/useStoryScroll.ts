@@ -50,6 +50,18 @@ const CAMERA_STACKED: [number, FrameName][] = [
   [V.total - 0.12, 'room3'], [V.total, 'work'],
 ]
 
+// Same beats and geometry, recomposed beneath the normal-flow phone/tablet Hero.
+const MOBILE_V = {
+  copyOut: V.copyOut, panelIn: [0, .16], dim: [.08, .22], draw: [.22, .48],
+  handoff: 0, marking: .22, measured: .48, calibrated: .6, rooms: .76,
+  room1: .88, room2: 1.08, room3: 1.28, total: 1.52, export: 1.78, end: 2.06,
+} as const
+const MOBILE_CAMERA: [number, FrameName][] = [
+  [0, 'work'], [.18, 'focus'], [.6, 'focus'], [.76, 'work'],
+  [.88, 'room1'], [.98, 'room1'], [1.08, 'room2'], [1.18, 'room2'],
+  [1.28, 'room3'], [1.4, 'room3'], [1.52, 'work'],
+]
+export const MOBILE_STORY_TRAVEL = MOBILE_V.end
 export const STORY_TRAVEL = V.end
 
 /** A room plus enough surrounding walls to stay spatially readable. */
@@ -83,14 +95,14 @@ function computeFrames(W: number, H: number, copyBottom: number, header: number,
   return { hero, focus, work, room1: work, room2: work, room3: work }
 }
 
-function stageAt(v: number): StoryStage {
+function stageAt(v: number, beats: typeof V | typeof MOBILE_V = V): StoryStage {
   let current: StoryStage = 'hero'
-  for (const name of STAGES) if (name !== 'hero' && v >= V[name]) current = name
+  for (const name of STAGES) if (name !== 'hero' && v >= beats[name]) current = name
   return current
 }
 
 /** Owns the story's element refs (the component attaches them) and drives the timeline. */
-export function useStoryScroll(enabled: boolean) {
+export function useStoryScroll(enabled: boolean, mobile = false) {
   const sectionEl = useRef<HTMLElement>(null)
   const stageEl = useRef<HTMLDivElement>(null)
   const heroCopyEl = useRef<HTMLDivElement>(null)
@@ -106,7 +118,8 @@ export function useStoryScroll(enabled: boolean) {
     const heroCopy = heroCopyEl.current
     const rig = rigEl.current
     const panel = panelEl.current
-    if (!section || !stage || !heroCopy || !rig || !panel) return
+    if (!section || !stage || (!mobile && !heroCopy) || !rig || !panel) return
+    const beats = mobile ? MOBILE_V : V
 
     let start = 0
     let H = 1
@@ -130,25 +143,27 @@ export function useStoryScroll(enabled: boolean) {
 
     const apply = () => {
       frame = 0
-      const v = Math.min(V.end, Math.max(0, (window.scrollY - start) / H))
+      const v = Math.min(beats.end, Math.max(0, (window.scrollY - start) / H))
       if (v === last) return
       last = v
 
       // Hero copy leaves immediately with the first gesture.
-      const out = ease(range(v, V.copyOut))
-      heroCopy.style.transform = `translate3d(0, ${-out * 120}px, 0)`
-      heroCopy.style.opacity = String(1 - out)
-      heroCopy.style.visibility = out >= 1 ? 'hidden' : ''
+      const out = ease(range(v, beats.copyOut))
+      if (heroCopy) {
+        heroCopy.style.transform = `translate3d(0, ${-out * 120}px, 0)`
+        heroCopy.style.opacity = String(1 - out)
+        heroCopy.style.visibility = out >= 1 ? 'hidden' : ''
+      }
 
       // One camera over one sheet: hero crop → reference → whole plan (→ each room, when stacked).
       const c = cameraAt(v, camera, frames)
       rig.style.transform = `translate3d(${c.x}px, ${c.y}px, 0) scale(${c.w / baseW})`
 
       // BetterCalc arrives: the panel slides in from the reading edge (right in desktop, bottom when stacked).
-      const p = ease(range(v, V.panelIn))
+      const p = ease(range(v, beats.panelIn))
       panel.style.transform = stacked ? `translate3d(0, ${(1 - p) * (panelSize + 24)}px, 0)` : `translate3d(${(1 - p) * (panelSize + 24)}px, 0, 0)`
       panelItems.forEach((item, i) => {
-        const r = ease(range(v, [V.panelIn[0] + 0.125 + i * 0.04, V.panelIn[1] + 0.025 + i * 0.04]))
+        const r = ease(range(v, [beats.panelIn[0] + 0.125 + i * 0.04, beats.panelIn[1] + 0.025 + i * 0.04]))
         item.style.opacity = String(r)
         item.style.transform = `translate3d(0, ${(1 - r) * 14}px, 0)`
       })
@@ -157,33 +172,33 @@ export function useStoryScroll(enabled: boolean) {
       if (s) {
         if (s.tab) s.tab.style.opacity = String(1 - range(v, [0.05, 0.25]))
         // Everything except the reference recedes, then the line is drawn end to end.
-        if (s.veil) s.veil.style.opacity = String(range(v, V.dim) * 0.72)
-        const d = range(v, V.draw)
+        if (s.veil) s.veil.style.opacity = String(range(v, beats.dim) * 0.72)
+        const d = range(v, beats.draw)
         if (s.line) s.line.style.transform = `scaleX(${d})`
-        if (s.endA) s.endA.style.transform = `translate(-50%, -50%) scale(${ease(range(v, [V.draw[0] - 0.04, V.draw[0] + 0.01]))})`
-        if (s.endB) s.endB.style.transform = `translate(-50%, -50%) scale(${ease(range(v, [V.draw[1] - 0.025, V.draw[1] + 0.01]))})`
+        if (s.endA) s.endA.style.transform = `translate(-50%, -50%) scale(${ease(range(v, [beats.draw[0] - 0.04, beats.draw[0] + 0.01]))})`
+        if (s.endB) s.endB.style.transform = `translate(-50%, -50%) scale(${ease(range(v, [beats.draw[1] - 0.025, beats.draw[1] + 0.01]))})`
       }
 
-      setStage(stageAt(v))
+      setStage(stageAt(v, beats))
     }
 
     // Direct DOM writes are the point of this hook: layout is measured only here, on resize.
     const measure = () => {
       const W = window.innerWidth
       H = stage.clientHeight
-      stacked = isStackedLayout(W, H)
-      camera = stacked ? CAMERA_STACKED : CAMERA_SIDE
+      stacked = mobile || isStackedLayout(W, H)
+      camera = mobile ? MOBILE_CAMERA : stacked ? CAMERA_STACKED : CAMERA_SIDE
       section.dataset.layout = stacked ? 'stacked' : 'side'
       // Reset transforms that affect measurement.
       panel.style.transform = 'none'
-      heroCopy.style.transform = 'none'
+      if (heroCopy) heroCopy.style.transform = 'none'
       const panelRect = panel.getBoundingClientRect()
       const stageRect = stage.getBoundingClientRect()
       const panelLocal = new DOMRect(panelRect.left - stageRect.left, panelRect.top - stageRect.top, panelRect.width, panelRect.height)
       panelSize = stacked ? panelRect.height : panelRect.width
       section.style.setProperty('--panel-size', `${panelSize}px`)
       const header = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 56
-      const copyBottom = heroCopy.offsetTop + heroCopy.offsetHeight
+      const copyBottom = heroCopy ? heroCopy.offsetTop + heroCopy.offsetHeight : 0
       frames = computeFrames(W, H, copyBottom, header, panelLocal)
       baseW = Math.max(...Object.values(frames).map((f) => f.w))
       rig.style.width = `${baseW}px`
@@ -220,7 +235,7 @@ export function useStoryScroll(enabled: boolean) {
       cancelAnimationFrame(resizeFrame)
       delete document.documentElement.dataset.story
     }
-  }, [enabled])
+  }, [enabled, mobile])
 
   return { section: sectionEl, stage: stageEl, heroCopy: heroCopyEl, rig: rigEl, panel: panelEl, register }
 }

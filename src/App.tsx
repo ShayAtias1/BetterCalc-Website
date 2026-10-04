@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from 'react'
 import './App.css'
 import { Header } from './components/Header'
-import { MotionStory, StaticStory } from './components/TakeoffStory'
+import { MotionStory, MobileTakeoffStory, StaticStory } from './components/TakeoffStory'
 import { CompareStory, StaticCompare } from './components/CompareStory'
 import { Structural } from './components/Structural'
 import { Devices } from './components/Devices'
@@ -11,7 +11,7 @@ import { useWheelDamping } from './hooks/useWheelDamping'
 import './landing.css'
 
 // Preserve the original static/reduced-motion figures for small phones as well.
-const staticQuery = '(prefers-reduced-motion: reduce), (max-width: 639px)'
+const staticQuery = '(prefers-reduced-motion: reduce)'
 const subscribeStatic = (onChange: () => void) => {
   const media = window.matchMedia(staticQuery)
   media.addEventListener('change', onChange)
@@ -19,8 +19,17 @@ const subscribeStatic = (onChange: () => void) => {
 }
 const getStatic = () => window.matchMedia(staticQuery).matches
 
+const mobileQuery = '(max-width: 900px)'
+const subscribeMobile = (change: () => void) => {
+  const media = window.matchMedia(mobileQuery)
+  media.addEventListener('change', change)
+  return () => media.removeEventListener('change', change)
+}
+const getMobile = () => window.matchMedia(mobileQuery).matches
+
 function App() {
   const staticPresentation = useSyncExternalStore(subscribeStatic, getStatic, () => false)
+  const mobileStory = useSyncExternalStore(subscribeMobile, getMobile, () => false)
   useWheelDamping()
 
   return (
@@ -28,7 +37,7 @@ function App() {
       <a className="skip-link" href="#main-content">דילוג לתוכן</a>
       <Header />
       <main id="main-content">
-        {staticPresentation ? <StaticStory /> : <MotionStory />}
+        {staticPresentation ? <StaticStory /> : mobileStory ? <MobileTakeoffStory /> : <MotionStory />}
         <Structural />
         {staticPresentation ? <StaticCompare /> : <CompareStory />}
         <Devices />
