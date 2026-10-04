@@ -40,3 +40,29 @@
   .structural .product-browser__mode-rail { display: block; }
   .structural .product-demo-tabs button { padding-block: 12px; }
 }
+
+/* Local sticky chapter; the heading stays outside, and the hardware never moves. */
+.structural-story { --structural-stage-height: calc(100svh - var(--header-height)); height: calc(var(--structural-stage-height) + var(--structural-travel)); }
+.structural-story__stage { position: sticky; top: var(--header-height); height: var(--structural-stage-height); display: grid; align-items: center; padding-block: 16px; }
+.structural-story .product-browser--side-selector { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto 64px; }
+.structural-story .product-browser__mode-rail { display: block; contain: size; align-self: stretch; max-height: calc(var(--structural-stage-height) - 32px); overflow-y: auto; }
+.structural-story .product-browser__frame, .structural-static .product-browser__frame { border: 0; background: transparent; overflow: visible; }
+.structural-story .product-browser__steps { justify-content: flex-end; margin-block-start: 12px; border-block: 1px solid var(--rule); }
+.structural-story .product-browser__steps .product-browser__replay { flex: 0 0 auto; }
+.structural-index__mode > button, .structural-index__expanded li button { display: flex; align-items: baseline; gap: 10px; width: 100%; min-height: 44px; padding: 12px 10px; font: inherit; font-size: .9rem; text-align: start; cursor: pointer; color: var(--ink); background: transparent; border: 0; border-block-end: 1px solid var(--rule); border-inline-start: 2px solid transparent; }
+.structural-index__mode > button[aria-expanded='true'], .structural-index__expanded li button[aria-pressed='true'] { color: var(--blue); border-inline-start-color: var(--blue); background: var(--blue-wash); }
+.structural-index bdi { color: var(--muted); font: .8rem var(--mono); }
+.structural-index__expanded { padding: 4px 0 20px; }
+.structural-index__expanded[hidden] { display: none; }
+.structural-index__expanded ol { list-style: none; padding: 0; margin: 0; }
+.structural-index__expanded li button { font-size: .8rem; padding-inline-start: 20px; }
+.structural-index__expanded .product-browser__mode-description { padding: 16px 10px 0; }
+.structural-index__expanded .product-browser__mode-description h3 { font-size: 1rem; }
+.structural-index__expanded .product-browser__mode-description p { font-size: .85rem; }
+.structural-static { max-width: var(--product-stage-width); margin-inline: auto; display: grid; gap: 40px; }
+.structural-static article > h3 { margin: 0 0 12px; color: var(--ink); font-size: 1.4rem; }
+.structural-static article > p { margin: 0 0 20px; line-height: 1.65; }
+@media (min-width: 640px) and (max-width: 1000px) {
+  .structural-story .product-browser__frame, .structural-story .product-browser__explanation { grid-column: 1 / span 8; }
+  .structural-story .product-browser__mode-rail { grid-column: 9 / -1; }
+}

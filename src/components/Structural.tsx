@@ -1,5 +1,7 @@
 import './product-heading.css'
 import './structural.css'
+import type { CSSProperties } from 'react'
+import { STRUCTURAL_MODES, STRUCTURAL_TRAVEL, structuralSteps, useStructuralStory } from '../hooks/useStructuralStory'
 import type { DemoMode } from '../data/productDemo'
 import { ProductBrowser } from './product/ProductBrowser'
 
@@ -10,6 +12,7 @@ const STRUCTURAL_COPY: Partial<Record<DemoMode, { title: string; description: st
 }
 
 export function Structural() {
+  const { track, stage, state, staticPresentation, select, replay } = useStructuralStory()
   return (
     <section className="landing-section structural" id="structural" aria-labelledby="structural-title">
       <header className="product-heading">
@@ -17,10 +20,44 @@ export function Structural() {
         <h2 className="product-heading__title" id="structural-title"><span>מהאלמנט בתוכנית </span><span>לכמויות בטון וזיון.</span></h2>
         <p className="product-heading__lead">מסמנים את העבודה, מגדירים את המידות ואת פרטי הזיון ובודקים את הכמויות. מרכזים את התוצאות לפי תוכנית ופרויקט ומייצאים לדוח.</p>
       </header>
-      <ProductBrowser modes={['concrete', 'mesh-bars', 'stirrups']} initialMode="concrete" omitExplanationFor={['concrete']} omitResultFor={['mesh-bars', 'stirrups']} renderModeDescription={(mode) => {
-        const copy = STRUCTURAL_COPY[mode]
-        return copy ? <><h3>{copy.title}</h3><p>{copy.description}</p></> : null
-      }} />
+      {staticPresentation ? <div className="structural-static">
+        {STRUCTURAL_MODES.map((mode) => <article key={mode}>
+          <h3>{STRUCTURAL_COPY[mode]?.title}</h3>
+          <p>{STRUCTURAL_COPY[mode]?.description}</p>
+          <ProductBrowser modes={[mode]} initialMode={mode} deviceFrame="macbook" hideDescription omitResultFor={[mode]} />
+        </article>)}
+      </div> : <div className="structural-story" ref={track} style={{ '--structural-travel': `${STRUCTURAL_TRAVEL * 100}svh` } as CSSProperties}>
+        <div className="structural-story__stage" ref={stage}>
+          <ProductBrowser modes={STRUCTURAL_MODES} initialMode="concrete" deviceFrame="macbook"
+            story={{ ...state, onSelect: select, onReplay: replay }}
+            omitExplanationFor={['concrete']} omitResultFor={['mesh-bars', 'stirrups']}
+            renderSelector={({ mode, phase, panelId, selectMode, selectPhase }) => (
+              <div className="structural-index">
+                {STRUCTURAL_MODES.map((item, index) => {
+                  const expanded = mode === item
+                  const copy = STRUCTURAL_COPY[item]
+                  return <div className="structural-index__mode" key={item}>
+                    <button type="button" data-structural-mode id={`${panelId}-${item}`} aria-expanded={expanded} aria-controls={`${panelId}-${item}-steps`}
+                      onClick={() => selectMode(item)} onKeyDown={(event) => {
+                        const delta = event.key === 'ArrowDown' ? 1 : event.key === 'ArrowUp' ? -1 : 0
+                        const next = event.key === 'Home' ? 0 : event.key === 'End' ? STRUCTURAL_MODES.length - 1 : delta ? (index + delta + STRUCTURAL_MODES.length) % STRUCTURAL_MODES.length : null
+                        if (next === null) return
+                        event.preventDefault()
+                        selectMode(STRUCTURAL_MODES[next])
+                        event.currentTarget.closest('.structural-index')?.querySelectorAll<HTMLButtonElement>('[data-structural-mode]')[next]?.focus()
+                      }}><bdi dir="ltr">0{index + 1}</bdi><span>{copy?.title}</span></button>
+                    <div className="structural-index__expanded" id={`${panelId}-${item}-steps`} hidden={!expanded}>
+                      <ol>{structuralSteps(item).map((label, step) => <li key={label}>
+                        <button type="button" aria-pressed={expanded && phase === step} onClick={() => selectPhase(step)}><bdi dir="ltr">0{step + 1}</bdi><span>{label}</span></button>
+                      </li>)}</ol>
+                      <div className="product-browser__mode-description"><h3>{copy?.title}</h3><p>{copy?.description}</p></div>
+                    </div>
+                  </div>
+                })}
+              </div>
+            )} />
+        </div>
+      </div>}
 
     </section>
   )

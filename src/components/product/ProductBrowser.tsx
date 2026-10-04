@@ -13,17 +13,24 @@ type Props = {
   omitExplanationFor?: readonly DemoMode[]
   /** Omit captured-result copy/disclaimer while retaining adjustment controls. */
   omitResultFor?: readonly DemoMode[]
+  hideDescription?: boolean
   /** Place the existing mode selector and active copy in a technical side rail. */
   renderModeDescription?: (mode: DemoMode) => ReactNode
+  /** Optional owner for a scroll story; all visuals and controls use its single state. */
+  story?: { mode: DemoMode; phase: number; playing: boolean; onSelect: (mode: DemoMode, phase: number) => void; onReplay: () => void }
+  renderSelector?: (context: { mode: DemoMode; phase: number; panelId: string; selectMode: (mode: DemoMode) => void; selectPhase: (phase: number) => void }) => ReactNode
   deviceFrame?: DeviceKind
 }
 
 /** A visual demonstration using separately captured real plan and inspector states.
  * Modes and steps select fixed assets; this component is not a takeoff engine. */
-export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes', locale = 'he', variant = 'workspace', deviceFrame, omitExplanationFor = [], omitResultFor = [], renderModeDescription }: Props) {
-  const [mode, setMode] = useState<DemoMode>(modes.includes(initialMode) ? initialMode : modes[0])
-  const [phase, setPhase] = useState(2)
-  const [playing, setPlaying] = useState(false)
+export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes', locale = 'he', variant = 'workspace', deviceFrame, omitExplanationFor = [], omitResultFor = [], renderModeDescription, story, renderSelector, hideDescription = false }: Props) {
+  const [localMode, setMode] = useState<DemoMode>(modes.includes(initialMode) ? initialMode : modes[0])
+  const [localPhase, setPhase] = useState(2)
+  const [localPlaying, setPlaying] = useState(false)
+  const mode = story?.mode ?? localMode
+  const phase = story?.phase ?? localPhase
+  const playing = story?.playing ?? localPlaying
   const [failed, setFailed] = useState(false)
   const panelId = `product-demo-${useId()}`
   const demo: DemoSpec = PRODUCT_DEMOS[mode]
@@ -31,7 +38,7 @@ export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes
   const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce), (max-width: 639px)').matches
 
   useEffect(() => {
-    if (!playing) return
+    if (story || !playing) return
     const media = window.matchMedia('(prefers-reduced-motion: reduce), (max-width: 639px)')
     const settle = () => { setPhase(2); setPlaying(false) }
     if (media.matches) { settle(); return }
@@ -40,26 +47,29 @@ export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes
     const result = window.setTimeout(settle, 650)
     media.addEventListener('change', settle)
     return () => { clearTimeout(select); clearTimeout(result); media.removeEventListener('change', settle) }
-  }, [playing, mode])
+  }, [playing, mode, story])
 
   useEffect(() => {
+    if (story) return
     const media = window.matchMedia('(max-width: 639px)')
     const settlePhone = () => { if (media.matches) { setPhase(2); setPlaying(false) } }
     settlePhone()
     media.addEventListener('change', settlePhone)
     return () => media.removeEventListener('change', settlePhone)
-  }, [])
+  }, [story])
 
   const replay = () => {
+    if (story) { story.onReplay(); return }
     if (reduced()) { setPhase(2); return }
     setPhase(0); setPlaying(true)
   }
   const chooseMode = (next: DemoMode) => {
+    if (story) { setFailed(false); story.onSelect(next, 0); return }
     setMode(next); setFailed(false)
     if (reduced()) { setPhase(2); setPlaying(false) }
     else { setPhase(0); setPlaying(true) }
   }
-  const choosePhase = (next: number) => { setPlaying(false); setPhase(next) }
+  const choosePhase = (next: number) => { if (story) { story.onSelect(mode, next); return }; setPlaying(false); setPhase(next) }
   const sceneLabel = `${demo.label[locale]} · ${demo.steps[locale][Math.min(phase, 2)]}${phase >= 2 ? ` · ${demo.result[locale]}` : ''}`
 
   const screen = (
@@ -79,23 +89,25 @@ export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes
   )
 
   return (
-    <div className={`product-browser product-browser--${variant}${deviceFrame ? ' product-browser--device' : ''}${renderModeDescription ? ' product-browser--side-selector' : ''}`} dir={he ? 'rtl' : 'ltr'}>
-      {modes.length > 1 && (renderModeDescription ? (
+    <div className={`product-browser product-browser--${variant}${deviceFrame ? ' product-browser--device' : ''}${renderModeDescription || renderSelector ? ' product-browser--side-selector' : ''}`} dir={he ? 'rtl' : 'ltr'}>
+      {modes.length > 1 && (renderSelector ? <aside className="product-browser__mode-rail">{renderSelector({ mode, phase, panelId, selectMode: chooseMode, selectPhase: choosePhase })}</aside> : renderModeDescription ? (
         <aside className="product-browser__mode-rail">
           <ProductDemoTabs modes={modes} selected={mode} locale={locale} panelId={panelId} onSelect={chooseMode} orientation="vertical" numbered />
           <div className="product-browser__mode-description" aria-live="polite">{renderModeDescription(mode)}</div>
         </aside>
       ) : <ProductDemoTabs modes={modes} selected={mode} locale={locale} panelId={panelId} onSelect={chooseMode} />)}
-      <div className="product-browser__frame" id={panelId} role={modes.length > 1 ? 'tabpanel' : 'group'} aria-labelledby={modes.length > 1 ? `${panelId}-${mode}` : undefined} aria-label={modes.length === 1 ? demo.label[locale] : undefined}>
-        <div className="product-browser__chrome"><span className="product-browser__dots" aria-hidden="true"><i /><i /><i /></span><span dir="ltr">BetterCalc / Apartment A</span><span className="product-browser__demo-label">{he ? 'הדגמת מוצר' : 'Product demonstration'}</span></div>
-        {deviceFrame ? <DeviceFrame kind={deviceFrame} compactFallback>{screen}</DeviceFrame> : screen}
+      <div className="product-browser__frame" id={panelId} role={modes.length > 1 && !renderSelector ? 'tabpanel' : 'group'} aria-labelledby={modes.length > 1 ? `${panelId}-${mode}` : undefined} aria-label={modes.length === 1 ? demo.label[locale] : undefined}>
+        {deviceFrame === 'macbook' ? <DeviceFrame kind="macbook"><div><div className="product-browser__chrome"><span className="product-browser__dots" aria-hidden="true"><i /><i /><i /></span><span dir="ltr">BetterCalc / Apartment A</span><span className="product-browser__demo-label">{he ? 'הדגמת מוצר' : 'Product demonstration'}</span></div>{screen}</div></DeviceFrame> : <>
+          <div className="product-browser__chrome"><span className="product-browser__dots" aria-hidden="true"><i /><i /><i /></span><span dir="ltr">BetterCalc / Apartment A</span><span className="product-browser__demo-label">{he ? 'הדגמת מוצר' : 'Product demonstration'}</span></div>
+          {deviceFrame ? <DeviceFrame kind={deviceFrame} compactFallback>{screen}</DeviceFrame> : screen}
+        </>}
         <div className="product-browser__steps" role="group" aria-label={he ? 'שלבי ההדגמה' : 'Demonstration steps'}>
-          {demo.steps[locale].map((step, index) => <button type="button" key={step} aria-pressed={Math.min(phase, 2) === index} onClick={() => choosePhase(index)}><bdi dir="ltr">0{index + 1}</bdi><span>{step}</span></button>)}
+          {!renderSelector && demo.steps[locale].map((step, index) => <button type="button" key={step} aria-pressed={Math.min(phase, 2) === index} onClick={() => choosePhase(index)}><bdi dir="ltr">0{index + 1}</bdi><span>{step}</span></button>)}
           <button className="product-browser__replay" type="button" onClick={replay} disabled={playing}>{he ? 'הדגמה חוזרת' : 'Replay'}</button>
         </div>
       </div>
-      {!omitExplanationFor.includes(mode) && (!omitResultFor.includes(mode) || demo.adjustment || failed || !renderModeDescription) && <div className="product-browser__explanation">
-        {!renderModeDescription && <p>{demo.description[locale]}</p>}
+      {!omitExplanationFor.includes(mode) && (!omitResultFor.includes(mode) || demo.adjustment || failed || (!renderModeDescription && !renderSelector && !hideDescription)) && <div className="product-browser__explanation">
+        {!renderModeDescription && !renderSelector && !hideDescription && <p>{demo.description[locale]}</p>}
         {demo.adjustment && <button className="product-browser__adjust" type="button" aria-pressed={phase === 3} onClick={() => choosePhase(phase === 3 ? 2 : 3)}>{demo.adjustment[locale]}</button>}
         {!omitResultFor.includes(mode) && <p className="product-browser__result" role="status" aria-live="polite">{phase >= 2 ? demo.result[locale] : demo.steps[locale][phase]}</p>}
         {failed && <p role="alert">{he ? 'לא ניתן להציג חלק מצילומי ההדגמה.' : 'Some demonstration images could not be displayed.'}</p>}
