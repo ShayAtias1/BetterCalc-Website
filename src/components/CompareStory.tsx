@@ -8,7 +8,6 @@ import { Preview } from './Preview'
 import { PlanDrawing } from './PlanDrawing'
 import { RevisionDrawing } from './RevisionDrawing'
 import '../compare.css'
-import './mobile-compare.css'
 
 
 function SheetTab({ code, file }: { code: string; file: string }) {
@@ -161,7 +160,7 @@ export function CompareStory() {
   )
 
   const controls = useCompareScroll(refs, true)
-  useSwipeControl({ strip, handle, bounds: controls.bounds, get: controls.getSwipe, set: controls.setSwipe, mobileTouchIntent: true })
+  useSwipeControl({ strip, handle, bounds: controls.bounds, get: controls.getSwipe, set: controls.setSwipe })
 
   return (
     <section ref={section} className="compare" id="compare" data-stage="intro" data-reached="intro" aria-labelledby="compare-title">
@@ -213,7 +212,7 @@ function StaticView({ crop, children }: { crop: Crop; children: (rigStyle: CSSPr
   return <div className="c-static-view" style={style.view}>{children(style.rig)}</div>
 }
 
-/** Overlay with a live opacity control — direct DOM write, no animation. */
+/** Overlay with a live opacity control - direct DOM write, no animation. */
 function StaticOverlay() {
   const revLayer = useRef<HTMLDivElement>(null)
   const revReadout = useRef<HTMLSpanElement>(null)

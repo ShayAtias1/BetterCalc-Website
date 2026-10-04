@@ -1,7 +1,6 @@
 import { memo } from 'react'
 import { WORKBOOK_FILE, WORKBOOK_SHEETS } from '../data/qtoWorkbook'
 import { Preview } from './Preview'
-import { OutputWorkflow } from './OutputWorkflow'
 
 // The two real QTO exports. Report previews are rendered from qto-report.pdf by
 // scripts/render-report-previews.swift; the sheet excerpt is read from qto-quantities.xlsx.
@@ -14,7 +13,7 @@ const sheet = WORKBOOK_SHEETS.find((s) => s.name === LEDGER_SHEET)!
 
 const isNumber = (value: string) => /^-?\d+(\.\d+)?$/.test(value)
 
-export const ExportProof = memo(function ExportProof({ storytelling = false }: { storytelling?: boolean }) {
+export const ExportProof = memo(function ExportProof() {
   return (
     <div className="export-proof">
       <figure className="doc doc--pdf">
@@ -23,7 +22,6 @@ export const ExportProof = memo(function ExportProof({ storytelling = false }: {
           <span className="doc__name" dir="ltr">qto-report.pdf</span>
           <span className="doc__meta">2 עמודים</span>
         </figcaption>
-        {storytelling ? (
         <div className="doc__stack">
           <Preview name="qto-report-p1" className="doc__page doc__page--1" width={1190} height={900} alt="עמוד 1 בדוח ה־PDF: התוכנית עם שלושת החדרים המסומנים" />
           <figure className="doc__detail">
@@ -31,12 +29,6 @@ export const ExportProof = memo(function ExportProof({ storytelling = false }: {
             <figcaption className="doc__detail-label">עמוד <bdi dir="ltr">2</bdi> · פרט מכתב הכמויות</figcaption>
           </figure>
         </div>
-        ) : (
-        <div className="doc__stack">
-          <Preview name="qto-report-p2-detail" width={976} height={824} alt="קטע מעמוד 2 בדוח הכמויות: חדר הורים 12.74, חדר שינה 13.11, סלון 23.61, ובסה״כ ריצוף רגיל 49.46 מ״ר" />
-          <p className="report-caption">קטע מעמוד 2 בדוח הדמו · כמויות ריצוף לפי חדר</p>
-        </div>
-        )}
       </figure>
 
       <figure className="doc doc--xlsx">
@@ -58,7 +50,7 @@ export const ExportProof = memo(function ExportProof({ storytelling = false }: {
                 <tr key={row} data-header={row === 1 || row === 7 || undefined}>
                   <th scope="row" className="xl__row" dir="ltr">{row}</th>
                   {COLUMNS.map((col) => {
-                    const value = (sheet.cells[`${col}${row}`] ?? '').replace(/\s*—\s*/g, ' - ').trim()
+                    const value = sheet.cells[`${col}${row}`] ?? ''
                     return <td key={col} className={isNumber(value) ? 'xl__num' : undefined}>{value}</td>
                   })}
                 </tr>
@@ -69,7 +61,6 @@ export const ExportProof = memo(function ExportProof({ storytelling = false }: {
             {WORKBOOK_SHEETS.map((s) => <span key={s.name} className="xl__tab" aria-current={s.name === LEDGER_SHEET || undefined}>{s.name}</span>)}
           </div>
         </div>
-        <OutputWorkflow />
       </figure>
     </div>
   )

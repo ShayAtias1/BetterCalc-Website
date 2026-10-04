@@ -57,17 +57,7 @@ type Timeline = Record<'questionOut' | 'revisionIn' | 'alignRev' | 'tabsOut' | '
  * Phones get shorter holds (a touch flick already covers most of a screen). --travel in compare.css
  * must equal `end` for each layout.
  */
-export const MOBILE_COMPARE_TRAVEL = 3.36
-function timeline(stacked: boolean, mobile = false): Timeline {
-  if (mobile) return {
-    questionOut: [.16, .34], revisionIn: [.22, .52], alignRev: [.72, 1.02],
-    tabsOut: [.9, 1.02], panelIn: [.85, 1.1], ghostOriginal: [.9, 1.02],
-    balance: [1.2, 1.38], swipeFull: [1.45, 1.56], sweep: [1.58, 1.84], settle: [1.84, 1.96],
-    pair: .26, align: .72, overlay: 1.02, read: 1.4, swipe: 1.56, free: 1.96,
-    work: 2.3, demolition: 2.42, construction: 2.6, changes: 2.78, export: 3.02, end: MOBILE_COMPARE_TRAVEL,
-    camera: [[.16, 'intro'], [.52, 'pair'], [.72, 'pair'], [1.02, 'overlay'],
-      [1.2, 'overlay'], [1.4, 'focus'], [1.45, 'focus'], [1.56, 'swipe'], [2.28, 'swipe'], [2.42, 'mark']],
-  }
+function timeline(stacked: boolean): Timeline {
   const settle = stacked ? 0.2 : 0.35 // arrival: the section enters and rests
   const hold = stacked ? 0.3 : 0.5 // two plans apart, then two plans registered
   const move = 0.5
@@ -120,7 +110,7 @@ function stageAt(V: Timeline, v: number): CompareStage {
   return current
 }
 
-function computeFrames(W: number, H: number, header: number, questionBottom: number, panel: DOMRect, stacked: boolean, mobile = false) {
+function computeFrames(W: number, H: number, header: number, questionBottom: number, panel: DOMRect, stacked: boolean) {
   const gutter = Math.min(48, Math.max(16, W * 0.025))
   const full = { x0: 0, y0: 0, x1: PLAN_WIDTH, y1: PLAN_WIDTH / PLAN_ASPECT }
   const zone = CHANGED_ZONE
@@ -139,7 +129,7 @@ function computeFrames(W: number, H: number, header: number, questionBottom: num
         overlay: fit({ x0: 40, y0: 80, x1: 975, y1: 800 }, view),
         focus: fit(zone, view),
         swipe: fit({ x0: 286, y0: 318, x1: 760, y1: 664 }, view),
-        mark: fit(mobile ? { x0: 200, y0: 300, x1: 800, y1: 720 } : { x0: 236, y0: 346, x1: 452, y1: 668 }, view),
+        mark: fit({ x0: 236, y0: 346, x1: 452, y1: 668 }, view),
       } satisfies Record<FrameName, Frame>,
     }
   }
@@ -282,10 +272,8 @@ export function useCompareScroll(refs: CompareRefs, enabled: boolean) {
     const measure = () => {
       const W = window.innerWidth
       H = stage.clientHeight
-      const mobile = W <= 900
-      stacked = mobile || isStackedLayout(W, H)
-      V = timeline(stacked, mobile)
-      section.dataset.mobileStory = String(mobile)
+      stacked = isStackedLayout(W, H)
+      V = timeline(stacked)
       section.dataset.layout = stacked ? 'stacked' : 'side'
       panel.style.transform = 'none'
       question.style.transform = 'none'
@@ -296,7 +284,7 @@ export function useCompareScroll(refs: CompareRefs, enabled: boolean) {
       section.style.setProperty('--panel-size', `${panelSize}px`)
       const header = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 56
       const questionBottom = question.offsetTop + question.offsetHeight
-      const computed = computeFrames(W, H, header, questionBottom, panelLocal, stacked, mobile)
+      const computed = computeFrames(W, H, header, questionBottom, panelLocal, stacked)
       frames = computed.frames
       view = computed.view
       revOffset = computed.revOffset

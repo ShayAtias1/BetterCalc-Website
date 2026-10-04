@@ -1,16 +1,15 @@
 import { useSyncExternalStore } from 'react'
 import './App.css'
 import { Header } from './components/Header'
-import { MotionStory, MobileTakeoffStory, StaticStory } from './components/TakeoffStory'
+import { MotionStory, StaticStory } from './components/TakeoffStory'
 import { CompareStory, StaticCompare } from './components/CompareStory'
-import { Structural } from './components/Structural'
 import { Devices } from './components/Devices'
 import { Reports } from './components/Reports'
 import { SiteFooter } from './components/Ending'
 import { useWheelDamping } from './hooks/useWheelDamping'
 import './landing.css'
 
-// Preserve the original static/reduced-motion figures for small phones as well.
+// Original pre-Package-1 stories; static alternatives are for reduced motion only.
 const staticQuery = '(prefers-reduced-motion: reduce)'
 const subscribeStatic = (onChange: () => void) => {
   const media = window.matchMedia(staticQuery)
@@ -19,17 +18,8 @@ const subscribeStatic = (onChange: () => void) => {
 }
 const getStatic = () => window.matchMedia(staticQuery).matches
 
-const mobileQuery = '(max-width: 900px)'
-const subscribeMobile = (change: () => void) => {
-  const media = window.matchMedia(mobileQuery)
-  media.addEventListener('change', change)
-  return () => media.removeEventListener('change', change)
-}
-const getMobile = () => window.matchMedia(mobileQuery).matches
-
 function App() {
   const staticPresentation = useSyncExternalStore(subscribeStatic, getStatic, () => false)
-  const mobileStory = useSyncExternalStore(subscribeMobile, getMobile, () => false)
   useWheelDamping()
 
   return (
@@ -37,8 +27,7 @@ function App() {
       <a className="skip-link" href="#main-content">דילוג לתוכן</a>
       <Header />
       <main id="main-content">
-        {staticPresentation ? <StaticStory /> : mobileStory ? <MobileTakeoffStory /> : <MotionStory />}
-        <Structural />
+        {staticPresentation ? <StaticStory /> : <MotionStory />}
         {staticPresentation ? <StaticCompare /> : <CompareStory />}
         <Devices />
         <Reports />

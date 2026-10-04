@@ -1,0 +1,19 @@
+/* Compact material selection belongs to Takeoff; no second scroll story or phase index. */
+.takeoff-materials { padding: 32px var(--gutter) 24px; border-block-start: 1px solid var(--rule); }
+.takeoff-materials__head { max-width: 1240px; margin: 0 auto 24px; }
+.takeoff-materials h2 { margin: 0 0 20px; color: var(--ink); font-size: clamp(1.6rem, 3vw, 2.5rem); line-height: 1.15; }
+.takeoff-materials__modes { display: flex; flex-wrap: wrap; border-block: 1px solid var(--rule); }
+.takeoff-materials__modes button, .takeoff-materials__adjust { min-height: 44px; font: inherit; cursor: pointer; background: transparent; color: var(--ink); border: 0; padding: 10px 16px; }
+.takeoff-materials__modes button[aria-pressed='true'] { color: var(--blue); box-shadow: inset 0 -2px var(--blue); }
+.takeoff-materials__head p { max-width: 48em; margin: 16px 0 0; line-height: 1.6; }
+.takeoff-materials__adjust { margin-block-start: 12px; padding-inline: 0; color: var(--blue); border-block-end: 1px solid var(--rule); }
+.takeoff-materials .product-browser__frame { background: transparent; border: 0; overflow: visible; }
+.takeoff-materials .product-browser__steps, .takeoff-materials .product-browser__explanation { display: none; }
+@media (max-width: 639px) {
+  .takeoff-materials { padding-block: 24px 12px; }
+  .takeoff-materials__modes button { flex: 1; padding-inline: 6px; font-size: .85rem; }
+  .takeoff-materials__head p { font-size: .9rem; }
+  .takeoff-materials .product-browser__app-header, .takeoff-materials .product-browser__inspector { display: block; }
+  .takeoff-materials .product-browser__body { display: grid; grid-template-columns: 360fr 1024fr; aspect-ratio: 1384 / 770; }
+  .takeoff-materials .product-browser__phone-focus { display: none; }
+}
