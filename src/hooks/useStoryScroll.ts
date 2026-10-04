@@ -50,16 +50,16 @@ const CAMERA_STACKED: [number, FrameName][] = [
   [V.total - 0.12, 'room3'], [V.total, 'work'],
 ]
 
-// Same beats and geometry, recomposed beneath the normal-flow phone/tablet Hero.
+// One mobile sheet starts beneath the Hero and continues into the takeoff camera.
 const MOBILE_V = {
-  copyOut: V.copyOut, panelIn: [0, .16], dim: [.08, .22], draw: [.22, .48],
-  handoff: 0, marking: .22, measured: .48, calibrated: .6, rooms: .76,
-  room1: .88, room2: 1.08, room3: 1.28, total: 1.52, export: 1.78, end: 2.06,
+  copyOut: [.04, .24], panelIn: [.24, .4], dim: [.32, .46], draw: [.46, .72],
+  handoff: .04, marking: .46, measured: .72, calibrated: .84, rooms: 1,
+  room1: 1.12, room2: 1.32, room3: 1.52, total: 1.76, export: 2.02, end: 2.3,
 } as const
 const MOBILE_CAMERA: [number, FrameName][] = [
-  [0, 'work'], [.18, 'focus'], [.6, 'focus'], [.76, 'work'],
-  [.88, 'room1'], [.98, 'room1'], [1.08, 'room2'], [1.18, 'room2'],
-  [1.28, 'room3'], [1.4, 'room3'], [1.52, 'work'],
+  [.04, 'hero'], [.42, 'focus'], [.84, 'focus'], [1, 'work'],
+  [1.12, 'room1'], [1.22, 'room1'], [1.32, 'room2'], [1.42, 'room2'],
+  [1.52, 'room3'], [1.64, 'room3'], [1.76, 'work'],
 ]
 export const MOBILE_STORY_TRAVEL = MOBILE_V.end
 export const STORY_TRAVEL = V.end

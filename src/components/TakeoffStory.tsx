@@ -25,17 +25,18 @@ export function MotionStory() {
 
 /** Mobile uses the same sheet, overlays, ledger and scroll owner; only composition differs. */
 export function MobileTakeoffStory() {
-  const { section, stage, rig, panel, register } = useStoryScroll(true, true)
-  return <>
-    <StaticHero />
-    <section ref={section} className="story story--mobile" id="takeoff" data-stage="handoff" data-reached="hero handoff" aria-label="מהתוכנית לכמויות" style={{ '--travel': `${MOBILE_STORY_TRAVEL * 100}svh` } as CSSProperties}>
+  const { section, stage, heroCopy, rig, panel, register } = useStoryScroll(true, true)
+  return (
+    <section ref={section} className="story story--mobile" data-stage="hero" data-reached="hero" aria-labelledby="hero-title" style={{ '--travel': `${MOBILE_STORY_TRAVEL * 100}svh` } as CSSProperties}>
+      <span className="story-anchor story-anchor--mobile" id="takeoff" aria-hidden="true" />
       <div ref={stage} className="story__stage">
+        <HeroCopy copyRef={heroCopy} />
         <PlanSheet ref={rig} register={register} probe />
         <ExportProof storytelling />
         <StoryPanel panelRef={panel} />
       </div>
     </section>
-  </>
+  )
 }
 
 function StaticHero() {

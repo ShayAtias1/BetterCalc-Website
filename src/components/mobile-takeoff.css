@@ -1,6 +1,10 @@
 /* Dedicated phone/tablet composition. Desktop and reduced-motion figures retain their CSS. */
 @media (max-width: 900px) {
-  .story--mobile { border-block-start: 1px solid var(--ink); }
+  .story--mobile .story-anchor--mobile { inset-block-start: 84svh; }
+  .story--mobile .hero-copy { grid-template-columns: 1fr; row-gap: 20px; align-items: start; }
+  .story--mobile .hero-copy__title, .story--mobile .hero-copy__aside { grid-column: 1 / -1; }
+  .story--mobile .hero-copy__title { font-size: clamp(2.8rem, 13vw, 5rem); }
+  .story--mobile .hero-copy__aside { max-width: 34em; font-size: 1rem; }
   .story--mobile .story__stage { overflow: clip; }
   .story--mobile .story-panel { inset: auto 0 0; width: auto; height: clamp(280px, 38svh, 340px); padding: 16px var(--gutter) calc(12px + env(safe-area-inset-bottom)); }
   .story--mobile .story-panel__status { display: none; }
