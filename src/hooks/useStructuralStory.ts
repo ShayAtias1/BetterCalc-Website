@@ -153,7 +153,13 @@ export function useStructuralStory() {
         chapter.style.setProperty('--structural-stage-height', `${pinned.offsetHeight}px`)
       }
       start = chapter.getBoundingClientRect().top + window.scrollY - header
-      travel = Math.max(1, chapter.offsetHeight - pinned.offsetHeight)
+      // A compact mobile stage leaves room for the following section to enter the
+      // viewport before sticky release. Complete all three modes before that entry,
+      // then hold Stirrups through the remaining pinned distance.
+      const presentationHeight = mobilePresentation
+        ? Math.max(pinned.offsetHeight, window.innerHeight - header)
+        : pinned.offsetHeight
+      travel = Math.max(1, chapter.offsetHeight - presentationHeight)
       settle(scrollProgress())
     }
     controller.current = {
