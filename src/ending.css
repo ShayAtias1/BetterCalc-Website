@@ -44,7 +44,7 @@
     inset-inline: 0;
     height: 1px;
     background: var(--ink);
-    transform: scaleX(0);
+    transform: scaleX(.85); opacity: 0;
     transform-origin: right center;
     pointer-events: none;
   }
@@ -53,24 +53,24 @@
   .audience[data-reveal='index'] .audience__row::after { bottom: -1px; background: var(--rule); }
   .audience[data-reveal='index']:not([data-seen]) .audience__head,
   .audience[data-reveal='index']:not([data-seen]) .audience__role,
-  .audience[data-reveal='index']:not([data-seen]) .audience__work { clip-path: inset(0 0 0 100%); opacity: 0; }
+  .audience[data-reveal='index']:not([data-seen]) .audience__work { clip-path: inset(0 0 0 8%); opacity: 0; }
   .audience[data-reveal='index']:not([data-seen]) .audience__num { opacity: 0; }
-  .audience[data-reveal='index'][data-seen]::before { animation: audience-rule 380ms var(--ease-out) both; }
-  .audience[data-reveal='index'][data-seen] .audience__index::before { animation: audience-rule 380ms var(--ease-out) both 80ms; }
-  .audience[data-reveal='index'][data-seen] .audience__head { animation: audience-heading 460ms var(--ease-out) both 380ms; }
-  .audience[data-reveal='index'][data-seen] .audience__num { animation: audience-index 160ms var(--ease-out) both; animation-delay: calc(500ms + var(--i) * 75ms); }
-  .audience[data-reveal='index'][data-seen] .audience__row::after { animation: audience-rule 380ms var(--ease-out) both; animation-delay: calc(620ms + var(--i) * 75ms); }
+  .audience[data-reveal='index'][data-seen]::before { animation: audience-rule 320ms var(--ease-out) both; }
+  .audience[data-reveal='index'][data-seen] .audience__index::before { animation: audience-rule 320ms var(--ease-out) both 80ms; }
+  .audience[data-reveal='index'][data-seen] .audience__head { animation: audience-heading 380ms var(--ease-out) both 220ms; }
+  .audience[data-reveal='index'][data-seen] .audience__num { animation: audience-index 160ms var(--ease-out) both; animation-delay: calc(280ms + var(--i) * 50ms); }
+  .audience[data-reveal='index'][data-seen] .audience__row::after { animation: audience-rule 320ms var(--ease-out) both; animation-delay: calc(340ms + var(--i) * 50ms); }
   .audience[data-reveal='index'][data-seen] .audience__role,
-  .audience[data-reveal='index'][data-seen] .audience__work { animation: audience-text 400ms var(--ease-out) both; animation-delay: calc(740ms + var(--i) * 75ms); }
+  .audience[data-reveal='index'][data-seen] .audience__work { animation: audience-text 320ms var(--ease-out) both; animation-delay: calc(420ms + var(--i) * 50ms); }
 }
-@keyframes audience-rule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes audience-rule { from { transform: scaleX(.85); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
 @keyframes audience-heading {
-  from { clip-path: inset(0 0 0 100%); opacity: 0; transform: translateX(10px); }
+  from { clip-path: inset(0 0 0 8%); opacity: 0; transform: translateX(4px); }
   to { clip-path: inset(0); opacity: 1; transform: none; }
 }
 @keyframes audience-index { from { opacity: 0; } to { opacity: 1; } }
 @keyframes audience-text {
-  from { clip-path: inset(0 0 0 100%); opacity: 0; }
+  from { clip-path: inset(0 0 0 8%); opacity: 0; }
   to { clip-path: inset(0); opacity: 1; }
 }
 

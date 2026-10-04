@@ -29,7 +29,8 @@ const subscribe = (change: () => void) => {
 const getStatic = () => window.matchMedia(STATIC_QUERY).matches
 export type StructuralTransition = { fromMode: DemoMode; fromPhase: number; progress: number }
 export type StructuralState = { mode: DemoMode; phase: number; playing: boolean; transition?: StructuralTransition }
-const ENTRY_TRAVEL = .1
+const ENTRY_TRAVEL = .14
+const SETTLE_MS = 480
 // Match --ease-out: cubic-bezier(.2, .7, .2, 1), without a motion dependency.
 const easeOut = (progress: number) => {
   let t = progress
@@ -56,6 +57,10 @@ export function useStructuralStory() {
     let frame = 0
     let resizeFrame = 0
     let disposed = false
+    let displayed = 0
+    let origin = 0
+    let target = 0
+    let started = 0
     let current: StructuralState = { mode: 'concrete', phase: 0, playing: false }
     let timers: number[] = []
     const cancelReplay = () => { timers.forEach(clearTimeout); timers = [] }
@@ -64,9 +69,8 @@ export function useStructuralStory() {
       current = next
       setState(next)
     }
-    const apply = () => {
-      frame = 0
-      const progress = Math.max(0, Math.min(STRUCTURAL_TRAVEL, (window.scrollY - start) / travel * STRUCTURAL_TRAVEL))
+    const scrollProgress = () => Math.max(0, Math.min(STRUCTURAL_TRAVEL, (window.scrollY - start) / travel * STRUCTURAL_TRAVEL))
+    const apply = (progress: number) => {
       const found = STRUCTURAL_BEATS.findIndex((item) => progress < item.end)
       const index = found < 0 ? STRUCTURAL_BEATS.length - 1 : found
       const beat = STRUCTURAL_BEATS[index]
@@ -78,33 +82,73 @@ export function useStructuralStory() {
       } : undefined
       publish({ mode: beat.mode, phase: beat.phase, playing: false, transition })
     }
+    // Smooth the presentation coordinate only; native scrolling and chapter travel stay intact.
+    // One wheel notch can otherwise skip a whole entry window between two paints.
+    const tick = (now: number) => {
+      const elapsed = clamp01((now - started) / SETTLE_MS)
+      displayed = origin + (target - origin) * easeOut(elapsed)
+      apply(displayed)
+      frame = elapsed < 1 ? requestAnimationFrame(tick) : 0
+    }
+    const settle = (progress: number) => {
+      cancelAnimationFrame(frame)
+      frame = 0
+      displayed = origin = target = progress
+      apply(progress)
+    }
+    const animateState = (next: StructuralState) => {
+      cancelAnimationFrame(frame)
+      const from = current
+      if (from.mode === next.mode && from.phase === next.phase) { frame = 0; publish(next); return }
+      const began = performance.now()
+      const advance = (now: number) => {
+        const progress = clamp01((now - began) / 380)
+        publish({ ...next, transition: progress < 1 ? { fromMode: from.mode, fromPhase: from.phase, progress: easeOut(progress) } : undefined })
+        frame = progress < 1 ? requestAnimationFrame(advance) : 0
+      }
+      frame = requestAnimationFrame(advance)
+    }
     const measure = () => {
       if (disposed) return
       const header = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 56
       start = chapter.getBoundingClientRect().top + window.scrollY - header
       travel = Math.max(1, chapter.offsetHeight - pinned.offsetHeight)
-      apply()
+      settle(scrollProgress())
     }
     controller.current = {
       select: (mode, phase) => {
         const beat = STRUCTURAL_BEATS.find((item) => item.mode === mode && item.phase === phase)
         if (!beat) return
         cancelReplay()
-        publish({ mode, phase, playing: false })
+        displayed = origin = target = beat.start + ENTRY_TRAVEL + .01
+        animateState({ mode, phase, playing: false })
         // Clicks navigate the same timeline instead of introducing independent tab state.
         window.scrollTo({ top: start + (beat.start + ENTRY_TRAVEL + .01) / STRUCTURAL_TRAVEL * travel, behavior: 'instant' })
       },
       replay: () => {
         cancelReplay()
+        cancelAnimationFrame(frame)
+        frame = 0
         const mode = current.mode
         publish({ mode, phase: 0, playing: true })
         timers = [
-          window.setTimeout(() => publish({ mode, phase: 1, playing: true }), 100),
-          window.setTimeout(() => publish({ mode, phase: 2, playing: false }), 650),
+          window.setTimeout(() => animateState({ mode, phase: 1, playing: true }), 100),
+          window.setTimeout(() => animateState({ mode, phase: 2, playing: false }), 650),
         ]
       },
     }
-    const onScroll = () => { cancelReplay(); if (!frame) frame = requestAnimationFrame(apply) }
+    const onScroll = () => {
+      cancelReplay()
+      const next = scrollProgress()
+      if (Math.abs(next - target) < .0001) return
+      // Navigation outside this chapter settles immediately, rather than replaying unseen beats.
+      if (next === 0 || next === STRUCTURAL_TRAVEL) { settle(next); return }
+      origin = displayed
+      target = next
+      started = performance.now()
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(tick)
+    }
     const onResize = () => { cancelReplay(); cancelAnimationFrame(resizeFrame); resizeFrame = requestAnimationFrame(measure) }
     // Publish initial state even when the first scroll beat equals the local initial value.
     setState(current)

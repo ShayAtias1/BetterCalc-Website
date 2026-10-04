@@ -1,5 +1,6 @@
 import { useEffect, useId, useState, type ReactNode } from 'react'
 import { ALL_DEMO_MODES, PRODUCT_DEMOS, productAsset, type DemoLocale, type DemoMode, type DemoSpec } from '../../data/productDemo'
+import { StructuralCapture } from './StructuralCapture'
 import { ProductDemoTabs } from './ProductDemoTabs'
 import { DeviceFrame, type DeviceKind } from '../presentation/DeviceFrame'
 import './product-browser.css'
@@ -93,12 +94,7 @@ export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes
   }
 
   const transition = story?.transition
-  const screen = story ? (
-    <div className="product-browser__blend" data-blending={transition ? 'true' : undefined}>
-      {transition && <div key="outgoing" className="product-browser__blend-out" aria-hidden="true" style={{ opacity: 1 - transition.progress }}>{capture(transition.fromMode, transition.fromPhase)}</div>}
-      <div key="incoming" style={{ opacity: transition?.progress ?? 1, transform: `translateX(${transition ? (1 - transition.progress) * 4 : 0}px)` }}>{capture(mode, phase)}</div>
-    </div>
-  ) : capture(mode, phase)
+  const screen = story ? <StructuralCapture mode={mode} phase={phase} transition={transition} label={sceneLabel} onError={() => setFailed(true)} /> : capture(mode, phase)
 
   return (
     <div className={`product-browser product-browser--${variant}${deviceFrame ? ' product-browser--device' : ''}${renderModeDescription || renderSelector ? ' product-browser--side-selector' : ''}`} dir={he ? 'rtl' : 'ltr'}>
