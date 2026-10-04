@@ -9,7 +9,7 @@
   text-align: start;
   direction: rtl;
 }
-.field-story { --field-stage-height: calc(100svh - var(--header-height)); height: calc(var(--field-stage-height) + 180svh); max-width: 1500px; margin-inline: auto; }
+.field-story { --field-stage-height: calc(100svh - var(--header-height)); height: calc(var(--field-stage-height) + var(--field-travel, 180svh)); max-width: 1500px; margin-inline: auto; }
 .field-story__stage { position: sticky; top: var(--header-height); height: var(--field-stage-height); display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 16px; padding-block: 20px; }
 .field-story__axis { display: grid; grid-template-columns: repeat(3, 1fr); list-style: none; padding: 0; margin: 0; border-block-start: 1px solid var(--ink); }
 .field-story__axis li { padding-block: 12px; border-block-start: 2px solid transparent; margin-block-start: -1px; color: var(--muted); font: .8rem var(--mono); }
@@ -46,4 +46,18 @@
   .field-story__axis li { font-size: .7rem; }
   .field-story__axis bdi { display: block; margin-block-end: 6px; }
   .field-story--static .field-story__device--iphone > .device-frame { max-width: 200px; margin-inline: auto; }
+}
+
+/* Mobile/tablet: the whole device + caption group travels between one center anchor. */
+@media (max-width: 900px) {
+  .field-story:not(.field-story--static) { --field-travel: 160svh; }
+  .field-story:not(.field-story--static) .field-story__stage { padding-block: 12px; gap: 8px; }
+  .field-story:not(.field-story--static) .field-story__axis li { padding-block: 8px; font-size: .72rem; }
+  .field-story:not(.field-story--static) .field-story__scene { background-size: auto; }
+  .field-story:not(.field-story--static) .field-story__device { align-content: start; row-gap: 16px; }
+  .field-story:not(.field-story--static) .field-story__device > .device-frame { grid-column: 1; grid-row: 1; margin-inline: auto; }
+  .field-story:not(.field-story--static) .field-story__device figcaption { grid-column: 1; grid-row: 2; max-width: 36em; width: 100%; margin-inline: auto; padding-top: 12px; gap: 8px; }
+  .field-story:not(.field-story--static) .field-story__headings h3 { font-size: 1.4rem; }
+  .field-story:not(.field-story--static) .field-story__headings h4 { font-size: 1rem; }
+  .field-story:not(.field-story--static) .field-story__body { font-size: .85rem; line-height: 1.5; }
 }

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { ease, lerp, range } from './storyMath'
 
-const STATIC_QUERY = '(max-width: 639px), (prefers-reduced-motion: reduce)'
+const STATIC_QUERY = '(prefers-reduced-motion: reduce)'
 const subscribe = (change: () => void) => {
   const media = window.matchMedia(STATIC_QUERY)
   media.addEventListener('change', change)
@@ -37,13 +37,14 @@ export function useDeviceStory() {
     let resizeFrame = 0
     let lastStage = -1
     let disposed = false
+    let mobile = false
 
     const apply = () => {
       frame = 0
-      const progress = Math.min(1.8, Math.max(0, (window.scrollY - start) / travel * 1.8))
-      const first = ease(range(progress, [.3, .7]))
-      const second = ease(range(progress, [1.1, 1.5]))
-      const segment = progress < 1.1 ? 0 : 1
+      const progress = Math.min(mobile ? 1.6 : 1.8, Math.max(0, (window.scrollY - start) / travel * (mobile ? 1.6 : 1.8)))
+      const first = ease(range(progress, mobile ? [.25, .65] : [.3, .7]))
+      const second = ease(range(progress, mobile ? [.95, 1.35] : [1.1, 1.5]))
+      const segment = progress < (mobile ? .95 : 1.1) ? 0 : 1
       const mix = segment === 0 ? first : second
       elements.forEach((device, index) => {
         const a = poses[segment][index]
@@ -53,7 +54,7 @@ export function useDeviceStory() {
         captions[index].style.opacity = String(lerp(a.copyOpacity, b.copyOpacity, mix))
         device.style.visibility = index > 0 && (index === 1 ? first : second) === 0 ? 'hidden' : 'visible'
       })
-      const next = progress < .7 ? 0 : progress < 1.5 ? 1 : 2
+      const next = progress < (mobile ? .65 : .7) ? 0 : progress < (mobile ? 1.35 : 1.5) ? 1 : 2
       if (next !== lastStage) { lastStage = next; setActive(next) }
     }
 
@@ -61,6 +62,35 @@ export function useDeviceStory() {
       if (disposed) return
       const width = field.clientWidth
       const height = field.clientHeight
+      mobile = window.innerWidth <= 900
+      elements.forEach(group => group.querySelector<HTMLElement>('.device-frame')?.style.removeProperty('width'))
+      if (mobile) {
+        const groupWidth = Math.max(1, width - 16)
+        const anchor = width / 2
+        const center = anchor - groupWidth / 2
+        elements.forEach(group => {
+          group.style.width = `${groupWidth}px`
+          group.style.gridTemplateColumns = 'minmax(0, 1fr)'
+          group.style.columnGap = '0px'
+        })
+        const hardware = elements.map(group => group.querySelector<HTMLElement>('.device-frame')!)
+        const ratios = [1.6, 4 / 3, 390 / 844]
+        const limits = [1100, 850, 300]
+        hardware.forEach((device,index) => {
+          const available = Math.max(120, height - captions[index].offsetHeight - 36)
+          const base = Math.min(groupWidth, available * ratios[index], limits[index])
+          device.style.width = `${base}px`
+        })
+        const pose = (index:number,x:number,opacity:number): Pose => ({x,y:Math.max(0,(height-elements[index].offsetHeight)/2),scale:1,opacity,copyOpacity:1})
+        const left = -groupWidth - 24
+        const right = width + 24
+        poses = [
+          [pose(0,center,1),pose(1,right,1),pose(2,right,1)],
+          [pose(0,left,0),pose(1,center,1),pose(2,right,1)],
+          [pose(0,left,0),pose(1,left,0),pose(2,center,1)],
+        ]
+        field.style.setProperty('--device-center', `${anchor}px`)
+      } else {
       const copyWidth = Math.min(300, Math.max(160, width * .23))
       const gap = Math.min(28, Math.max(16, width * .016))
       const visualWidth = width - copyWidth - gap
@@ -90,6 +120,7 @@ export function useDeviceStory() {
         [pose(0, centered[1] - gap - widths[0] * desktopSecondary, desktopSecondary, .65, 0), pose(1, centered[1], 1, 1, 1), pose(2, width + 24, 1, 0, 0)],
         [pose(0, Math.min(width * .06, tabletHistoryStart - gap) - widths[0] * desktopFinal, desktopFinal, .5, 0), pose(1, tabletHistoryStart, tabletFinal, .65, 0), pose(2, centered[2], 1, 1, 1)],
       ]
+      }
       const header = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 56
       start = chapter.getBoundingClientRect().top + window.scrollY - header
       travel = Math.max(1, chapter.offsetHeight - chapter.firstElementChild!.clientHeight)
@@ -107,7 +138,8 @@ export function useDeviceStory() {
       window.removeEventListener('resize', onResize)
       cancelAnimationFrame(frame)
       cancelAnimationFrame(resizeFrame)
-      elements.forEach((device) => { device.style.removeProperty('width'); device.style.removeProperty('transform'); device.style.removeProperty('opacity'); device.style.removeProperty('visibility'); device.style.removeProperty('grid-template-columns'); device.style.removeProperty('column-gap') })
+      elements.forEach((device) => { device.style.removeProperty('width'); device.style.removeProperty('transform'); device.style.removeProperty('opacity'); device.style.removeProperty('visibility'); device.style.removeProperty('grid-template-columns'); device.style.removeProperty('column-gap'); device.querySelector<HTMLElement>('.device-frame')?.style.removeProperty('width') })
+      field.style.removeProperty('--device-center')
       captions.forEach((caption) => caption.style.removeProperty('opacity'))
     }
   }, [staticPresentation])
