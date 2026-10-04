@@ -42,7 +42,7 @@ export function Structural() {
                   <p>{STRUCTURAL_COPY[mode]?.description}</p>
                   {mode === 'mesh-bars' && <button className="structural-mobile__adjust" type="button" aria-pressed={phase === 3} onClick={() => select(mode, phase === 3 ? 2 : 3)}>הזזת יריעה לדוגמה / פריסה מקורית</button>}
                 </div>
-                <ProductBrowser modes={[mode]} initialMode={mode} hideDescription omitResultFor={[mode]}
+                <ProductBrowser modes={[mode]} initialMode={mode} deviceFrame="macbook" hideDescription omitResultFor={[mode]}
                   story={{ mode, phase, playing: active && state.playing, transition: active && state.transition?.fromMode === mode ? state.transition : undefined, onSelect: select, onReplay: replay }} />
               </article>
             })}

@@ -87,7 +87,7 @@
 /* Contextual Mesh action shares the demo state; it belongs to the technical rail. */
 .structural-index .product-browser__adjust { margin: 16px 0 0; padding: 8px 0; border: 0; border-block: 1px solid var(--rule); background: transparent; color: var(--blue); font-size: .8rem; text-align: start; }
 
-/* Phone/tablet: complete application surfaces and copy travel as one centered group. */
+/* Phone/tablet: the original MacBook presentation and copy travel as one centered group. */
 @media (max-width: 900px) {
   .structural-story--mobile .structural-story__stage { display: flex; flex-direction: column; gap: 12px; overflow: clip; padding-block: 12px; }
   .structural-mobile__index { display: flex; justify-content: space-between; width: 100%; list-style: none; padding: 0; margin: 0; border-block: 1px solid var(--rule); }
@@ -102,7 +102,7 @@
   .structural-mobile__copy p { margin: 0; font-size: .9rem; line-height: 1.55; }
   .structural-mobile__adjust { min-height: 44px; margin-block-start: 10px; padding: 8px 0; font: inherit; font-size: .8rem; cursor: pointer; color: var(--blue); background: transparent; border: 0; border-block: 1px solid var(--rule); }
   .structural-story--mobile .product-browser { max-width: min(100%, calc((100svh - var(--header-height) - 310px) * 1.65)); }
-  .structural-story--mobile .product-browser__frame { border: 1px solid var(--rule); background: var(--sheet); overflow: hidden; }
+  .structural-story--mobile .product-browser__frame { border: 0; background: transparent; overflow: visible; }
   .structural-story--mobile .product-browser__app-header { display: block; }
   .structural-story--mobile .product-browser__body { display: grid; grid-template-columns: 360fr 1024fr; aspect-ratio: 1384 / 770; }
   .structural-story--mobile .product-browser__inspector { display: block; }
