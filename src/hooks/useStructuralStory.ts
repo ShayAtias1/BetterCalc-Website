@@ -20,7 +20,30 @@ export const STRUCTURAL_BEATS = STRUCTURAL_MODES.flatMap((mode) => {
 })
 export const STRUCTURAL_TRAVEL = Number(cursor.toFixed(2))
 
-const STATIC_QUERY = '(max-width: 639px), (prefers-reduced-motion: reduce)'
+// Mobile modes arrive before their captured phases begin, then hold their final result.
+let mobileCursor = .2
+export const MOBILE_STRUCTURAL_MODES = STRUCTURAL_MODES.map((mode, index) => {
+  const entry = index === 0 ? 0 : mobileCursor
+  if (index > 0) mobileCursor += .3
+  const start = mobileCursor
+  const beats = structuralSteps(mode).map((_, phase) => {
+    const start = mobileCursor
+    mobileCursor += .22 + (phase === structuralSteps(mode).length - 1 ? .12 : 0)
+    return { mode, phase, start, end: mobileCursor }
+  })
+  return { mode, entry, start, end: mobileCursor, beats }
+})
+export const MOBILE_STRUCTURAL_TRAVEL = Number(mobileCursor.toFixed(2))
+const MOBILE_STRUCTURAL_BEATS = MOBILE_STRUCTURAL_MODES.flatMap((item) => item.beats)
+
+const STATIC_QUERY = '(prefers-reduced-motion: reduce)'
+const MOBILE_QUERY = '(max-width: 900px)'
+const subscribeMobile = (change: () => void) => {
+  const media = window.matchMedia(MOBILE_QUERY)
+  media.addEventListener('change', change)
+  return () => media.removeEventListener('change', change)
+}
+const getMobile = () => window.matchMedia(MOBILE_QUERY).matches
 const subscribe = (change: () => void) => {
   const media = window.matchMedia(STATIC_QUERY)
   media.addEventListener('change', change)
@@ -46,12 +69,15 @@ export function useStructuralStory() {
   const stage = useRef<HTMLDivElement>(null)
   const [state, setState] = useState<StructuralState>({ mode: 'concrete', phase: 0, playing: false })
   const staticPresentation = useSyncExternalStore(subscribe, getStatic, () => true)
+  const mobilePresentation = useSyncExternalStore(subscribeMobile, getMobile, () => false)
   const controller = useRef<{ select: (mode: DemoMode, phase: number) => void; replay: () => void } | null>(null)
 
   useEffect(() => {
     if (staticPresentation || !track.current || !stage.current) return
     const chapter = track.current
     const pinned = stage.current
+    const beats = mobilePresentation ? MOBILE_STRUCTURAL_BEATS : STRUCTURAL_BEATS
+    const totalTravel = mobilePresentation ? MOBILE_STRUCTURAL_TRAVEL : STRUCTURAL_TRAVEL
     let start = 0
     let travel = 1
     let frame = 0
@@ -69,14 +95,35 @@ export function useStructuralStory() {
       current = next
       setState(next)
     }
-    const scrollProgress = () => Math.max(0, Math.min(STRUCTURAL_TRAVEL, (window.scrollY - start) / travel * STRUCTURAL_TRAVEL))
+    const scrollProgress = () => Math.max(0, Math.min(totalTravel, (window.scrollY - start) / travel * totalTravel))
     const apply = (progress: number) => {
-      const found = STRUCTURAL_BEATS.findIndex((item) => progress < item.end)
-      const index = found < 0 ? STRUCTURAL_BEATS.length - 1 : found
-      const beat = STRUCTURAL_BEATS[index]
+      if (mobilePresentation) {
+        const scene = pinned.querySelector<HTMLElement>('.structural-mobile__scene')
+        if (scene) {
+          const width = scene.clientWidth
+          const anchor = width / 2
+          scene.style.setProperty('--structural-center', `${anchor}px`)
+          scene.querySelectorAll<HTMLElement>('.structural-mobile__group').forEach((group, index) => {
+            const item = MOBILE_STRUCTURAL_MODES[index]
+            const next = MOBILE_STRUCTURAL_MODES[index + 1]
+            const incoming = index === 0 ? 1 : easeOut(clamp01((progress - item.entry) / (item.start - item.entry)))
+            const outgoing = next ? easeOut(clamp01((progress - next.entry) / (next.start - next.entry))) : 0
+            const center = anchor - group.offsetWidth / 2
+            const x = incoming < 1 ? (width + 16) * (1 - incoming) + center * incoming : center + (-group.offsetWidth - 16 - center) * outgoing
+            group.style.transform = `translate3d(${x}px, 0, 0)`
+            group.style.visibility = incoming === 0 || outgoing === 1 ? 'hidden' : 'visible'
+            group.style.pointerEvents = incoming === 1 && outgoing === 0 ? 'auto' : 'none'
+          })
+        }
+      }
+      // During a horizontal handoff keep the outgoing mode's completed phase.
+      const found = beats.findIndex((item) => progress < item.end)
+      let index = found < 0 ? beats.length - 1 : found
+      if (mobilePresentation && index > 0 && progress < beats[index].start) index -= 1
+      const beat = beats[index]
       const local = clamp01((progress - beat.start) / ENTRY_TRAVEL)
-      const previous = STRUCTURAL_BEATS[index - 1]
-      const transition = previous && local < 1 ? {
+      const previous = beats[index - 1]
+      const transition = previous && local < 1 && (!mobilePresentation || previous.mode === beat.mode) ? {
         fromMode: previous.mode, fromPhase: previous.phase,
         progress: Math.round(easeOut(local) * 1000) / 1000,
       } : undefined
@@ -117,13 +164,14 @@ export function useStructuralStory() {
     }
     controller.current = {
       select: (mode, phase) => {
-        const beat = STRUCTURAL_BEATS.find((item) => item.mode === mode && item.phase === phase)
+        const beat = beats.find((item) => item.mode === mode && item.phase === phase)
         if (!beat) return
         cancelReplay()
         displayed = origin = target = beat.start + ENTRY_TRAVEL + .01
-        animateState({ mode, phase, playing: false })
+        if (mobilePresentation) apply(displayed)
+        else animateState({ mode, phase, playing: false })
         // Clicks navigate the same timeline instead of introducing independent tab state.
-        window.scrollTo({ top: start + (beat.start + ENTRY_TRAVEL + .01) / STRUCTURAL_TRAVEL * travel, behavior: 'instant' })
+        window.scrollTo({ top: start + (beat.start + ENTRY_TRAVEL + .01) / totalTravel * travel, behavior: 'instant' })
       },
       replay: () => {
         cancelReplay()
@@ -142,7 +190,7 @@ export function useStructuralStory() {
       const next = scrollProgress()
       if (Math.abs(next - target) < .0001) return
       // Navigation outside this chapter settles immediately, rather than replaying unseen beats.
-      if (next === 0 || next === STRUCTURAL_TRAVEL) { settle(next); return }
+      if (next === 0 || next === totalTravel) { settle(next); return }
       origin = displayed
       target = next
       started = performance.now()
@@ -165,7 +213,7 @@ export function useStructuralStory() {
       window.removeEventListener('resize', onResize)
       controller.current = null
     }
-  }, [staticPresentation])
+  }, [staticPresentation, mobilePresentation])
 
-  return { track, stage, state, staticPresentation, select: (mode: DemoMode, phase: number) => controller.current?.select(mode, phase), replay: () => controller.current?.replay() }
+  return { track, stage, state, staticPresentation, mobilePresentation, select: (mode: DemoMode, phase: number) => controller.current?.select(mode, phase), replay: () => controller.current?.replay() }
 }

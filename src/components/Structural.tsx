@@ -1,7 +1,7 @@
 import './product-heading.css'
 import './structural.css'
 import type { CSSProperties } from 'react'
-import { STRUCTURAL_MODES, STRUCTURAL_TRAVEL, structuralSteps, useStructuralStory } from '../hooks/useStructuralStory'
+import { STRUCTURAL_MODES, STRUCTURAL_TRAVEL, MOBILE_STRUCTURAL_TRAVEL, structuralSteps, useStructuralStory } from '../hooks/useStructuralStory'
 import type { DemoMode } from '../data/productDemo'
 import { ProductBrowser } from './product/ProductBrowser'
 
@@ -12,7 +12,7 @@ const STRUCTURAL_COPY: Partial<Record<DemoMode, { title: string; description: st
 }
 
 export function Structural() {
-  const { track, stage, state, staticPresentation, select, replay } = useStructuralStory()
+  const { track, stage, state, staticPresentation, mobilePresentation, select, replay } = useStructuralStory()
   return (
     <section className="landing-section structural" id="structural" aria-labelledby="structural-title">
       <header className="product-heading">
@@ -26,6 +26,28 @@ export function Structural() {
           <p>{STRUCTURAL_COPY[mode]?.description}</p>
           <ProductBrowser modes={[mode]} initialMode={mode} deviceFrame="macbook" hideDescription omitResultFor={[mode]} />
         </article>)}
+      </div> : mobilePresentation ? <div className="structural-story structural-story--mobile" ref={track} style={{ '--structural-travel': `${MOBILE_STRUCTURAL_TRAVEL * 100}svh` } as CSSProperties}>
+        <div className="structural-story__stage" ref={stage}>
+          <ol className="structural-mobile__index" aria-label="מצבי עבודה בבטון וזיון">
+            {STRUCTURAL_MODES.map((mode, index) => <li key={mode}><button type="button" aria-current={state.mode === mode ? 'step' : undefined} onClick={() => select(mode, 0)}><bdi dir="ltr">0{index + 1}</bdi> {STRUCTURAL_COPY[mode]?.title}</button></li>)}
+          </ol>
+          <div className="structural-mobile__scene">
+            {STRUCTURAL_MODES.map((mode, index) => {
+              const active = state.mode === mode
+              const activeIndex = STRUCTURAL_MODES.indexOf(state.mode as typeof STRUCTURAL_MODES[number])
+              const phase = active ? state.phase : index < activeIndex ? structuralSteps(mode).length - 1 : 0
+              return <article className="structural-mobile__group" key={mode} aria-hidden={!active} inert={!active}>
+                <div className="structural-mobile__copy">
+                  <h3>{STRUCTURAL_COPY[mode]?.title}</h3>
+                  <p>{STRUCTURAL_COPY[mode]?.description}</p>
+                  {mode === 'mesh-bars' && <button className="structural-mobile__adjust" type="button" aria-pressed={phase === 3} onClick={() => select(mode, phase === 3 ? 2 : 3)}>הזזת יריעה לדוגמה / פריסה מקורית</button>}
+                </div>
+                <ProductBrowser modes={[mode]} initialMode={mode} hideDescription omitResultFor={[mode]}
+                  story={{ mode, phase, playing: active && state.playing, transition: active && state.transition?.fromMode === mode ? state.transition : undefined, onSelect: select, onReplay: replay }} />
+              </article>
+            })}
+          </div>
+        </div>
       </div> : <div className="structural-story" ref={track} style={{ '--structural-travel': `${STRUCTURAL_TRAVEL * 100}svh` } as CSSProperties}>
         <div className="structural-story__stage" ref={stage}>
           <ProductBrowser modes={STRUCTURAL_MODES} initialMode="concrete" deviceFrame="macbook"
