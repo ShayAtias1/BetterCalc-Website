@@ -31,10 +31,48 @@
 .audience__role { color: var(--ink); font-size: clamp(1.45rem, 2.1vw, 2.1rem); font-weight: 680; line-height: 1.1; letter-spacing: -0.02em; }
 .audience__work { color: var(--muted); font-size: 0.98rem; line-height: 1.45; }
 
-/* One subtle entrance when the index first comes into view. */
-.audience:not([data-seen]) .audience__row { opacity: 0; }
-.audience[data-seen] .audience__row { animation: ending-row 520ms var(--ease-out) both; animation-delay: calc(var(--i) * 70ms); }
-@keyframes ending-row { from { opacity: 0; transform: translate3d(0, 12px, 0); } to { opacity: 1; transform: none; } }
+/* A technical schedule assembles once; all rules retain their original geometry. */
+@media (prefers-reduced-motion: no-preference) {
+  .audience[data-reveal='index'] { position: relative; border-block-start-color: transparent; }
+  .audience[data-reveal='index'] .audience__index { position: relative; border-block-start-color: transparent; }
+  .audience[data-reveal='index'] .audience__row { position: relative; border-block-end-color: transparent; }
+  .audience[data-reveal='index']::before,
+  .audience[data-reveal='index'] .audience__index::before,
+  .audience[data-reveal='index'] .audience__row::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    height: 1px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: right center;
+    pointer-events: none;
+  }
+  .audience[data-reveal='index']::before { top: -1px; }
+  .audience[data-reveal='index'] .audience__index::before { top: -2px; height: 2px; }
+  .audience[data-reveal='index'] .audience__row::after { bottom: -1px; background: var(--rule); }
+  .audience[data-reveal='index']:not([data-seen]) .audience__head,
+  .audience[data-reveal='index']:not([data-seen]) .audience__role,
+  .audience[data-reveal='index']:not([data-seen]) .audience__work { clip-path: inset(0 0 0 100%); opacity: 0; }
+  .audience[data-reveal='index']:not([data-seen]) .audience__num { opacity: 0; }
+  .audience[data-reveal='index'][data-seen]::before { animation: audience-rule 380ms var(--ease-out) both; }
+  .audience[data-reveal='index'][data-seen] .audience__index::before { animation: audience-rule 380ms var(--ease-out) both 80ms; }
+  .audience[data-reveal='index'][data-seen] .audience__head { animation: audience-heading 460ms var(--ease-out) both 380ms; }
+  .audience[data-reveal='index'][data-seen] .audience__num { animation: audience-index 160ms var(--ease-out) both; animation-delay: calc(500ms + var(--i) * 75ms); }
+  .audience[data-reveal='index'][data-seen] .audience__row::after { animation: audience-rule 380ms var(--ease-out) both; animation-delay: calc(620ms + var(--i) * 75ms); }
+  .audience[data-reveal='index'][data-seen] .audience__role,
+  .audience[data-reveal='index'][data-seen] .audience__work { animation: audience-text 400ms var(--ease-out) both; animation-delay: calc(740ms + var(--i) * 75ms); }
+}
+@keyframes audience-rule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes audience-heading {
+  from { clip-path: inset(0 0 0 100%); opacity: 0; transform: translateX(10px); }
+  to { clip-path: inset(0); opacity: 1; transform: none; }
+}
+@keyframes audience-index { from { opacity: 0; } to { opacity: 1; } }
+@keyframes audience-text {
+  from { clip-path: inset(0 0 0 100%); opacity: 0; }
+  to { clip-path: inset(0); opacity: 1; }
+}
 
 /* Final CTA: the conclusion, in the instrument's ink. */
 .final-cta {
@@ -149,6 +187,3 @@
   .final-cta__dimension { display: flex; justify-content: center; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .audience:not([data-seen]) .audience__row { opacity: 1; }
-}

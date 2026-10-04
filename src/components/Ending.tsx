@@ -11,19 +11,36 @@ const AUDIENCE = [
   { role: 'חשבי כמויות ואומדנים', work: 'מדידה וחישוב כמויות מתוכניות, עם דוחות PDF ו־Excel.' },
 ]
 
-/** Marks a section as seen once, so CSS can play a single, subtle entrance. */
+/** Arm the existing composition only when observation and motion are available. */
 function useSeen<T extends HTMLElement>() {
   const ref = useRef<T>(null)
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (motion.matches || !('IntersectionObserver' in window)) {
+      el.dataset.seen = 'true'
+      return
+    }
+    el.dataset.reveal = 'index'
     const observer = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return
       el.dataset.seen = 'true'
       observer.disconnect()
     }, { threshold: 0.25 })
+    const showImmediately = () => {
+      if (!motion.matches) return
+      el.dataset.seen = 'true'
+      delete el.dataset.reveal
+      observer.disconnect()
+    }
+    motion.addEventListener('change', showImmediately)
     observer.observe(el)
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      motion.removeEventListener('change', showImmediately)
+      delete el.dataset.reveal
+    }
   }, [])
   return ref
 }
