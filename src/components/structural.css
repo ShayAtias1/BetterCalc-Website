@@ -1,0 +1,42 @@
+/* RTL engineering index: dominant visual on the right, mode rail on the left. */
+.structural .product-browser--side-selector {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px var(--col-gap);
+  align-items: start;
+}
+.structural .product-browser__frame { grid-column: 1 / span 9; grid-row: 1; min-width: 0; }
+.structural .product-browser__explanation { grid-column: 1 / span 9; grid-row: 2; padding-block-start: 0; }
+.structural .product-browser__mode-rail { grid-column: 10 / -1; grid-row: 1 / span 2; min-width: 0; border-block-start: 1px solid var(--ink); }
+.structural .product-demo-tabs { display: flex; flex-direction: column; gap: 0; margin: 0; }
+.structural .product-demo-tabs button {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 12px;
+  text-align: start;
+  border: 0;
+  border-block-end: 1px solid var(--rule);
+  border-inline-start: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: .95rem;
+}
+.structural .product-demo-tabs button bdi { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+.structural .product-demo-tabs button[aria-selected='true'] { border-inline-start-color: var(--blue); color: var(--blue); background: var(--blue-wash); }
+.structural .product-demo-tabs button[aria-selected='true'] bdi { color: var(--blue); }
+.structural .product-browser__mode-description { padding-block-start: 24px; }
+.structural .product-browser__mode-description h3 { margin: 0 0 14px; font-size: 1.2rem; color: var(--ink); }
+.structural .product-browser__mode-description p { margin: 0; font-size: .95rem; line-height: 1.65; }
+@media (max-width: 1000px) {
+  .structural .product-browser--side-selector { display: flex; flex-direction: column; }
+  .structural .product-browser__mode-rail { display: grid; grid-template-columns: 1fr 1fr; gap: var(--col-gap); width: 100%; }
+  .structural .product-browser__frame, .structural .product-browser__explanation { width: 100%; }
+  .structural .product-browser__mode-description { padding-block-start: 16px; }
+}
+@media (max-width: 639px) {
+  .structural .product-browser__mode-rail { display: block; }
+  .structural .product-demo-tabs button { padding-block: 12px; }
+}

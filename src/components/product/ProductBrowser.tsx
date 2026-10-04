@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useState, type ReactNode } from 'react'
 import { ALL_DEMO_MODES, PRODUCT_DEMOS, productAsset, type DemoLocale, type DemoMode, type DemoSpec } from '../../data/productDemo'
 import { ProductDemoTabs } from './ProductDemoTabs'
 import { DeviceFrame, type DeviceKind } from '../presentation/DeviceFrame'
@@ -11,12 +11,14 @@ type Props = {
   variant?: 'workspace' | 'hero' | 'focused'
   /** Presentation only: omit the text footer for these demo modes. */
   omitExplanationFor?: readonly DemoMode[]
+  /** Place the existing mode selector and active copy in a technical side rail. */
+  renderModeDescription?: (mode: DemoMode) => ReactNode
   deviceFrame?: DeviceKind
 }
 
 /** A visual demonstration using separately captured real plan and inspector states.
  * Modes and steps select fixed assets; this component is not a takeoff engine. */
-export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes', locale = 'he', variant = 'workspace', deviceFrame, omitExplanationFor = [] }: Props) {
+export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes', locale = 'he', variant = 'workspace', deviceFrame, omitExplanationFor = [], renderModeDescription }: Props) {
   const [mode, setMode] = useState<DemoMode>(modes.includes(initialMode) ? initialMode : modes[0])
   const [phase, setPhase] = useState(2)
   const [playing, setPlaying] = useState(false)
@@ -75,8 +77,13 @@ export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes
   )
 
   return (
-    <div className={`product-browser product-browser--${variant}${deviceFrame ? ' product-browser--device' : ''}`} dir={he ? 'rtl' : 'ltr'}>
-      {modes.length > 1 && <ProductDemoTabs modes={modes} selected={mode} locale={locale} panelId={panelId} onSelect={chooseMode} />}
+    <div className={`product-browser product-browser--${variant}${deviceFrame ? ' product-browser--device' : ''}${renderModeDescription ? ' product-browser--side-selector' : ''}`} dir={he ? 'rtl' : 'ltr'}>
+      {modes.length > 1 && (renderModeDescription ? (
+        <aside className="product-browser__mode-rail">
+          <ProductDemoTabs modes={modes} selected={mode} locale={locale} panelId={panelId} onSelect={chooseMode} orientation="vertical" numbered />
+          <div className="product-browser__mode-description" aria-live="polite">{renderModeDescription(mode)}</div>
+        </aside>
+      ) : <ProductDemoTabs modes={modes} selected={mode} locale={locale} panelId={panelId} onSelect={chooseMode} />)}
       <div className="product-browser__frame" id={panelId} role={modes.length > 1 ? 'tabpanel' : 'group'} aria-labelledby={modes.length > 1 ? `${panelId}-${mode}` : undefined} aria-label={modes.length === 1 ? demo.label[locale] : undefined}>
         <div className="product-browser__chrome"><span className="product-browser__dots" aria-hidden="true"><i /><i /><i /></span><span dir="ltr">BetterCalc / Apartment A</span><span className="product-browser__demo-label">{he ? 'הדגמת מוצר' : 'Product demonstration'}</span></div>
         {deviceFrame ? <DeviceFrame kind={deviceFrame} compactFallback>{screen}</DeviceFrame> : screen}
@@ -86,7 +93,7 @@ export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes
         </div>
       </div>
       {!omitExplanationFor.includes(mode) && <div className="product-browser__explanation">
-        <p>{demo.description[locale]}</p>
+        {!renderModeDescription && <p>{demo.description[locale]}</p>}
         {demo.adjustment && <button className="product-browser__adjust" type="button" aria-pressed={phase === 3} onClick={() => choosePhase(phase === 3 ? 2 : 3)}>{demo.adjustment[locale]}</button>}
         <p className="product-browser__result" role="status" aria-live="polite">{phase >= 2 ? demo.result[locale] : demo.steps[locale][phase]}</p>
         {failed && <p role="alert">{he ? 'לא ניתן להציג חלק מצילומי ההדגמה.' : 'Some demonstration images could not be displayed.'}</p>}
