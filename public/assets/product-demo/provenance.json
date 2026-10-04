@@ -1,0 +1,28 @@
+{
+  "source": "BetterCalc repository demo apartment PDF; freshly captured actual Hebrew UI",
+  "plan": "demo/assets/BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+  "desktopViewport": {
+    "width": 1440,
+    "height": 960
+  },
+  "captureMethod": "Isolated Playwright contexts; actual product store, mutations, renderer and adaptive UI. No customer data.",
+  "newDemo": {
+    "areaM2": 12.65,
+    "perimeterM": 14.32,
+    "openingM2": 1.89,
+    "claddingNetM2": 32.47,
+    "concreteVolumeM3": 2.53,
+    "stirrupCount": 17,
+    "stirrupTotalLengthM": 27.2,
+    "stirrupWeightKg": 10.7
+  },
+  "legacyReport": "49.46 m² belongs to the separate existing export/demo dataset, not this freshly seeded interactive state.",
+  "tablet": {
+    "width": 1024,
+    "height": 768
+  },
+  "phone": {
+    "width": 390,
+    "height": 844
+  }
+}

@@ -1,0 +1,1063 @@
+{
+  "productUrl": "http://127.0.0.1:5193",
+  "plan": "demo/assets/BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+  "viewport": {
+    "width": 1440,
+    "height": 960
+  },
+  "states": {
+    "finishes-0": {
+      "canvas": {
+        "x": 380,
+        "y": 138.0856475830078,
+        "width": 983.99658203125,
+        "height": 695.8164520263672
+      },
+      "viewer": {
+        "x": 360,
+        "y": 46,
+        "width": 1024,
+        "height": 880
+      },
+      "text": "+ סימון חדר\nתבנית לחדר חדש\nללא תבנית\nחדר רחצה\nשירותים\nחדר שירות\nמטבח\nמרפסת\nממ\"ד\nסלון\nחדר שינה\nפרוזדור\nמחסן\nעובד בדירה\nללא שיוך\n+ דירה חדשה…\nאזורים שסומנו (0)\n\nעדיין לא סומנו חדרים. בחר \"סימון חדר\" וסמן את קווי המתאר על גבי התוכנית.",
+      "plan": {
+        "id": "marketing-demo-plan",
+        "projectId": "marketing-demo",
+        "name": "Apartment A · Demo",
+        "createdAt": 1791121163646,
+        "updatedAt": 1791121163646,
+        "pdfFileName": "BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+        "pages": {
+          "1": {
+            "pageNumber": 1,
+            "calibration": {
+              "pixelDistance": 320,
+              "realDistanceMeters": 5,
+              "metersPerPixel": 0.015625
+            }
+          }
+        },
+        "rooms": [],
+        "measurements": [],
+        "markups": [],
+        "defaultCladdingHeightM": 2,
+        "defaultPanelHeightM": 0.1,
+        "defaultTilingWastePercent": 0,
+        "defaultTilingAsWastePercent": 0,
+        "defaultCladdingWastePercent": 0,
+        "defaultPanelsWastePercent": 0,
+        "areaKindColors": {
+          "demolition": "#eab308",
+          "construction": "#16a34a"
+        },
+        "wallHeightDefaultM": 2.5,
+        "concreteElements": [],
+        "rebarItems": []
+      }
+    },
+    "finishes-1": {
+      "canvas": {
+        "x": 380,
+        "y": 138.0856475830078,
+        "width": 983.99658203125,
+        "height": 695.8164520263672
+      },
+      "viewer": {
+        "x": 360,
+        "y": 46,
+        "width": 1024,
+        "height": 880
+      },
+      "text": "חזרה לחדרים\nחדר הורים\nדירה A\nשטח\n12.65 מ\"ר\nהיקף\n14.32 מ'\nשם חדר\nדירה\nתבנית / סוג חדר\nללא סיווג / מותאם אישית\nחדר רחצה\nשירותים\nחדר שירות\nמטבח\nמרפסת\nממ\"ד\nסלון\nחדר שינה\nפרוזדור\nמחסן\nהערות\nפתחים\nדלת\nחלון\nפתח אחר\nסוגי עבודה\nריצוף\nחיפוי קירות\nפנלים\nצבע\nטיח\nאיטום\n\nהוסף סוג עבודה - ריצוף, חיפוי, פנלים, צבע, טיח או איטום - כדי לחשב את כמויות החדר.",
+      "plan": {
+        "id": "marketing-demo-plan",
+        "projectId": "marketing-demo",
+        "name": "Apartment A · Demo",
+        "createdAt": 1791121163646,
+        "updatedAt": 1791121163646,
+        "pdfFileName": "BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+        "pages": {
+          "1": {
+            "pageNumber": 1,
+            "calibration": {
+              "pixelDistance": 320,
+              "realDistanceMeters": 5,
+              "metersPerPixel": 0.015625
+            }
+          }
+        },
+        "rooms": [
+          {
+            "id": "r-master",
+            "pageNumber": 1,
+            "points": [
+              {
+                "x": 135,
+                "y": 147.84980000000007
+              },
+              {
+                "x": 389.68,
+                "y": 147.84980000000007
+              },
+              {
+                "x": 389.68,
+                "y": 351.36980000000005
+              },
+              {
+                "x": 135,
+                "y": 351.36980000000005
+              }
+            ],
+            "closed": true,
+            "name": "חדר הורים",
+            "apartmentNumber": "A",
+            "notes": "",
+            "workItems": [],
+            "openings": [],
+            "color": "#2563eb",
+            "roomType": "bedroom"
+          }
+        ],
+        "measurements": [],
+        "markups": [],
+        "defaultCladdingHeightM": 2,
+        "defaultPanelHeightM": 0.1,
+        "defaultTilingWastePercent": 0,
+        "defaultTilingAsWastePercent": 0,
+        "defaultCladdingWastePercent": 0,
+        "defaultPanelsWastePercent": 0,
+        "areaKindColors": {
+          "demolition": "#eab308",
+          "construction": "#16a34a"
+        },
+        "wallHeightDefaultM": 2.5,
+        "concreteElements": [],
+        "rebarItems": []
+      }
+    },
+    "finishes-2": {
+      "canvas": {
+        "x": 380,
+        "y": 138.0856475830078,
+        "width": 983.99658203125,
+        "height": 695.8164520263672
+      },
+      "viewer": {
+        "x": 360,
+        "y": 46,
+        "width": 1024,
+        "height": 880
+      },
+      "text": "חזרה לחדרים\nחדר הורים\nדירה A\nשטח\n12.65 מ\"ר\nהיקף\n14.32 מ'\nשם חדר\nדירה\nתבנית / סוג חדר\nללא סיווג / מותאם אישית\nחדר רחצה\nשירותים\nחדר שירות\nמטבח\nמרפסת\nממ\"ד\nסלון\nחדר שינה\nפרוזדור\nמחסן\nהחל את סוגי העבודה של התבנית\nהערות\nפתחים (1.89 מ\"ר)\nדלת\nחלון\nפתח אחר\nדלת\nחלון\nפתח אחר\nרוחב\nגובה\nכמות\n1.89 מ\"ר\nסוגי עבודה\nריצוף\nחיפוי קירות\nפנלים\nצבע\nטיח\nאיטום\nריצוף\nכמות\n12.65 מ\"ר\nלהזמנה\n12.65 מ\"ר\nסוג ריצוף\nריצוף רגיל\nריצוף AS\nפחת %\nחיפוי קירות\nכמות נטו\n32.47 מ\"ר\nלהזמנה\n32.47 מ\"ר\n\nברוטו 34.36 − פתחים 1.89 = נטו 32.47 מ\"ר\n\nגובה חיפוי (מ')\nהפחת פתחים\nפחת %",
+      "plan": {
+        "id": "marketing-demo-plan",
+        "projectId": "marketing-demo",
+        "name": "Apartment A · Demo",
+        "createdAt": 1791121163646,
+        "updatedAt": 1791121163646,
+        "pdfFileName": "BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+        "pages": {
+          "1": {
+            "pageNumber": 1,
+            "calibration": {
+              "pixelDistance": 320,
+              "realDistanceMeters": 5,
+              "metersPerPixel": 0.015625
+            }
+          }
+        },
+        "rooms": [
+          {
+            "id": "r-master",
+            "pageNumber": 1,
+            "points": [
+              {
+                "x": 135,
+                "y": 147.84980000000007
+              },
+              {
+                "x": 389.68,
+                "y": 147.84980000000007
+              },
+              {
+                "x": 389.68,
+                "y": 351.36980000000005
+              },
+              {
+                "x": 135,
+                "y": 351.36980000000005
+              }
+            ],
+            "closed": true,
+            "name": "חדר הורים",
+            "apartmentNumber": "A",
+            "notes": "",
+            "workItems": [
+              {
+                "id": "demo-floor",
+                "type": "tiling",
+                "tilingCategory": "regular",
+                "wastePercent": 0
+              },
+              {
+                "id": "demo-clad",
+                "type": "cladding",
+                "heightM": 2.4,
+                "wastePercent": 0
+              }
+            ],
+            "openings": [
+              {
+                "id": "demo-door",
+                "type": "door",
+                "widthM": 0.9,
+                "heightM": 2.1,
+                "quantity": 1
+              }
+            ],
+            "color": "#2563eb",
+            "roomType": "bedroom"
+          }
+        ],
+        "measurements": [],
+        "markups": [],
+        "defaultCladdingHeightM": 2,
+        "defaultPanelHeightM": 0.1,
+        "defaultTilingWastePercent": 0,
+        "defaultTilingAsWastePercent": 0,
+        "defaultCladdingWastePercent": 0,
+        "defaultPanelsWastePercent": 0,
+        "areaKindColors": {
+          "demolition": "#eab308",
+          "construction": "#16a34a"
+        },
+        "wallHeightDefaultM": 2.5,
+        "concreteElements": [],
+        "rebarItems": []
+      }
+    },
+    "concrete-0": {
+      "canvas": {
+        "x": 380,
+        "y": 138.0856475830078,
+        "width": 983.99658203125,
+        "height": 695.8164520263672
+      },
+      "viewer": {
+        "x": 360,
+        "y": 46,
+        "width": 1024,
+        "height": 880
+      },
+      "text": "תקרה\nקיר\nקורה\nעמוד\n+ סימון אזור בטון\nאזורי בטון (0)\n\nעדיין לא סומנו אזורי בטון. בחרו סוג אלמנט וסמנו את קווי המתאר על התוכנית.",
+      "plan": {
+        "id": "marketing-demo-plan",
+        "projectId": "marketing-demo",
+        "name": "Apartment A · Demo",
+        "createdAt": 1791121163646,
+        "updatedAt": 1791121163646,
+        "pdfFileName": "BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+        "pages": {
+          "1": {
+            "pageNumber": 1,
+            "calibration": {
+              "pixelDistance": 320,
+              "realDistanceMeters": 5,
+              "metersPerPixel": 0.015625
+            }
+          }
+        },
+        "rooms": [],
+        "measurements": [],
+        "markups": [],
+        "defaultCladdingHeightM": 2,
+        "defaultPanelHeightM": 0.1,
+        "defaultTilingWastePercent": 0,
+        "defaultTilingAsWastePercent": 0,
+        "defaultCladdingWastePercent": 0,
+        "defaultPanelsWastePercent": 0,
+        "areaKindColors": {
+          "demolition": "#eab308",
+          "construction": "#16a34a"
+        },
+        "wallHeightDefaultM": 2.5,
+        "concreteElements": [],
+        "rebarItems": []
+      }
+    },
+    "concrete-1": {
+      "canvas": {
+        "x": 380,
+        "y": 138.0856475830078,
+        "width": 983.99658203125,
+        "height": 695.8164520263672
+      },
+      "viewer": {
+        "x": 360,
+        "y": 46,
+        "width": 1024,
+        "height": 880
+      },
+      "text": "חזרה לאזורי הבטון\nתקרה · דמו\nתקרה\nתקרה\nקיר\nקורה\nעמוד\nהזינו עובי כדי לחשב נפח.\nשטח בסיס\n12.65 מ\"ר\nנפח נטו\nלא ניתן לחישוב\nלהזמנה (כולל פחת)\nלא ניתן לחישוב\nסימון\nדרגת בטון\nעובי (ס\"מ)\nפחת (%)\nהזנת מידות ידנית",
+      "plan": {
+        "id": "marketing-demo-plan",
+        "projectId": "marketing-demo",
+        "name": "Apartment A · Demo",
+        "createdAt": 1791121163646,
+        "updatedAt": 1791121163646,
+        "pdfFileName": "BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+        "pages": {
+          "1": {
+            "pageNumber": 1,
+            "calibration": {
+              "pixelDistance": 320,
+              "realDistanceMeters": 5,
+              "metersPerPixel": 0.015625
+            }
+          }
+        },
+        "rooms": [],
+        "measurements": [],
+        "markups": [],
+        "defaultCladdingHeightM": 2,
+        "defaultPanelHeightM": 0.1,
+        "defaultTilingWastePercent": 0,
+        "defaultTilingAsWastePercent": 0,
+        "defaultCladdingWastePercent": 0,
+        "defaultPanelsWastePercent": 0,
+        "areaKindColors": {
+          "demolition": "#eab308",
+          "construction": "#16a34a"
+        },
+        "wallHeightDefaultM": 2.5,
+        "concreteElements": [
+          {
+            "id": "demo-concrete",
+            "pageNumber": 1,
+            "kind": "slab",
+            "points": [
+              {
+                "x": 135,
+                "y": 147.84980000000007
+              },
+              {
+                "x": 389.68,
+                "y": 147.84980000000007
+              },
+              {
+                "x": 389.68,
+                "y": 351.36980000000005
+              },
+              {
+                "x": 135,
+                "y": 351.36980000000005
+              }
+            ],
+            "mark": "תקרה · דמו",
+            "autoNumber": 1,
+            "wastePercent": 0,
+            "markManual": true
+          }
+        ],
+        "rebarItems": []
+      }
+    },
+    "concrete-2": {
+      "canvas": {
+        "x": 380,
+        "y": 138.0856475830078,
+        "width": 983.99658203125,
+        "height": 695.8164520263672
+      },
+      "viewer": {
+        "x": 360,
+        "y": 46,
+        "width": 1024,
+        "height": 880
+      },
+      "text": "חזרה לאזורי הבטון\nתקרה · דמו\nתקרה\nתקרה\nקיר\nקורה\nעמוד\nשטח בסיס\n12.65 מ\"ר\nנפח נטו\n2.53 מ\"ק\nלהזמנה (כולל פחת)\n2.53 מ\"ק\nסימון\nדרגת בטון\nעובי (ס\"מ)\nפחת (%)\nהזנת מידות ידנית",
+      "plan": {
+        "id": "marketing-demo-plan",
+        "projectId": "marketing-demo",
+        "name": "Apartment A · Demo",
+        "createdAt": 1791121163646,
+        "updatedAt": 1791121163646,
+        "pdfFileName": "BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+        "pages": {
+          "1": {
+            "pageNumber": 1,
+            "calibration": {
+              "pixelDistance": 320,
+              "realDistanceMeters": 5,
+              "metersPerPixel": 0.015625
+            }
+          }
+        },
+        "rooms": [],
+        "measurements": [],
+        "markups": [],
+        "defaultCladdingHeightM": 2,
+        "defaultPanelHeightM": 0.1,
+        "defaultTilingWastePercent": 0,
+        "defaultTilingAsWastePercent": 0,
+        "defaultCladdingWastePercent": 0,
+        "defaultPanelsWastePercent": 0,
+        "areaKindColors": {
+          "demolition": "#eab308",
+          "construction": "#16a34a"
+        },
+        "wallHeightDefaultM": 2.5,
+        "concreteElements": [
+          {
+            "id": "demo-concrete",
+            "pageNumber": 1,
+            "kind": "slab",
+            "points": [
+              {
+                "x": 135,
+                "y": 147.84980000000007
+              },
+              {
+                "x": 389.68,
+                "y": 147.84980000000007
+              },
+              {
+                "x": 389.68,
+                "y": 351.36980000000005
+              },
+              {
+                "x": 135,
+                "y": 351.36980000000005
+              }
+            ],
+            "mark": "תקרה · דמו",
+            "autoNumber": 1,
+            "wastePercent": 0,
+            "markManual": true,
+            "depthM": 0.2,
+            "grade": "B30"
+          }
+        ],
+        "rebarItems": []
+      }
+    },
+    "mesh-0": {
+      "canvas": {
+        "x": 380,
+        "y": 138.0856475830078,
+        "width": 983.99658203125,
+        "height": 695.8164520263672
+      },
+      "viewer": {
+        "x": 360,
+        "y": 46,
+        "width": 1024,
+        "height": 880
+      },
+      "text": "+ סימון אזור רשת\nמוטות ידניים\nהוסף חישוק\nפריטי זיון (0)\n\nעדיין אין פריטי זיון. סמנו אזור רשת על התוכנית, השתמשו באזור קיים או הוסיפו מוטות ידניים.",
+      "plan": {
+        "id": "marketing-demo-plan",
+        "projectId": "marketing-demo",
+        "name": "Apartment A · Demo",
+        "createdAt": 1791121163646,
+        "updatedAt": 1791121163646,
+        "pdfFileName": "BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+        "pages": {
+          "1": {
+            "pageNumber": 1,
+            "calibration": {
+              "pixelDistance": 320,
+              "realDistanceMeters": 5,
+              "metersPerPixel": 0.015625
+            }
+          }
+        },
+        "rooms": [],
+        "measurements": [],
+        "markups": [],
+        "defaultCladdingHeightM": 2,
+        "defaultPanelHeightM": 0.1,
+        "defaultTilingWastePercent": 0,
+        "defaultTilingAsWastePercent": 0,
+        "defaultCladdingWastePercent": 0,
+        "defaultPanelsWastePercent": 0,
+        "areaKindColors": {
+          "demolition": "#eab308",
+          "construction": "#16a34a"
+        },
+        "wallHeightDefaultM": 2.5,
+        "concreteElements": [],
+        "rebarItems": []
+      }
+    },
+    "mesh-1": {
+      "canvas": {
+        "x": 380,
+        "y": 138.0856475830078,
+        "width": 983.99658203125,
+        "height": 695.8164520263672
+      },
+      "viewer": {
+        "x": 360,
+        "y": 46,
+        "width": 1024,
+        "height": 880
+      },
+      "text": "חזרה לפריטי הזיון\nרשת · דמו\nאזור רשת\nמלאו קוטר ומרווח בכל מפלס זיון שנבחר.\nיריעות רשת\nאורך יריעה (מ')\nרוחב יריעה (מ')\nחפיפה (ס\"מ)\nיריעות נדרשות: 3\nמשקל נדרש\nלא ניתן לחישוב\nמשקל לרכישה\n-\nהצג פריסת רשתות\n\nשינוי אורך או רוחב הרשת מאפס פריסות ידניות. שינוי חפיפה שומר אותן.\n\nסימון\nפחת (%)\nמפלס זיון\nתחתון\nעליון\nעליון + תחתון\nזיון תחתון\nזהה בשני הכיוונים\nכל כיוון בנפרד\nקוטר (מ\"מ)\nבחרו\nØ6\nØ8\nØ10\nØ12\nØ14\nØ16\nØ18\nØ20\nØ22\nØ25\nØ28\nØ32\nØ40\nמרווח (ס\"מ)\n\nקוטר ומרווח אחד, שחלים על שני כיווני האזור.\n\nהזנת מידות ידנית",
+      "plan": {
+        "id": "marketing-demo-plan",
+        "projectId": "marketing-demo",
+        "name": "Apartment A · Demo",
+        "createdAt": 1791121163646,
+        "updatedAt": 1791121163646,
+        "pdfFileName": "BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+        "pages": {
+          "1": {
+            "pageNumber": 1,
+            "calibration": {
+              "pixelDistance": 320,
+              "realDistanceMeters": 5,
+              "metersPerPixel": 0.015625
+            }
+          }
+        },
+        "rooms": [],
+        "measurements": [],
+        "markups": [],
+        "defaultCladdingHeightM": 2,
+        "defaultPanelHeightM": 0.1,
+        "defaultTilingWastePercent": 0,
+        "defaultTilingAsWastePercent": 0,
+        "defaultCladdingWastePercent": 0,
+        "defaultPanelsWastePercent": 0,
+        "areaKindColors": {
+          "demolition": "#eab308",
+          "construction": "#16a34a"
+        },
+        "wallHeightDefaultM": 2.5,
+        "concreteElements": [],
+        "rebarItems": [
+          {
+            "id": "demo-mesh",
+            "kind": "mesh",
+            "pageNumber": 1,
+            "points": [
+              {
+                "x": 658.72,
+                "y": 310.4098
+              },
+              {
+                "x": 949.04,
+                "y": 310.4098
+              },
+              {
+                "x": 949.04,
+                "y": 641.9298
+              },
+              {
+                "x": 658.72,
+                "y": 641.9298
+              }
+            ],
+            "mark": "רשת · דמו",
+            "autoNumber": 1,
+            "bottom": {
+              "mode": "uniform",
+              "spec": {
+                "diameterMm": 0,
+                "spacingM": 0
+              }
+            },
+            "wastePercent": 0,
+            "markManual": true
+          }
+        ]
+      }
+    },
+    "mesh-2": {
+      "canvas": {
+        "x": 380,
+        "y": 138.0856475830078,
+        "width": 983.99658203125,
+        "height": 695.8164520263672
+      },
+      "viewer": {
+        "x": 360,
+        "y": 46,
+        "width": 1024,
+        "height": 880
+      },
+      "text": "חזרה לפריטי הזיון\nרשת · דמו\nאזור רשת\nיריעות רשת\nאורך יריעה (מ')\nרוחב יריעה (מ')\nחפיפה (ס\"מ)\n\nתחתון: 6 רשתות\n\nעליון: 6 רשתות\n\nסה\"כ: 12 רשתות\nמשקל נדרש\n194.8 ק\"ג\nמשקל לרכישה\n307.8 ק\"ג\nהצג פריסת רשתות\nתחתון\nעליון\nעריכת פריסה\n\nשינוי אורך או רוחב הרשת מאפס פריסות ידניות. שינוי חפיפה שומר אותן.\n\nסימון\nפחת (%)\nמפלס זיון\nתחתון\nעליון\nעליון + תחתון\nזיון תחתון\nזהה בשני הכיוונים\nכל כיוון בנפרד\nקוטר (מ\"מ)\nבחרו\nØ6\nØ8\nØ10\nØ12\nØ14\nØ16\nØ18\nØ20\nØ22\nØ25\nØ28\nØ32\nØ40\nמרווח (ס\"מ)\n\nקוטר ומרווח אחד, שחלים על שני כיווני האזור.\n\nזיון עליון\nהעתק מתחתון לעליון\nזהה בשני הכיוונים\nכל כיוון בנפרד\nקוטר (מ\"מ)\nבחרו\nØ6\nØ8\nØ10\nØ12\nØ14\nØ16\nØ18\nØ20\nØ22\nØ25\nØ28\nØ32\nØ40\nמרווח (ס\"מ)\n\nקוטר ומרווח אחד, שחלים על שני כיווני האזור.\n\nהזנת מידות ידנית",
+      "plan": {
+        "id": "marketing-demo-plan",
+        "projectId": "marketing-demo",
+        "name": "Apartment A · Demo",
+        "createdAt": 1791121163646,
+        "updatedAt": 1791121163646,
+        "pdfFileName": "BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+        "pages": {
+          "1": {
+            "pageNumber": 1,
+            "calibration": {
+              "pixelDistance": 320,
+              "realDistanceMeters": 5,
+              "metersPerPixel": 0.015625
+            }
+          }
+        },
+        "rooms": [],
+        "measurements": [],
+        "markups": [],
+        "defaultCladdingHeightM": 2,
+        "defaultPanelHeightM": 0.1,
+        "defaultTilingWastePercent": 0,
+        "defaultTilingAsWastePercent": 0,
+        "defaultCladdingWastePercent": 0,
+        "defaultPanelsWastePercent": 0,
+        "areaKindColors": {
+          "demolition": "#eab308",
+          "construction": "#16a34a"
+        },
+        "wallHeightDefaultM": 2.5,
+        "concreteElements": [],
+        "rebarItems": [
+          {
+            "id": "demo-mesh",
+            "kind": "mesh",
+            "pageNumber": 1,
+            "points": [
+              {
+                "x": 658.72,
+                "y": 310.4098
+              },
+              {
+                "x": 949.04,
+                "y": 310.4098
+              },
+              {
+                "x": 949.04,
+                "y": 641.9298
+              },
+              {
+                "x": 658.72,
+                "y": 641.9298
+              }
+            ],
+            "mark": "רשת · דמו",
+            "autoNumber": 1,
+            "bottom": {
+              "mode": "uniform",
+              "spec": {
+                "diameterMm": 8,
+                "spacingM": 0.2
+              }
+            },
+            "wastePercent": 0,
+            "markManual": true,
+            "top": {
+              "mode": "uniform",
+              "spec": {
+                "diameterMm": 8,
+                "spacingM": 0.2
+              }
+            },
+            "sheets": {
+              "lengthM": 3,
+              "widthM": 2,
+              "overlapM": 0.25
+            }
+          }
+        ]
+      }
+    },
+    "mesh-3": {
+      "canvas": {
+        "x": 380,
+        "y": 138.0856475830078,
+        "width": 983.99658203125,
+        "height": 695.8164520263672
+      },
+      "viewer": {
+        "x": 360,
+        "y": 46,
+        "width": 1024,
+        "height": 880
+      },
+      "text": "חזרה לפריטי הזיון\nרשת · דמו\nאזור רשת\nיריעות רשת\nאורך יריעה (מ')\nרוחב יריעה (מ')\nחפיפה (ס\"מ)\n\nתחתון: 6 רשתות\n\nעליון: 6 רשתות\n\nסה\"כ: 12 רשתות\nמשקל נדרש\n194.8 ק\"ג\nמשקל לרכישה\n307.8 ק\"ג\nהצג פריסת רשתות\nתחתון\nעליון\nעריכת פריסה\n\nפריסה ידנית · 6 רשתות\n\nהכמות מבוססת על הפריסה הידנית. כיסוי האזור אינו נבדק אוטומטית.\n\nשינוי אורך או רוחב הרשת מאפס פריסות ידניות. שינוי חפיפה שומר אותן.\n\nסימון\nפחת (%)\nמפלס זיון\nתחתון\nעליון\nעליון + תחתון\nזיון תחתון\nזהה בשני הכיוונים\nכל כיוון בנפרד\nקוטר (מ\"מ)\nבחרו\nØ6\nØ8\nØ10\nØ12\nØ14\nØ16\nØ18\nØ20\nØ22\nØ25\nØ28\nØ32\nØ40\nמרווח (ס\"מ)\n\nקוטר ומרווח אחד, שחלים על שני כיווני האזור.\n\nזיון עליון\nהעתק מתחתון לעליון\nזהה בשני הכיוונים\nכל כיוון בנפרד\nקוטר (מ\"מ)\nבחרו\nØ6\nØ8\nØ10\nØ12\nØ14\nØ16\nØ18\nØ20\nØ22\nØ25\nØ28\nØ32\nØ40\nמרווח (ס\"מ)\n\nקוטר ומרווח אחד, שחלים על שני כיווני האזור.\n\nהזנת מידות ידנית",
+      "plan": {
+        "id": "marketing-demo-plan",
+        "projectId": "marketing-demo",
+        "name": "Apartment A · Demo",
+        "createdAt": 1791121163646,
+        "updatedAt": 1791121173783,
+        "pdfFileName": "BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+        "pages": {
+          "1": {
+            "pageNumber": 1,
+            "calibration": {
+              "pixelDistance": 320,
+              "realDistanceMeters": 5,
+              "metersPerPixel": 0.015625
+            }
+          }
+        },
+        "rooms": [],
+        "measurements": [],
+        "markups": [],
+        "defaultCladdingHeightM": 2,
+        "defaultPanelHeightM": 0.1,
+        "defaultTilingWastePercent": 0,
+        "defaultTilingAsWastePercent": 0,
+        "defaultCladdingWastePercent": 0,
+        "defaultPanelsWastePercent": 0,
+        "areaKindColors": {
+          "demolition": "#eab308",
+          "construction": "#16a34a"
+        },
+        "wallHeightDefaultM": 2.5,
+        "concreteElements": [],
+        "rebarItems": [
+          {
+            "id": "demo-mesh",
+            "kind": "mesh",
+            "pageNumber": 1,
+            "points": [
+              {
+                "x": 658.72,
+                "y": 310.4098
+              },
+              {
+                "x": 949.04,
+                "y": 310.4098
+              },
+              {
+                "x": 949.04,
+                "y": 641.9298
+              },
+              {
+                "x": 658.72,
+                "y": 641.9298
+              }
+            ],
+            "mark": "רשת · דמו",
+            "autoNumber": 1,
+            "bottom": {
+              "mode": "uniform",
+              "spec": {
+                "diameterMm": 8,
+                "spacingM": 0.2
+              }
+            },
+            "wastePercent": 0,
+            "markManual": true,
+            "top": {
+              "mode": "uniform",
+              "spec": {
+                "diameterMm": 8,
+                "spacingM": 0.2
+              }
+            },
+            "sheets": {
+              "lengthM": 3,
+              "widthM": 2,
+              "overlapM": 0.25
+            },
+            "manualLayouts": {
+              "bottom": {
+                "lengthM": 3,
+                "widthM": 2,
+                "sheets": [
+                  {
+                    "id": "[\"demo-mesh\",\"bottom\",0,0]",
+                    "x": 0.25,
+                    "y": 0,
+                    "rotation": 0
+                  },
+                  {
+                    "id": "[\"demo-mesh\",\"bottom\",0,1]",
+                    "x": 2.75,
+                    "y": 0,
+                    "rotation": 0
+                  },
+                  {
+                    "id": "[\"demo-mesh\",\"bottom\",1,0]",
+                    "x": 0,
+                    "y": 1.75,
+                    "rotation": 0
+                  },
+                  {
+                    "id": "[\"demo-mesh\",\"bottom\",1,1]",
+                    "x": 2.75,
+                    "y": 1.75,
+                    "rotation": 0
+                  },
+                  {
+                    "id": "[\"demo-mesh\",\"bottom\",2,0]",
+                    "x": 0,
+                    "y": 3.5,
+                    "rotation": 0
+                  },
+                  {
+                    "id": "[\"demo-mesh\",\"bottom\",2,1]",
+                    "x": 2.75,
+                    "y": 3.5,
+                    "rotation": 0
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "stirrups-0": {
+      "canvas": {
+        "x": 380,
+        "y": 138.0856475830078,
+        "width": 983.99658203125,
+        "height": 695.8164520263672
+      },
+      "viewer": {
+        "x": 360,
+        "y": 46,
+        "width": 1024,
+        "height": 880
+      },
+      "text": "+ סימון אזור רשת\nמוטות ידניים\nהוסף חישוק\nפריטי זיון (0)\n\nעדיין אין פריטי זיון. סמנו אזור רשת על התוכנית, השתמשו באזור קיים או הוסיפו מוטות ידניים.",
+      "plan": {
+        "id": "marketing-demo-plan",
+        "projectId": "marketing-demo",
+        "name": "Apartment A · Demo",
+        "createdAt": 1791121163646,
+        "updatedAt": 1791121163646,
+        "pdfFileName": "BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+        "pages": {
+          "1": {
+            "pageNumber": 1,
+            "calibration": {
+              "pixelDistance": 320,
+              "realDistanceMeters": 5,
+              "metersPerPixel": 0.015625
+            }
+          }
+        },
+        "rooms": [],
+        "measurements": [],
+        "markups": [],
+        "defaultCladdingHeightM": 2,
+        "defaultPanelHeightM": 0.1,
+        "defaultTilingWastePercent": 0,
+        "defaultTilingAsWastePercent": 0,
+        "defaultCladdingWastePercent": 0,
+        "defaultPanelsWastePercent": 0,
+        "areaKindColors": {
+          "demolition": "#eab308",
+          "construction": "#16a34a"
+        },
+        "wallHeightDefaultM": 2.5,
+        "concreteElements": [],
+        "rebarItems": []
+      }
+    },
+    "stirrups-1": {
+      "canvas": {
+        "x": 380,
+        "y": 138.0856475830078,
+        "width": 983.99658203125,
+        "height": 695.8164520263672
+      },
+      "viewer": {
+        "x": 360,
+        "y": 46,
+        "width": 1024,
+        "height": 880
+      },
+      "text": "חזרה לפריטי הזיון\nחישוק · דמו\nחישוק\nסימון\nקוטר (מ\"מ)\nבחרו\nØ6\nØ8\nØ10\nØ12\nØ14\nØ16\nØ18\nØ20\nØ22\nØ25\nØ28\nØ32\nØ40\nפחת (%)\nצורה\nמלבן סגור\nצורת U\nצורת L\nצורה מותאמת\n50\n30\n50\n30\nרוחב (ס\"מ)\nגובה (ס\"מ)\n\nאורך גאומטרי: 1.6 מ'\n\nאורך ידני לחישוב\n\nאורך בשימוש: 1.6 מ'\n\nמקטעים גאומטריים בלבד; ללא תוספת כיפוף או ווים אוטומטיים.\n\nפריסות\nגיליון\nגיליון 1\nהוסף פריסה · קוהוסף פריסה · שטח\n\nכמות: -\n\nאורך כולל\nלא ניתן לחישוב\nמשקל כולל\nלא ניתן לחישוב\nלהזמנה (כולל פחת)\nלא ניתן לחישוב\n\nהוסף פריסת קו או שטח לחישוב הכמות.",
+      "plan": {
+        "id": "marketing-demo-plan",
+        "projectId": "marketing-demo",
+        "name": "Apartment A · Demo",
+        "createdAt": 1791121163646,
+        "updatedAt": 1791121163646,
+        "pdfFileName": "BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+        "pages": {
+          "1": {
+            "pageNumber": 1,
+            "calibration": {
+              "pixelDistance": 320,
+              "realDistanceMeters": 5,
+              "metersPerPixel": 0.015625
+            }
+          }
+        },
+        "rooms": [],
+        "measurements": [],
+        "markups": [],
+        "defaultCladdingHeightM": 2,
+        "defaultPanelHeightM": 0.1,
+        "defaultTilingWastePercent": 0,
+        "defaultTilingAsWastePercent": 0,
+        "defaultCladdingWastePercent": 0,
+        "defaultPanelsWastePercent": 0,
+        "areaKindColors": {
+          "demolition": "#eab308",
+          "construction": "#16a34a"
+        },
+        "wallHeightDefaultM": 2.5,
+        "concreteElements": [],
+        "rebarItems": [
+          {
+            "id": "demo-stirrups",
+            "kind": "stirrup",
+            "pageNumber": 1,
+            "mark": "חישוק · דמו",
+            "autoNumber": 1,
+            "diameterMm": 8,
+            "shape": {
+              "template": "rectangle",
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 0,
+                  "y": 0.5
+                },
+                {
+                  "x": 0.3,
+                  "y": 0.5
+                },
+                {
+                  "x": 0.3,
+                  "y": 0
+                }
+              ],
+              "closed": true
+            },
+            "lengthMode": "automatic",
+            "wastePercent": 0,
+            "placements": [],
+            "markManual": true
+          }
+        ]
+      }
+    },
+    "stirrups-2": {
+      "canvas": {
+        "x": 380,
+        "y": 138.0856475830078,
+        "width": 983.99658203125,
+        "height": 695.8164520263672
+      },
+      "viewer": {
+        "x": 360,
+        "y": 46,
+        "width": 1024,
+        "height": 880
+      },
+      "text": "חזרה לפריטי הזיון\nחישוק · דמו\nחישוק\nסימון\nקוטר (מ\"מ)\nבחרו\nØ6\nØ8\nØ10\nØ12\nØ14\nØ16\nØ18\nØ20\nØ22\nØ25\nØ28\nØ32\nØ40\nפחת (%)\nצורה\nמלבן סגור\nצורת U\nצורת L\nצורה מותאמת\n50\n30\n50\n30\nרוחב (ס\"מ)\nגובה (ס\"מ)\n\nאורך גאומטרי: 1.6 מ'\n\nאורך ידני לחישוב\n\nאורך בשימוש: 1.6 מ'\n\nמקטעים גאומטריים בלבד; ללא תוספת כיפוף או ווים אוטומטיים.\n\nפריסות\nגיליון\nגיליון 1\nהוסף פריסה · קוהוסף פריסה · שטח\nקו 1 · גיליון 1\nמרווח (ס\"מ)\n\nכמות אוטומטית לפי מרווח\n\nכמות ידנית\n\n3.13 מ' · כמות: 17\n\nכמות: 17\n\nאורך כולל\n27.2 מ'\nמשקל כולל\n10.7 ק\"ג\nלהזמנה (כולל פחת)\n10.7 ק\"ג\n\nאורך להזמנה: 27.2 מ'",
+      "plan": {
+        "id": "marketing-demo-plan",
+        "projectId": "marketing-demo",
+        "name": "Apartment A · Demo",
+        "createdAt": 1791121163646,
+        "updatedAt": 1791121163646,
+        "pdfFileName": "BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
+        "pages": {
+          "1": {
+            "pageNumber": 1,
+            "calibration": {
+              "pixelDistance": 320,
+              "realDistanceMeters": 5,
+              "metersPerPixel": 0.015625
+            }
+          }
+        },
+        "rooms": [],
+        "measurements": [],
+        "markups": [],
+        "defaultCladdingHeightM": 2,
+        "defaultPanelHeightM": 0.1,
+        "defaultTilingWastePercent": 0,
+        "defaultTilingAsWastePercent": 0,
+        "defaultCladdingWastePercent": 0,
+        "defaultPanelsWastePercent": 0,
+        "areaKindColors": {
+          "demolition": "#eab308",
+          "construction": "#16a34a"
+        },
+        "wallHeightDefaultM": 2.5,
+        "concreteElements": [],
+        "rebarItems": [
+          {
+            "id": "demo-stirrups",
+            "kind": "stirrup",
+            "pageNumber": 1,
+            "mark": "חישוק · דמו",
+            "autoNumber": 1,
+            "diameterMm": 8,
+            "shape": {
+              "template": "rectangle",
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 0,
+                  "y": 0.5
+                },
+                {
+                  "x": 0.3,
+                  "y": 0.5
+                },
+                {
+                  "x": 0.3,
+                  "y": 0
+                }
+              ],
+              "closed": true
+            },
+            "lengthMode": "automatic",
+            "wastePercent": 0,
+            "placements": [
+              {
+                "id": "demo-distribution",
+                "kind": "line",
+                "pageNumber": 1,
+                "quantityMode": "automatic",
+                "start": {
+                  "x": 410,
+                  "y": 400
+                },
+                "end": {
+                  "x": 610,
+                  "y": 400
+                },
+                "spacingM": 0.2
+              }
+            ],
+            "markManual": true
+          }
+        ]
+      }
+    }
+  },
+  "tablet": {
+    "viewport": {
+      "width": 1024,
+      "height": 768
+    },
+    "touch": true,
+    "text": "Apartment A · Demo\nשפה\n▾\nגיליון 1 / 1\n▾\nתצוגה\n▾\nנשמר\nמכויל\nעיון\nפריטים\nכמויות\nעיון\nכלים\n▾\nהזזה\nעריכת גאומטריה / שינוי גודל\nחדר הורים\n⤢ איפוס תצוגה\nפריטים\nמכויל\nכייל מחדש\nתחום\nעבודות גמר\nבטון\nזיון\nמדידות\nסימונים\nחזרה לחדרים\nחדר הורים\nדירה A\nשטח\n12.65 מ\"ר\nהיקף\n14.32 מ'\nשם חדר\nדירה\nתבנית / סוג חדר\nללא סיווג / מותאם אישית\nחדר רחצה\nשירותים\nחדר שירות\nמטבח\nמרפסת\nממ\"ד\nסלון\nחדר שינה\nפרוזדור\nמחסן\nהחל את סוגי העבודה של התבנית\nהערות\nפתחים (1.89 מ\"ר)\nדלת\nחלון\nפתח אחר\nדלת\nחלון\nפתח אחר\nרוחב\nגובה\nכמות\n1.89 מ\"ר\nסוגי עבודה\nריצוף\nחיפוי קירות\nפנלים\nצבע\nטיח\nאיטום\nריצוף\nכמות\n12.65 מ\"ר\nלהזמנה\n12.65 מ\"ר\nסוג ריצוף\nריצוף רגיל\nריצוף AS\nפחת %\nחיפוי קירות\nכמות נטו\n32.47 מ\"ר\nלהזמנה\n32.47 מ\"ר\n\nברוטו 34.36 − פתחים 1.89 = נטו 32.47 מ\"ר\n\nגובה חיפוי (מ')\nהפחת פתחים\nפחת %"
+  },
+  "phone": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "touch": true,
+    "text": "Apartment A · Demo\nשפה\n▾\nגיליון 1 / 1\n▾\nתצוגה\n▾\nעיון\nכלים\n▾\nחדר הורים\n⤢ איפוס תצוגה\nפריטים\nמכויל\nתחום\nעבודות גמר\nבטון\nזיון\n\nעיון בכמויות · מדידות והערות שטח בתוכנית\n\nהיקף\nהגיליון הנוכחי\nהתוכנית הנוכחית\nכל הפרויקט\nחיפוש פריטים\nחדר הורים\nעבודות גמר\nApartment A · Demo · גיליון 1\nA · ריצוף · חיפוי קירות\n\nריצוף רגיל: 12.65 מ\"ר · להזמנה: 12.65 מ\"ר\n\nחיפוי קירות: 32.47 מ\"ר · להזמנה: 32.47 מ\"ר\n\nהצגה בתוכנית\nתוכנית\nפריטים\nכמויות"
+  }
+}
