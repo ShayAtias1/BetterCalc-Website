@@ -67,6 +67,7 @@ export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes
             </div>
             <div className="product-browser__plan">
               {[0, 1, 2, ...(demo.adjustment ? [3] : [])].map((step) => <img key={step} data-step={step} className={`product-browser__layer ${phase === step ? 'is-current' : ''}`} src={productAsset(`${demo.asset}-${step}-plan`)} alt="" aria-hidden="true" onError={() => setFailed(true)} />)}
+              <img className="product-browser__phone-focus" src={productAsset(`${demo.asset}-phone-focus`)} alt="" aria-hidden="true" />
               {demo.shape && <img className="product-browser__shape" src={productAsset(demo.shape)} alt="" aria-hidden="true" />}
             </div>
           </div>

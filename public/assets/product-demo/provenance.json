@@ -3,7 +3,7 @@
   "plan": "demo/assets/BetterCalc_Demo_Apartment_A_Floor_Plan.pdf",
   "desktopViewport": {
     "width": 1440,
-    "height": 960
+    "height": 850
   },
   "captureMethod": "Isolated Playwright contexts; actual product store, mutations, renderer and adaptive UI. No customer data.",
   "newDemo": {

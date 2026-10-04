@@ -9,11 +9,12 @@ const require = createRequire(path.join(appRoot, 'package.json'))
 const { chromium } = require('playwright')
 const { LEGACY_PLAN } = await import(path.join(appRoot, 'demo/regression/fixtures.mjs'))
 const url = 'http://127.0.0.1:5193'
+const desktopOnly = process.argv.includes('--desktop-only')
 const output = path.join(root, 'assets-source/product-demo')
 await mkdir(output, { recursive: true })
 const pdf = await readFile(path.join(appRoot, 'demo/assets/BetterCalc_Demo_Apartment_A_Floor_Plan.pdf'))
 const browser = await chromium.launch()
-const context = await browser.newContext({ viewport: { width: 1440, height: 960 }, deviceScaleFactor: 1.5 })
+const context = await browser.newContext({ viewport: { width: 1440, height: 850 }, deviceScaleFactor: 1.5 })
 const page = await context.newPage()
 await page.goto(url, { waitUntil: 'networkidle' })
 await page.evaluate(async ({ fixture, pdf }) => {
@@ -35,7 +36,7 @@ const base = await page.evaluate(async () => {
   const { useAppStore } = await import('/src/store/appStore.ts')
   return useAppStore.getState().project
 })
-const manifest = { productUrl: url, plan: 'demo/assets/BetterCalc_Demo_Apartment_A_Floor_Plan.pdf', viewport: { width: 1440, height: 960 }, states: {} }
+const manifest = { productUrl: url, plan: 'demo/assets/BetterCalc_Demo_Apartment_A_Floor_Plan.pdf', viewport: { width: 1440, height: 850 }, states: {} }
 await page.locator('.top-bar').screenshot({ path: path.join(output, 'application-header.png') })
 async function capture(mode, stage) {
   await page.waitForTimeout(500)
@@ -112,6 +113,12 @@ for (const mode of ['finishes', 'concrete', 'mesh', 'stirrups']) {
     await capture(mode, 3)
   }
 }
+// Reuse device captures when only desktop composition needs new source images.
+if (desktopOnly) {
+  const previous = JSON.parse(await readFile(path.join(output, 'capture-manifest.json'), 'utf8'))
+  manifest.tablet = previous.tablet
+  manifest.phone = previous.phone
+} else {
 // Device images are the actual adaptive UI, in fresh touch contexts, never desktop crops.
 await show('finishes', 2)
 const devicePlan = await page.evaluate(async () => { const { useAppStore } = await import('/src/store/appStore.ts'); return useAppStore.getState().project })
@@ -151,6 +158,7 @@ for (const [device, width, height] of [['tablet', 1024, 768], ['phone', 390, 844
   manifest[device] = { viewport: { width, height }, touch: true, text: await devicePage.locator('body').innerText() }
   console.log('Captured device', device)
   await deviceContext.close()
+}
 }
 await writeFile(path.join(output, 'capture-manifest.json'), JSON.stringify(manifest, null, 2))
 await browser.close()
