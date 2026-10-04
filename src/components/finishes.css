@@ -80,6 +80,16 @@
   .finishes__eyebrow { margin-block-end: 16px; }
   .finishes__title { font-size: clamp(2.5rem, 10.5vw, 3.75rem); }
   .finishes__lead { margin-block-start: 20px; padding: 0; }
+  /* Keep this editorial stage's real workspace at narrow preview widths.
+     The shared phone fallback otherwise replaces it with a capped legacy crop. */
+  .finishes .product-browser__app-header,
+  .finishes .product-browser__inspector,
+  .finishes .product-browser__plan .product-browser__layer { display: block; }
+  .finishes .product-browser__body {
+    display: grid;
+    aspect-ratio: 1384 / 770;
+  }
+  .finishes .product-browser__phone-focus { display: none; }
   .finishes .product-browser__explanation { display: block; padding: 0; }
   .finishes .product-browser__explanation p { margin-block-end: 12px; }
 }
