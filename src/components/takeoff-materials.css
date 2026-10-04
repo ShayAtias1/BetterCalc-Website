@@ -1,7 +1,7 @@
 /* Compact material selection belongs to Takeoff; no second scroll story or phase index. */
 .takeoff-materials { padding: 32px var(--gutter) 24px; border-block-start: 1px solid var(--rule); }
 .takeoff-materials__head { max-width: 1240px; margin: 0 auto 24px; }
-.takeoff-materials h2 { margin: 0 0 20px; color: var(--ink); font-size: clamp(1.6rem, 3vw, 2.5rem); line-height: 1.15; }
+.takeoff-materials h2 { margin: 0 0 20px; color: var(--ink); font-size: clamp(4rem, 6vw, 5.5rem); font-weight: 760; line-height: .95; letter-spacing: -.025em; }
 .takeoff-materials h2 span { display: block; }
 .takeoff-materials__accent { color: var(--blue); }
 .takeoff-materials__modes { display: flex; flex-wrap: wrap; border-block: 1px solid var(--rule); }
@@ -9,9 +9,23 @@
 .takeoff-materials__modes button[aria-pressed='true'] { color: var(--blue); box-shadow: inset 0 -2px var(--blue); }
 .takeoff-materials__head p { max-width: 48em; margin: 16px 0 0; line-height: 1.6; }
 .takeoff-materials__adjust { margin-block-start: 12px; padding-inline: 0; color: var(--blue); border-block-end: 1px solid var(--rule); }
-.takeoff-materials .product-browser__frame { background: transparent; border: 0; overflow: visible; }
+.takeoff-materials .product-browser__frame { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.takeoff-materials .product-browser__chrome { direction: ltr; min-height: 32px; }
+.takeoff-materials .product-browser__dots { display: flex; align-items: center; gap: 6px; }
+.takeoff-materials .product-browser__dots i { width: 9px; height: 9px; border: 0; }
+.takeoff-materials .product-browser__dots i:nth-child(1) { background: #ff5f57; }
+.takeoff-materials .product-browser__dots i:nth-child(2) { background: #febc2e; }
+.takeoff-materials .product-browser__dots i:nth-child(3) { background: #28c840; }
+@media (min-width: 901px) {
+  .takeoff-materials .product-browser { max-width: min(900px, max(360px, calc((100svh - var(--header-height) - 340px) * 1.6))); }
+}
 .takeoff-materials .product-browser__steps, .takeoff-materials .product-browser__explanation { display: none; }
+@media (min-width: 640px) and (max-width: 1000px) {
+  .takeoff-materials h2 { font-size: clamp(3rem, 6.5vw, 4.5rem); }
+}
 @media (max-width: 639px) {
+  .takeoff-materials h2 { font-size: clamp(2.5rem, 10.5vw, 3.75rem); }
+
   .takeoff-materials { padding-block: 24px 12px; }
   .takeoff-materials__modes button { flex: 1; padding-inline: 6px; font-size: .85rem; }
   .takeoff-materials__head p { font-size: .9rem; }

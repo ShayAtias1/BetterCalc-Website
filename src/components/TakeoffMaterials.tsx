@@ -23,7 +23,7 @@ export function TakeoffMaterials() {
       </div>
       <p>{active.description}</p>
     </header>
-    <ProductBrowser modes={[mode]} initialMode={mode} deviceFrame="macbook" hideDescription omitResultFor={[mode]}
+    <ProductBrowser modes={[mode]} initialMode={mode} hideDescription omitResultFor={[mode]}
       story={{ mode, phase, playing: false, onSelect: choose, onReplay: () => setPhase(2) }} />
   </div>
 }
