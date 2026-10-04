@@ -4,20 +4,20 @@ import './finishes.css'
 
 // Reference values from the existing captured final state, not live website calculations.
 const CAPTURED_METRICS = [
-  { label: 'שטח ריצוף', value: '12.65', unit: 'מ״ר' },
-  { label: 'היקף החדר', value: '14.32', unit: 'מ׳' },
   { label: 'חיפוי נטו לאחר ניכוי פתח', value: '32.47', unit: 'מ״ר' },
+  { label: 'היקף החדר', value: '14.32', unit: 'מ׳' },
+  { label: 'שטח ריצוף', value: '12.65', unit: 'מ״ר' },
   { label: 'פתח לניכוי', value: '1.89', unit: 'מ״ר' },
 ]
 
 export function Finishes() {
   return (
     <section className="landing-section finishes" id="finishes" aria-labelledby="finishes-title">
-      <div className="section-heading">
-        <p className="section-kicker">גמרים</p>
-        <h2 id="finishes-title"><span>ריצוף וחיפוי,</span><span>עד לפרטי הכמות.</span></h2>
-        <p>ריצוף לפי שטח וחיפוי קירות לפי היקף וגובה, עם פתחים וניכויים. מגדירים פחת לכל פריט עבודה ובודקים את הכמות להזמנה.</p>
-      </div>
+      <header className="finishes__heading">
+        <p className="finishes__eyebrow">גמרים <span aria-hidden="true">/</span> פרטי עבודה</p>
+        <h2 className="finishes__title" id="finishes-title"><span>ריצוף וחיפוי,</span><span>עד לפרטי הכמות.</span></h2>
+        <p className="finishes__lead">ריצוף לפי שטח וחיפוי קירות לפי היקף וגובה, עם פתחים וניכויים. מגדירים פחת לכל פריט עבודה ובודקים את הכמות להזמנה.</p>
+      </header>
       <ProductStage
         annotations={<>
           <p className="product-stage__rail-label">ערכים ממצב הדמו הסופי</p>
@@ -30,7 +30,7 @@ export function Finishes() {
         </>}
         caption={<p>התוכנית השתנתה או הסימון צריך תיקון? עורכים את הגאומטריה ובודקים את הכמויות המעודכנות.</p>}
       >
-        <ProductBrowser modes={['finishes']} initialMode="finishes" variant="focused" deviceFrame="macbook" />
+        <ProductBrowser modes={['finishes']} initialMode="finishes" variant="focused" deviceFrame="desktop" />
       </ProductStage>
     </section>
   )
