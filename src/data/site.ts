@@ -3,7 +3,8 @@
 export const APP_URL = 'https://bettercalcapp.netlify.app'
 
 export const NAV = [
-  { href: '#takeoff', label: 'חישוב כמויות' },
-  { href: '#compare', label: 'השוואת גרסאות' },
-  { href: '#audience', label: 'למי זה מתאים' },
+  { href: '#takeoff', label: 'כמויות' },
+  { href: '#structural', label: 'בטון וזיון' },
+  { href: '#compare', label: 'השוואת תוכניות' },
+  { href: '#field', label: 'עבודה בשטח' },
 ] as const

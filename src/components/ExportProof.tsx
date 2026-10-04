@@ -23,11 +23,8 @@ export const ExportProof = memo(function ExportProof() {
           <span className="doc__meta">2 עמודים</span>
         </figcaption>
         <div className="doc__stack">
-          <Preview name="qto-report-p1" className="doc__page doc__page--1" width={1190} height={900} alt="עמוד 1 בדוח ה־PDF: התוכנית עם שלושת החדרים המסומנים" />
-          <figure className="doc__detail">
-            <Preview name="qto-report-p2-detail" width={976} height={824} alt="פירוט מעמוד 2: חדר הורים 12.74, חדר שינה 13.11, סלון 23.61, ובסה״כ לדירה ריצוף רגיל 49.46 מ״ר" />
-            <figcaption className="doc__detail-label">עמוד <bdi dir="ltr">2</bdi> · פרט מכתב הכמויות</figcaption>
-          </figure>
+          <Preview name="qto-report-p2-detail" width={976} height={824} alt="קטע מעמוד 2 בדוח הכמויות: חדר הורים 12.74, חדר שינה 13.11, סלון 23.61, ובסה״כ ריצוף רגיל 49.46 מ״ר" />
+          <p className="report-caption">קטע מעמוד 2 בדוח הדמו · כמויות ריצוף לפי חדר</p>
         </div>
       </figure>
 

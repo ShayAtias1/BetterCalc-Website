@@ -1,0 +1,86 @@
+/* Package 1: normal-flow sections, using the existing brand tokens and plan assets. */
+html { scroll-padding-top: calc(var(--header-height) + 20px); }
+.landing-section, .landing-hero { padding: clamp(52px, 7vw, 104px) var(--gutter); }
+.landing-section { border-block-start: 1px solid var(--rule); }
+.landing-hero { padding-block-start: calc(var(--header-height) + clamp(36px, 5vw, 72px)); }
+.landing-hero__copy { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(24px, 5vw, 80px); align-items: end; }
+.landing-hero h1 { margin: 0; color: var(--ink); font-size: clamp(3.8rem, 8vw, 8.5rem); line-height: .95; font-weight: 760; letter-spacing: -.045em; }
+.landing-hero h1 span { color: var(--blue); }
+.landing-hero__aside { max-width: 34em; }
+.landing-hero__aside > p { margin: 0; font-size: clamp(1rem, 1.4vw, 1.2rem); line-height: 1.65; }
+.landing-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 24px; margin-block-start: 24px; }
+.landing-actions .primary-action { margin: 0; }
+.secondary-action { display: inline-flex; align-items: center; gap: 12px; min-height: 48px; color: var(--ink); border-block-end: 1px solid var(--rule); }
+.secondary-action:hover { color: var(--blue); }
+.landing-plan { margin: 0; min-width: 0; }
+.landing-plan .sheet-rig { position: relative; width: 100%; aspect-ratio: 1190.551 / 841.8898; transform: none; will-change: auto; }
+.landing-plan .sheet-tab { display: none; }
+.landing-plan .sheet { box-shadow: 0 0 0 1px var(--rule); }
+.landing-plan figcaption { margin-block-start: 16px; color: var(--muted); font-size: .85rem; line-height: 1.5; }
+.landing-hero__plan { margin-block-start: 40px; max-width: 1100px; margin-inline: auto; }
+.landing-plan .veil, .landing-plan .veil-state { opacity: 0; }
+.landing-plan .meter-grid { opacity: 0; }
+.landing-plan .calibration { display: none; }
+.landing-plan .room__shape, .landing-plan .room__tag { transition: none; }
+.section-heading { max-width: 760px; margin-block-end: 32px; }
+.section-kicker { margin: 0 0 12px; color: var(--blue); font-size: .9rem; font-weight: 600; }
+.section-heading h2 { margin: 0; color: var(--ink); font-size: clamp(2rem, 3.8vw, 4rem); line-height: 1.08; letter-spacing: -.025em; }
+.section-heading > p:last-child { margin: 20px 0 0; max-width: 42em; font-size: 1.08rem; line-height: 1.65; }
+.workflow-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-block: 1px solid var(--ink); }
+.workflow-steps li { padding: 24px 20px; border-inline-start: 1px solid var(--rule); }
+.workflow-steps li:first-child { border-inline-start: 0; }
+.step-number { font-family: var(--mono); color: var(--blue); font-size: .85rem; }
+.workflow-steps h3 { margin: 20px 0 10px; color: var(--ink); font-size: 1.3rem; }
+.workflow-steps p { margin: 0; font-size: .95rem; line-height: 1.6; }
+.finishes-layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr); gap: 32px; align-items: start; }
+.quantity-result { background: var(--panel); color: var(--panel-text); padding: clamp(24px, 3vw, 40px); }
+.quantity-result .section-kicker { color: var(--blue-light); }
+.quantity-result dl { margin: 24px 0; }
+.quantity-result dl > div { display: flex; justify-content: space-between; gap: 16px; padding-block: 12px; border-block-end: 1px solid var(--panel-rule); }
+.quantity-result dd { margin: 0; white-space: nowrap; }
+.quantity-result__total { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; }
+.quantity-result__total strong { font-size: 2rem; color: var(--blue-light); }
+.quantity-result > p:not(.section-kicker) { line-height: 1.6; }
+.quantity-result__note { border-block-start: 1px solid var(--panel-rule); padding-block-start: 16px; }
+.report-evidence { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.reports .export-proof { display: contents; position: static; opacity: 1; transform: none; pointer-events: auto; }
+.reports .doc { position: relative; inset: auto; width: auto; margin: 0; transform: none; opacity: 1; }
+.reports .doc__stack { position: static; transform: none; }
+.reports .preview img { display: block; width: 100%; height: auto; }
+.reports .doc__tab { width: auto; margin: 0 0 16px; padding: 0; background: transparent; flex-wrap: wrap; }
+.reports .doc--xlsx { padding: 0; background: transparent; }
+.reports .xl { font-size: clamp(11px, 1vw, 14px); overflow-x: auto; }
+.reports .xl__grid { width: 100%; }
+.reports .xl__grid tbody tr { display: table-row; }
+.reports .xl__grid th, .reports .xl__grid td { height: auto; padding: 8px; }
+.reports .xl__tabs { flex-wrap: wrap; }
+.report-caption, .report-compare p { font-size: .85rem; color: var(--muted); line-height: 1.5; }
+.report-compare { grid-column: 1 / -1; margin: 0; padding: 24px; border: 1px solid var(--rule); }
+.report-compare figcaption { display: flex; align-items: center; gap: 12px; margin-block-end: 20px; }
+.report-compare .preview { display: block; max-width: 900px; }
+.audience-compact { display: grid; grid-template-columns: 1fr 1.5fr; gap: 24px; padding-block: 40px; margin-block-start: 40px; border-block-start: 1px solid var(--rule); }
+.audience-compact h3 { margin: 0; color: var(--ink); font-size: 1.5rem; }
+.audience-compact p { margin: 0; line-height: 1.65; }
+.final-cta--compact { padding: 48px 24px; }
+.final-cta--compact .final-cta__title { font-size: clamp(2rem, 4vw, 3.8rem); line-height: 1.15; }
+.final-cta--compact .final-cta__action { margin-block-start: 28px; }
+@media (max-width: 1000px) {
+  .workflow-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .workflow-steps li { border: 1px solid var(--rule); }
+  .workflow-steps li:first-child { border-inline-start: 1px solid var(--rule); }
+  .finishes-layout { grid-template-columns: minmax(0, 1.3fr) minmax(250px, 1fr); gap: 20px; }
+}
+@media (max-width: 639px) {
+  .landing-hero__copy, .finishes-layout, .report-evidence, .audience-compact { grid-template-columns: 1fr; }
+  .landing-hero h1 { font-size: clamp(3.2rem, 14vw, 5rem); }
+  .landing-hero__plan { margin-block-start: 28px; }
+  .workflow-steps { grid-template-columns: 1fr; }
+  .workflow-steps li { position: relative; padding: 20px 60px 20px 16px; }
+  .workflow-steps .step-number { position: absolute; right: 20px; top: 24px; }
+  .workflow-steps h3 { margin-block-start: 0; }
+  .report-compare { padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .landing-section *, .landing-hero * { animation: none !important; transition: none !important; }
+}
