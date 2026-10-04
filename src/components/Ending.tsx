@@ -1,13 +1,55 @@
+import { useEffect, useRef, type CSSProperties } from 'react'
 import { APP_URL, NAV } from '../data/site'
 import logo from '../assets/logo/bettercalc-logo.svg'
 import '../ending.css'
 
+const AUDIENCE = [
+  { role: 'קבלנים', work: 'כמויות לגמרים, בטון וזיון, ישירות על התוכנית.' },
+  { role: 'ריצוף וחיפוי', work: 'מ״ר נטו ולהזמנה, עם פחת שאתם קובעים.' },
+  { role: 'קבלני שיפוצים', work: 'מה הורסים ומה בונים — מסומן על התוכנית.' },
+  { role: 'מנהלי פרויקטים', work: 'משווים גרסאות ומקבלים דוח PDF של השינויים.' },
+  { role: 'חשבי כמויות ואומדנים', work: 'מדידה וחישוב כמויות מתוכניות, עם דוחות PDF ו־Excel.' },
+]
+
+/** Marks a section as seen once, so CSS can play a single, subtle entrance. */
+function useSeen<T extends HTMLElement>() {
+  const ref = useRef<T>(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return
+      el.dataset.seen = 'true'
+      observer.disconnect()
+    }, { threshold: 0.25 })
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+  return ref
+}
+
 export function Audience() {
+  const ref = useSeen<HTMLElement>()
   return (
-    <div className="audience-compact" id="audience">
-      <h3>לאנשים שעובדים עם תוכניות.</h3>
-      <p>קבלנים, חשבי כמויות ואומדנים, מנהלי פרויקטים, קבלני ריצוף וחיפוי וקבלני שיפוצים — כשצריך להוציא כמויות מתוכנית או לבדוק גרסה חדשה.</p>
-    </div>
+    <section className="audience" id="audience" ref={ref} aria-labelledby="audience-title">
+      <div className="audience__head">
+        <p className="audience__kicker">למי זה מתאים</p>
+        <h2 className="audience__title" id="audience-title">
+          <span>נבנה לאנשים</span>
+          <span>שעובדים עם תוכניות.</span>
+        </h2>
+        <p className="audience__lead">מי שמקבל תוכנית <bdi dir="ltr">PDF</bdi> וצריך להוציא ממנה כמויות, או להבין מה השתנה בגרסה החדשה.</p>
+      </div>
+      <ol className="audience__index">
+        {AUDIENCE.map((item, i) => (
+          <li key={item.role} className="audience__row" style={{ '--i': i } as CSSProperties}>
+            <span className="audience__num" dir="ltr">{String(i + 1).padStart(2, '0')}</span>
+            <span className="audience__role">{item.role}</span>
+            <span className="audience__work">{item.work}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
   )
 }
 

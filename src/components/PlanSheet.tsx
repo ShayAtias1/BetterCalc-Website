@@ -1,4 +1,4 @@
-import { forwardRef, memo, useEffect, useRef, type ReactNode } from 'react'
+import { forwardRef, memo, useEffect, useRef } from 'react'
 import { DIMENSION_CHAIN, DIMENSION_Y, ENVELOPE, PLAN_HEIGHT, PLAN_WIDTH, POINTS_PER_METER, REFERENCE, px, py } from '../data/plan'
 import { PlanDrawing } from './PlanDrawing'
 import { RoomLayer } from './RoomLayer'
@@ -17,8 +17,6 @@ type PlanSheetProps = {
   /** Enables the hero measurement probe (pointer + one passive sweep). */
   probe?: boolean
   className?: string
-  /** Product proof carried by the existing hero camera rig; later stages keep the original plan. */
-  heroVisual?: ReactNode
 }
 
 const METER_COLUMNS = Array.from({ length: ENVELOPE.width / POINTS_PER_METER + 1 }, (_, i) => i)
@@ -42,7 +40,7 @@ const MeterGrid = memo(function MeterGrid() {
   )
 })
 
-export const PlanSheet = forwardRef<HTMLDivElement, PlanSheetProps>(function PlanSheet({ register, probe = false, className = '', heroVisual }, rigRef) {
+export const PlanSheet = forwardRef<HTMLDivElement, PlanSheetProps>(function PlanSheet({ register, probe = false, className = '' }, rigRef) {
   const sheetRef = useRef<HTMLDivElement>(null)
   const refs = useRef<SheetRefs>({ veil: null, line: null, endA: null, endB: null, tab: null })
 
@@ -135,7 +133,6 @@ export const PlanSheet = forwardRef<HTMLDivElement, PlanSheetProps>(function Pla
           <span className="calibration__chip" dir="rtl"><bdi dir="ltr">{REFERENCE.label}</bdi>&nbsp;מ׳</span>
         </div>
       </div>
-      {heroVisual && <div className="hero-product-browser">{heroVisual}</div>}
       <span className="crop crop--tl" aria-hidden="true" />
       <span className="crop crop--tr" aria-hidden="true" />
       <span className="crop crop--bl" aria-hidden="true" />

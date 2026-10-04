@@ -16,7 +16,7 @@ Hero headline: **מתוכנית PDF לכמויות.** Supporting copy covers fin
 4. Concrete & Reinforcement: three stable groups for concrete, mesh/bars and stirrups.
 5. Original pinned Revision Compare progression: alignment, overlay, guided/user-controlled swipe, manual changes and PDF output.
 6. At the Desk and On Site: complete desktop workspace, real tablet field editing, phone review/items/quantities/simple measurement and annotation.
-7. Consolidated Reports / Audience / Final CTA: existing real PDF and Excel evidence, compact audience statement, direct outcome-led invitation.
+7. Consolidated Reports / Audience / Final CTA: existing real PDF and Excel evidence, original numbered audience index, direct outcome-led invitation.
 
 Core measurements, markups and project overview belong in the shared workflow. Do not create a separate major section for every feature.
 
@@ -46,7 +46,7 @@ General finishes/concrete/reinforcement PDF and Excel outputs can be described. 
 
 The original `useStoryScroll`, `useCompareScroll` and `useWheelDamping` implementations are restored directly from git history, without timeline, camera, wheel-scale or easing changes. `App.css` retains the original takeoff/sticky/choreography rules, and `compare.css` restores the original guided presentation. Hero copy and CTA updates are integrated into the original composition rather than replacing it.
 
-The pinned stories retain their original export stages. The added workflow, finishes, Structural, device and compact Reports/Audience/CTA sections remain, with no large new animations. They separate the original two chapters in document flow but do not alter either chapter's internal motion.
+The pinned stories retain their original export stages. The added workflow, finishes, Structural, device and Reports/CTA sections, plus the original audience index, remain, with no large new animations. They separate the original two chapters in document flow but do not alter either chapter's internal motion.
 
 Desktop retains the rich original experience. Reduced-motion visitors and phones below 640px use the original static figures, retaining readable explanations, report evidence and manual comparison controls. Tablet/phone jump navigation, touch targets, tablet-specific new-section layouts and the focused finishes crop remain. Responsive additions must not disable desktop story transforms or sticky stages.
 
@@ -56,7 +56,7 @@ Do not tune scroll speed, shorten sticky travel or redesign camera choreography 
 
 The reusable ProductBrowser presents actual captured plan/inspector states in a neutral application frame. User selection switches Finishes / Concrete / Mesh & Bars / Stirrups; step buttons and replay reveal the fixed workflow without an embedded application or duplicate quantity engine. No continuous mode autoplay. CSS transitions explain selection, geometry and resulting inspector changes, and then settle.
 
-Hero defaults to Finishes inside the original camera rig; at the original handoff stage the original vector plan takes over. This does not alter camera keys, sticky durations, stage thresholds or wheel behavior. Finishes uses a focused variant; Structural uses one shared browser and concise supporting group summaries. Compare retains its restored choreography.
+Hero uses the original vector plan and camera composition throughout; Product Browser remains in the feature sections. This does not alter camera keys, sticky durations, stage thresholds or wheel behavior. Finishes uses a focused variant; Structural uses one shared browser and concise supporting group summaries. Compare retains its restored choreography.
 
 Real tablet/phone touch-layout captures replace the text-only device visuals. Tablet editing is primary; phone Items/quantities/Show on Plan is secondary. Phone product-browser demonstrations use a focused static final state and readable result text. Reduced motion settles immediately. No fake device UI or synchronization imagery.
 
