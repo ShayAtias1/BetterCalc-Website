@@ -111,3 +111,6 @@
   .structural-story--mobile .product-browser__steps button { font-size: .72rem; padding: 6px 8px; gap: 6px; }
   .structural-story--mobile .product-browser__explanation { display: none; }
 }
+
+/* Structural stories show mode selection only, without internal phase controls. */
+.structural .product-browser__steps { display: none; }
