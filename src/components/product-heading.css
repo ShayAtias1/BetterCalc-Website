@@ -4,7 +4,9 @@
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 16px var(--col-gap);
   align-items: end;
-  max-width: var(--product-stage-width);
+  /* Heading grids share the Finishes width, independently of visual-stage caps. */
+  width: 100%;
+  max-width: 1500px;
   margin: 0 auto 12px;
 }
 .product-heading__eyebrow {
@@ -34,6 +36,9 @@
   font-size: clamp(1rem, 1.2vw, 1.08rem);
   line-height: 1.6;
   text-wrap: balance;
+}
+@media (min-width: 1001px) {
+  .structural .product-heading__title > span:first-child { white-space: nowrap; }
 }
 @media (max-width: 1000px) {
   .product-heading__title { grid-column: 1 / -1; font-size: clamp(3rem, 6.5vw, 4.5rem); }
