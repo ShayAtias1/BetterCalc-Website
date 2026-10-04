@@ -24,12 +24,13 @@
 .field-story__device img { display: block; width: 100%; height: auto; object-fit: contain; }
 .field-desktop-capture { width: 100%; }
 .field-desktop-capture__body { display: grid; grid-template-columns: 360fr 1024fr; }
-.field-story__label { margin: 0; color: var(--blue); font: .8rem var(--mono); }
-.field-story h3 { margin: 0; font-size: clamp(1.2rem, 1.8vw, 1.6rem); color: var(--ink); }
-.field-story figcaption > p:last-child { margin: 0; line-height: 1.65; }
+.field-story__headings { display: grid; gap: 6px; }
+.field-story__headings h3 { margin: 0; font-size: clamp(1.4rem, 2.2vw, 2rem); line-height: 1.15; color: var(--blue); }
+.field-story__headings h4 { margin: 0; font-size: 1.1rem; font-weight: 600; line-height: 1.4; color: var(--ink); }
+.field-story__body { margin: 0; line-height: 1.65; }
 @media (min-width: 640px) and (max-width: 1000px) {
-  .field-story h3 { font-size: 1.15rem; }
-  .field-story figcaption > p:last-child { font-size: .9rem; }
+  .field-story__headings h3 { font-size: 1.4rem; }
+  .field-story__body { font-size: .9rem; }
 }
 /* Normal flow is also the reduced-motion presentation, at any viewport width. */
 .field-story--static { height: auto; }
