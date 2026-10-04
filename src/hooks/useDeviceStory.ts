@@ -9,7 +9,7 @@ const subscribe = (change: () => void) => {
 }
 const getStatic = () => window.matchMedia(STATIC_QUERY).matches
 
-type Pose = { x: number; y: number; scale: number; opacity: number }
+type Pose = { x: number; y: number; scale: number; opacity: number; copyOpacity: number }
 
 /** A local native-scroll chapter: 180svh travel, with three inspection holds.
  * Layout is measured on resize; scroll writes only transforms/opacity and publishes beats. */
@@ -29,6 +29,7 @@ export function useDeviceStory() {
     const devices = [desktop.current, tablet.current, phone.current]
     if (!chapter || !field || devices.some((device) => !device)) return
     const elements = devices as HTMLElement[]
+    const captions = elements.map((group) => group.querySelector('figcaption')!)
     let start = 0
     let travel = 1
     let poses: Pose[][] = []
@@ -49,9 +50,10 @@ export function useDeviceStory() {
         const b = poses[segment + 1][index]
         device.style.transform = `translate3d(${lerp(a.x, b.x, mix)}px, ${lerp(a.y, b.y, mix)}px, 0) scale(${lerp(a.scale, b.scale, mix)})`
         device.style.opacity = String(lerp(a.opacity, b.opacity, mix))
+        captions[index].style.opacity = String(lerp(a.copyOpacity, b.copyOpacity, mix))
         device.style.visibility = index > 0 && (index === 1 ? first : second) === 0 ? 'hidden' : 'visible'
       })
-      const next = progress < .5 ? 0 : progress < 1.3 ? 1 : 2
+      const next = progress < .7 ? 0 : progress < 1.5 ? 1 : 2
       if (next !== lastStage) { lastStage = next; setActive(next) }
     }
 
@@ -59,18 +61,34 @@ export function useDeviceStory() {
       if (disposed) return
       const width = field.clientWidth
       const height = field.clientHeight
-      const compact = width <= 1000
-      // Widths are bounded by both axes so every screen remains wholly visible.
-      const bases = [Math.min(width * .86, (height - 36) * 1.6, 1100), Math.min(width * .64, (height - 32) * 4 / 3, 850), Math.min(width * .2, (height - 20) * 390 / 844, 220)]
-      elements.forEach((device, index) => { device.style.width = `${Math.max(1, bases[index])}px` })
-      const desktopSecondary = Math.min(1, width * (compact ? .25 : .32) / bases[0])
-      const desktopFinal = Math.min(1, width * .23 / bases[0])
-      const tabletFinal = Math.min(1, width * .43 / bases[1])
-      const pose = (index: number, x: number, scale: number, opacity: number): Pose => ({ x, y: Math.max(0, height - elements[index].offsetHeight * scale - 8), scale, opacity })
+      const copyWidth = Math.min(300, Math.max(160, width * .23))
+      const gap = Math.min(28, Math.max(16, width * .016))
+      const visualWidth = width - copyWidth - gap
+      // All three hardware centers land at the center of this same visual column.
+      const anchor = copyWidth + gap + visualWidth / 2
+      const bases = [
+        Math.min(visualWidth - 24, width * .68, (height - 40) * 1.6, 1100),
+        Math.min(visualWidth - 24, width * .56, (height - 36) * 4 / 3, 850),
+        Math.min(visualWidth - 24, (height - 24) * 390 / 844, 260),
+      ].map((value) => Math.max(1, value))
+      const widths = bases.map((base) => copyWidth + gap + base)
+      elements.forEach((group, index) => {
+        group.style.width = `${widths[index]}px`
+        group.style.gridTemplateColumns = `${copyWidth}px ${bases[index]}px`
+        group.style.columnGap = `${gap}px`
+      })
+      const centered = bases.map((base) => anchor - base / 2 - copyWidth - gap)
+      const pose = (index: number, x: number, scale: number, opacity: number, copyOpacity: number): Pose => ({ x, y: Math.max(0, (height - elements[index].offsetHeight * scale) / 2), scale, opacity, copyOpacity })
+      // Supporting groups stay left of the incoming copy; no screen overlaps the active UI.
+      const desktopSecondary = .45
+      const desktopFinal = .3
+      const tabletFinal = .4
+      const tabletHistoryEnd = Math.max(0, centered[2] - gap)
+      const tabletHistoryStart = tabletHistoryEnd - widths[1] * tabletFinal
       poses = [
-        [pose(0, (width - bases[0]) / 2, 1, 1), pose(1, width + 24, 1, 0), pose(2, width + 24, 1, 0)],
-        [pose(0, width * .015, desktopSecondary, .8), pose(1, Math.max(width * (compact ? .29 : .36), width - bases[1] - width * .02), 1, 1), pose(2, width + 24, 1, 0)],
-        [pose(0, width * .015, desktopFinal, .72), pose(1, width * .28, tabletFinal, .85), pose(2, width - bases[2] - width * .025, 1, 1)],
+        [pose(0, centered[0], 1, 1, 1), pose(1, width + 24, 1, 0, 0), pose(2, width + 24, 1, 0, 0)],
+        [pose(0, centered[1] - gap - widths[0] * desktopSecondary, desktopSecondary, .65, 0), pose(1, centered[1], 1, 1, 1), pose(2, width + 24, 1, 0, 0)],
+        [pose(0, Math.min(width * .06, tabletHistoryStart - gap) - widths[0] * desktopFinal, desktopFinal, .5, 0), pose(1, tabletHistoryStart, tabletFinal, .65, 0), pose(2, centered[2], 1, 1, 1)],
       ]
       const header = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 56
       start = chapter.getBoundingClientRect().top + window.scrollY - header
@@ -89,7 +107,8 @@ export function useDeviceStory() {
       window.removeEventListener('resize', onResize)
       cancelAnimationFrame(frame)
       cancelAnimationFrame(resizeFrame)
-      elements.forEach((device) => { device.style.removeProperty('width'); device.style.removeProperty('transform'); device.style.removeProperty('opacity'); device.style.removeProperty('visibility') })
+      elements.forEach((device) => { device.style.removeProperty('width'); device.style.removeProperty('transform'); device.style.removeProperty('opacity'); device.style.removeProperty('visibility'); device.style.removeProperty('grid-template-columns'); device.style.removeProperty('column-gap') })
+      captions.forEach((caption) => caption.style.removeProperty('opacity'))
     }
   }, [staticPresentation])
 

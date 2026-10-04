@@ -1,42 +1,48 @@
 /* One editorial scene, using the shared hardware frames and the site grid. */
+.devices .product-heading__title {
+  font-family: var(--sans);
+  font-weight: 760;
+  letter-spacing: -.046em;
+  line-height: .95;
+  word-spacing: normal;
+  font-stretch: normal;
+  text-align: start;
+  direction: rtl;
+}
 .field-story { --field-stage-height: calc(100svh - var(--header-height)); height: calc(var(--field-stage-height) + 180svh); max-width: 1500px; margin-inline: auto; }
-.field-story__stage { position: sticky; top: var(--header-height); height: var(--field-stage-height); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 16px; padding-block: 20px; }
+.field-story__stage { position: sticky; top: var(--header-height); height: var(--field-stage-height); display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 16px; padding-block: 20px; }
 .field-story__axis { display: grid; grid-template-columns: repeat(3, 1fr); list-style: none; padding: 0; margin: 0; border-block-start: 1px solid var(--ink); }
 .field-story__axis li { padding-block: 12px; border-block-start: 2px solid transparent; margin-block-start: -1px; color: var(--muted); font: .8rem var(--mono); }
 .field-story__axis bdi { margin-inline-end: 12px; }
 .field-story__axis li[aria-current='step'] { color: var(--blue); border-block-start-color: var(--blue); }
 .field-story__scene { position: relative; min-height: 0; overflow: clip; direction: ltr; background: repeating-linear-gradient(to right, var(--rule-faint) 0 1px, transparent 1px calc(100% / 12)); }
-.field-story__device { position: absolute; left: 0; top: 0; margin: 0; transform-origin: top left; will-change: transform, opacity; }
-.field-story__device--macbook { width: 80%; }
+/* Each figure is one moving unit: copy on the left, real framed capture on the right. */
+.field-story__device { position: absolute; left: 0; top: 0; display: grid; align-items: center; margin: 0; transform-origin: top left; will-change: transform, opacity; }
+.field-story__device > .device-frame { grid-column: 2; grid-row: 1; }
+.field-story__device figcaption { grid-column: 1; grid-row: 1; direction: rtl; text-align: start; display: grid; gap: 12px; border-block-start: 1px solid var(--rule); padding-block-start: 16px; }
 .field-story__device--ipad, .field-story__device--iphone { visibility: hidden; }
 .field-story__device img { display: block; width: 100%; height: auto; object-fit: contain; }
 .field-desktop-capture { width: 100%; }
 .field-desktop-capture__body { display: grid; grid-template-columns: 360fr 1024fr; }
-.field-story__copy { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px var(--col-gap); border-block-start: 1px solid var(--rule); padding-block-start: 16px; min-height: 128px; }
 .field-story__label { margin: 0; color: var(--blue); font: .8rem var(--mono); }
-.field-story__copy .field-story__label { grid-column: 1 / span 4; }
-.field-story__copy h3 { grid-column: 1 / span 4; grid-row: 2; }
-.field-story__copy > p:last-child { grid-column: 5 / -1; grid-row: 1 / span 2; max-width: 42em; }
 .field-story h3 { margin: 0; font-size: clamp(1.2rem, 1.8vw, 1.6rem); color: var(--ink); }
-.field-story__copy > p:last-child, .field-story figcaption > p:last-child { margin: 0; line-height: 1.65; }
+.field-story figcaption > p:last-child { margin: 0; line-height: 1.65; }
 @media (min-width: 640px) and (max-width: 1000px) {
-  .field-story__copy { min-height: 160px; }
-  .field-story__copy .field-story__label, .field-story__copy h3 { grid-column: 1 / span 5; }
-  .field-story__copy > p:last-child { grid-column: 6 / -1; }
+  .field-story h3 { font-size: 1.15rem; }
+  .field-story figcaption > p:last-child { font-size: .9rem; }
 }
 /* Normal flow is also the reduced-motion presentation, at any viewport width. */
 .field-story--static { height: auto; }
 .field-story--static .field-story__stage { position: static; height: auto; display: block; }
 .field-story--static .field-story__scene { position: static; display: grid; gap: 40px; overflow: visible; }
-.field-story--static .field-story__device { position: static; width: 100%; visibility: visible; will-change: auto; }
+.field-story--static .field-story__device { position: static; display: block; width: 100%; visibility: visible; will-change: auto; }
 .field-story--static .field-story__axis { margin-block-end: 24px; }
 .field-story--static .field-story__device--macbook { max-width: 1100px; }
 .field-story--static .field-story__device--ipad { max-width: 850px; }
-.field-story--static .field-story__device--iphone { max-width: 220px; }
-.field-story--static figcaption { direction: rtl; margin-block-start: 20px; padding-block-start: 16px; border-block-start: 1px solid var(--rule); display: grid; gap: 12px; }
+.field-story--static .field-story__device--iphone > .device-frame { max-width: 220px; }
+.field-story--static figcaption { margin-block-start: 20px; }
 @media (max-width: 639px) {
   .field-story__axis li { font-size: .7rem; }
   .field-story__axis bdi { display: block; margin-block-end: 6px; }
-  .field-story--static .field-story__device--iphone { width: 100%; max-width: none; }
   .field-story--static .field-story__device--iphone > .device-frame { max-width: 200px; margin-inline: auto; }
 }

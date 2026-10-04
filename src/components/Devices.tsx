@@ -36,7 +36,6 @@ function DesktopCapture() {
 
 export function Devices() {
   const { track, scene, deviceRefs, active, staticPresentation } = useDeviceStory()
-  const current = WORK_MODES[active]
 
   return (
     <section className="landing-section devices" id="field" aria-labelledby="devices-title">
@@ -56,11 +55,10 @@ export function Devices() {
                 <DeviceFrame kind={mode.kind}>
                   {index === 0 ? <DesktopCapture /> : <img src={productAsset(index === 1 ? 'tablet-real-ui' : 'phone-real-ui')} width={index === 1 ? 2048 : 780} height={index === 1 ? 1536 : 1688} alt={index === 1 ? 'ממשק BetterCalc בטאבלט: חדר מסומן עם ידיות עריכה ומפקח פתוח לצד התוכנית' : 'ממשק BetterCalc בטלפון: פריטי החדר, כמויות ריצוף וחיפוי והצגה בתוכנית'} loading="lazy" decoding="async" />}
                 </DeviceFrame>
-                {staticPresentation && <figcaption><p className="field-story__label" dir="ltr">{mode.label}</p><h3>{mode.title}</h3><p>{mode.description}</p></figcaption>}
+                <figcaption aria-hidden={!staticPresentation && active !== index ? true : undefined}><p className="field-story__label" dir="ltr">{mode.label}</p><h3>{mode.title}</h3><p>{mode.description}</p></figcaption>
               </figure>
             ))}
           </div>
-          {!staticPresentation && <div className="field-story__copy" aria-live="polite"><p className="field-story__label" dir="ltr">{current.label}</p><h3>{current.title}</h3><p>{current.description}</p></div>}
         </div>
       </div>
     </section>
