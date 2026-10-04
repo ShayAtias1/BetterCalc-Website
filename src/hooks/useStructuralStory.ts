@@ -21,14 +21,14 @@ export const STRUCTURAL_BEATS = STRUCTURAL_MODES.flatMap((mode) => {
 export const STRUCTURAL_TRAVEL = Number(cursor.toFixed(2))
 
 // Mobile modes arrive before their captured phases begin, then hold their final result.
-let mobileCursor = .2
+let mobileCursor = .08
 export const MOBILE_STRUCTURAL_MODES = STRUCTURAL_MODES.map((mode, index) => {
   const entry = index === 0 ? 0 : mobileCursor
-  if (index > 0) mobileCursor += .3
+  if (index > 0) mobileCursor += .24
   const start = mobileCursor
   const beats = structuralSteps(mode).map((_, phase) => {
     const start = mobileCursor
-    mobileCursor += .22 + (phase === structuralSteps(mode).length - 1 ? .12 : 0)
+    mobileCursor += phase === structuralSteps(mode).length - 1 ? .16 : .08
     return { mode, phase, start, end: mobileCursor }
   })
   return { mode, entry, start, end: mobileCursor, beats }
@@ -117,7 +117,8 @@ export function useStructuralStory() {
       let index = found < 0 ? beats.length - 1 : found
       if (mobilePresentation && index > 0 && progress < beats[index].start) index -= 1
       const beat = beats[index]
-      const local = clamp01((progress - beat.start) / ENTRY_TRAVEL)
+      const entryTravel = mobilePresentation ? .06 : ENTRY_TRAVEL
+      const local = clamp01((progress - beat.start) / entryTravel)
       const previous = beats[index - 1]
       const transition = previous && local < 1 && (!mobilePresentation || previous.mode === beat.mode) ? {
         fromMode: previous.mode, fromPhase: previous.phase,
@@ -148,13 +149,8 @@ export function useStructuralStory() {
       if (disposed) return
       const header = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 56
       if (mobilePresentation) {
-        const indexHeight = pinned.querySelector('.structural-mobile__index')?.getBoundingClientRect().height ?? 44
-        const groups = Array.from(pinned.querySelectorAll<HTMLElement>('.structural-mobile__group'))
-        const contentHeight = Math.max(0, ...groups.map(group =>
-          Array.from(group.children).reduce((height, child) => height + child.getBoundingClientRect().height, 0) + 32))
-        // Fit the pinned viewport to its content so its release doesn't leave an empty band.
-        const height = Math.min(window.innerHeight - header, indexHeight + 12 + 24 + contentHeight)
-        chapter.style.setProperty('--structural-stage-height', `${height}px`)
+        // CSS grid measures the complete group, including loaded images, in normal layout.
+        chapter.style.setProperty('--structural-stage-height', `${pinned.offsetHeight}px`)
       }
       start = chapter.getBoundingClientRect().top + window.scrollY - header
       travel = Math.max(1, chapter.offsetHeight - pinned.offsetHeight)
@@ -165,11 +161,12 @@ export function useStructuralStory() {
         const beat = beats.find((item) => item.mode === mode && item.phase === phase)
         if (!beat) return
         cancelReplay()
-        target = beat.start + ENTRY_TRAVEL + .01
+        const destination = beat.start + (mobilePresentation ? .06 : ENTRY_TRAVEL) + .01
+        target = destination
         if (mobilePresentation) apply(target)
         else animateState({ mode, phase, playing: false })
         // Clicks navigate the same timeline instead of introducing independent tab state.
-        window.scrollTo({ top: start + (beat.start + ENTRY_TRAVEL + .01) / totalTravel * travel, behavior: 'instant' })
+        window.scrollTo({ top: start + destination / totalTravel * travel, behavior: 'instant' })
       },
       replay: () => {
         cancelReplay()
@@ -199,12 +196,15 @@ export function useStructuralStory() {
     const onResize = () => { cancelReplay(); cancelAnimationFrame(resizeFrame); resizeFrame = requestAnimationFrame(measure) }
     // Publish initial state even when the first scroll beat equals the local initial value.
     setState(current)
+    const sizeObserver = new ResizeObserver(onResize)
+    if (mobilePresentation) sizeObserver.observe(pinned)
     measure()
     document.fonts.ready.then(measure)
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onResize)
     return () => {
       disposed = true
+      sizeObserver.disconnect()
       cancelReplay()
       cancelAnimationFrame(frame)
       cancelAnimationFrame(resizeFrame)
