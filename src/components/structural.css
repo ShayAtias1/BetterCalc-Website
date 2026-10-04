@@ -46,7 +46,7 @@
 .structural-story__stage { position: sticky; top: var(--header-height); height: var(--structural-stage-height); display: grid; align-items: center; padding-block: 16px; }
 .structural-story .product-browser--side-selector { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto; }
 .structural-story .product-browser { max-width: min(1500px, calc((100svh - 170px) * 2.2)); }
-.structural-story .product-browser__mode-rail { display: block; grid-row: 1; contain: size; align-self: stretch; max-height: calc(var(--structural-stage-height) - 32px); overflow-y: auto; }
+.structural-story .product-browser__mode-rail { display: block; grid-row: 1; align-self: stretch; overflow: visible; }
 .structural-story .product-browser__frame, .structural-static .product-browser__frame { border: 0; background: transparent; overflow: visible; }
 .structural-story .product-browser__steps { justify-content: flex-end; margin-block-start: 12px; border-block: 1px solid var(--rule); }
 .structural-story .product-browser__steps .product-browser__replay { flex: 0 0 auto; }
