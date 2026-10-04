@@ -7,8 +7,8 @@ const AUDIENCE = [
   { role: 'קבלנים', work: 'כמויות לגמרים, בטון וזיון, ישירות על התוכנית.' },
   { role: 'ריצוף וחיפוי', work: 'מ״ר נטו ולהזמנה, עם פחת שאתם קובעים.' },
   { role: 'קבלני שיפוצים', work: 'מה הורסים ומה בונים - מסומן על התוכנית.' },
-  { role: 'מנהלי פרויקטים', work: 'משווים גרסאות ומקבלים דוח PDF של השינויים.' },
-  { role: 'חשבי כמויות ואומדנים', work: 'מדידה וחישוב כמויות מתוכניות, עם דוחות PDF ו־Excel.' },
+  { role: 'מנהלי פרויקטים', work: 'בודקים מה השתנה בין גרסאות ומתעדים את העבודה לביצוע.' },
+  { role: 'חשבי כמויות ואומדנים', work: 'כמויות מסודרות מתוכניות לבדיקת היקף העבודה ולהכנת אומדן.' },
 ]
 
 /** Arm the existing composition only when observation and motion are available. */
@@ -74,7 +74,6 @@ export function FinalCta() {
   return (
     <div className="final-cta final-cta--compact" aria-labelledby="final-cta-title">
       <h3 className="final-cta__title" id="final-cta-title">יש לכם תוכנית?<br /><span className="final-cta__line--accent">התחילו לחשב ממנה כמויות.</span></h3>
-      <p className="final-cta__lead">פתחו <bdi dir="ltr">PDF</bdi>, כיילו וסמנו את העבודה - בדפדפן, בלי <bdi dir="ltr">CAD</bdi> ובלי התקנה.</p>
       <a className="final-cta__action" href={APP_URL}><span className="final-cta__action-label">פתחו את <bdi dir="ltr">BetterCalc</bdi></span><span className="final-cta__action-arrow" aria-hidden="true">←</span></a>
     </div>
   )

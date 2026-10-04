@@ -18,7 +18,7 @@ export function Structural() {
       <header className="product-heading">
         <p className="product-heading__eyebrow">בטון וזיון</p>
         <h2 className="product-heading__title" id="structural-title"><span>מהאלמנט בתוכנית </span><span>לכמויות בטון וזיון.</span></h2>
-        <p className="product-heading__lead">מסמנים את העבודה, מגדירים את המידות ואת פרטי הזיון ובודקים את הכמויות. מרכזים את התוצאות לפי תוכנית ופרויקט ומייצאים לדוח.</p>
+        <p className="product-heading__lead">מסמנים את העבודה, מגדירים את המידות ואת פרטי הזיון ובודקים את הכמויות. מרכזים את התוצאות לפי תוכנית ופרויקט.</p>
       </header>
       {staticPresentation ? <div className="structural-static">
         {STRUCTURAL_MODES.map((mode) => <article key={mode}>
