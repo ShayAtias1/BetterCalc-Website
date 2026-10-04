@@ -72,3 +72,14 @@
 @media (max-width: 639px) {
   .devices .product-heading__title { font-size: clamp(2.25rem, 9.45vw, 3.4rem); }
 }
+
+/* Keep the phone chapter title inside its compact pinned device composition. */
+.field-story__intro { display: none; }
+@media (max-width: 639px) {
+  .devices__intro { display: none; }
+  .field-story__intro { display: block; }
+  .field-story__intro p { margin: 12px 0 0; font-size: .85rem; line-height: 1.5; }
+  .field-story:not(.field-story--static) { --field-travel: 120svh; }
+  .field-story:not(.field-story--static) .field-story__stage { grid-template-rows: auto auto minmax(0, 1fr); }
+  .field-story--static .field-story__intro { margin-block-end: 20px; }
+}

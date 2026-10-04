@@ -36,12 +36,16 @@ export function Devices() {
 
   return (
     <section className="landing-section devices" id="field" aria-labelledby="devices-title">
-      <header className="product-heading">
+      <header className="product-heading devices__intro">
         <h2 className="product-heading__title" id="devices-title">במשרד <span className="devices-title__accent">ובשטח</span></h2>
         <p className="product-heading__lead">סביבת עבודה מלאה במחשב, עריכת כמויות בטאבלט וכלים ממוקדים לבדיקה ולמדידה בטלפון.</p>
       </header>
       <div className={`field-story${staticPresentation ? ' field-story--static' : ''}`} ref={track}>
         <div className="field-story__stage">
+          <header className="field-story__intro">
+            <h2 className="product-heading__title">במשרד <span className="devices-title__accent">ובשטח</span></h2>
+            <p>סביבת עבודה מלאה במחשב, עריכת כמויות בטאבלט וכלים ממוקדים לבדיקה ולמדידה בטלפון.</p>
+          </header>
           <ol className="field-story__axis" dir="ltr" aria-label="מצבי עבודה">
             {WORK_MODES.map((mode, index) => <li key={mode.kind} aria-current={!staticPresentation && active === index ? 'step' : undefined}><bdi>0{index + 1}</bdi> <span dir="rtl">{mode.title}</span></li>)}
           </ol>

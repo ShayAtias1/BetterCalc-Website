@@ -85,8 +85,9 @@ export function useDeviceStory() {
         })
         if (window.innerWidth <= 639) {
           const axis = chapter.querySelector('.field-story__axis')?.getBoundingClientRect().height ?? 44
+          const intro = chapter.querySelector('.field-story__intro')?.getBoundingClientRect().height ?? 0
           const content = Math.max(...elements.map(group => group.offsetHeight))
-          chapter.style.setProperty('--field-stage-height', `${Math.min(window.innerHeight - header, content + axis + 40)}px`)
+          chapter.style.setProperty('--field-stage-height', `${Math.min(window.innerHeight - header, content + intro + axis + 48)}px`)
           height = field.clientHeight
         }
         const pose = (index:number,x:number,opacity:number): Pose => ({x,y:Math.max(0,(height-elements[index].offsetHeight)/2),scale:1,opacity,copyOpacity:1})
