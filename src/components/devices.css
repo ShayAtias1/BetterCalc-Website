@@ -2,9 +2,10 @@
 .devices .product-heading__title {
   font-family: var(--sans);
   font-weight: 760;
-  letter-spacing: .015em;
+  font-size: clamp(3.6rem, 5.4vw, 5rem);
+  letter-spacing: normal;
   line-height: .95;
-  word-spacing: .12em;
+  word-spacing: normal;
   white-space: nowrap;
   font-stretch: normal;
   text-align: start;
@@ -63,4 +64,11 @@
   .field-story:not(.field-story--static) .field-story__headings h3 { font-size: 1.4rem; }
   .field-story:not(.field-story--static) .field-story__headings h4 { font-size: 1rem; }
   .field-story:not(.field-story--static) .field-story__body { font-size: .85rem; line-height: 1.5; }
+}
+
+@media (min-width: 640px) and (max-width: 1000px) {
+  .devices .product-heading__title { font-size: clamp(2.7rem, 5.85vw, 4rem); }
+}
+@media (max-width: 639px) {
+  .devices .product-heading__title { font-size: clamp(2.25rem, 9.45vw, 3.4rem); }
 }

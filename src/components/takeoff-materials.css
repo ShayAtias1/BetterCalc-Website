@@ -1,7 +1,7 @@
 /* Compact material selection belongs to Takeoff; no second scroll story or phase index. */
 .takeoff-materials { padding: 32px var(--gutter) 24px; border-block-start: 1px solid var(--rule); }
 .takeoff-materials__head { max-width: 1240px; margin: 0 auto 24px; }
-.takeoff-materials h2 { margin: 0 0 20px; color: var(--ink); font-size: clamp(4rem, 6vw, 5.5rem); font-weight: 760; line-height: .95; letter-spacing: -.025em; }
+.takeoff-materials h2 { margin: 0 0 20px; color: var(--ink); font-size: clamp(3.6rem, 5.4vw, 5rem); font-weight: 760; line-height: .95; letter-spacing: -.025em; }
 .takeoff-materials h2 span { display: block; }
 .takeoff-materials__accent { color: var(--blue); }
 .takeoff-materials__modes { display: flex; flex-wrap: wrap; border-block: 1px solid var(--rule); }
@@ -17,14 +17,14 @@
 .takeoff-materials .product-browser__dots i:nth-child(2) { background: #febc2e; }
 .takeoff-materials .product-browser__dots i:nth-child(3) { background: #28c840; }
 @media (min-width: 901px) {
-  .takeoff-materials .product-browser { max-width: min(900px, max(360px, calc((100svh - var(--header-height) - 340px) * 1.6))); }
+  .takeoff-materials .product-browser { max-width: min(1040px, max(440px, calc((100svh - var(--header-height) - 260px) * 1.7))); }
 }
 .takeoff-materials .product-browser__steps, .takeoff-materials .product-browser__explanation { display: none; }
 @media (min-width: 640px) and (max-width: 1000px) {
-  .takeoff-materials h2 { font-size: clamp(3rem, 6.5vw, 4.5rem); }
+  .takeoff-materials h2 { font-size: clamp(2.7rem, 5.85vw, 4rem); }
 }
 @media (max-width: 639px) {
-  .takeoff-materials h2 { font-size: clamp(2.5rem, 10.5vw, 3.75rem); }
+  .takeoff-materials h2 { font-size: clamp(2.25rem, 9.45vw, 3.4rem); }
 
   .takeoff-materials { padding-block: 24px 12px; }
   .takeoff-materials__modes button { flex: 1; padding-inline: 6px; font-size: .85rem; }
