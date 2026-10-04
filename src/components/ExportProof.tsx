@@ -1,6 +1,7 @@
 import { memo } from 'react'
 import { WORKBOOK_FILE, WORKBOOK_SHEETS } from '../data/qtoWorkbook'
 import { Preview } from './Preview'
+import { OutputWorkflow } from './OutputWorkflow'
 
 // The two real QTO exports. Report previews are rendered from qto-report.pdf by
 // scripts/render-report-previews.swift; the sheet excerpt is read from qto-quantities.xlsx.
@@ -68,6 +69,7 @@ export const ExportProof = memo(function ExportProof({ storytelling = false }: {
             {WORKBOOK_SHEETS.map((s) => <span key={s.name} className="xl__tab" aria-current={s.name === LEDGER_SHEET || undefined}>{s.name}</span>)}
           </div>
         </div>
+        <OutputWorkflow />
       </figure>
     </div>
   )

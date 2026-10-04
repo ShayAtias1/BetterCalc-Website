@@ -1,0 +1,9 @@
+.output-workflow { border-block-start: 1px solid var(--rule); padding-block-start: 10px; margin-block-start: 10px; color: var(--muted); font: 10px var(--mono); }
+.output-workflow__path { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.output-workflow__path > span { display: inline-flex; align-items: center; gap: 4px; }
+.output-workflow svg { width: 16px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1; flex-shrink: 0; }
+.output-workflow img { width: 30px; height: auto; }
+.output-workflow i { color: var(--blue); font-style: normal; }
+.output-workflow b { font-weight: 400; }
+.output-workflow p { display: flex; align-items: center; justify-content: flex-start; gap: 5px; margin: 6px 0 0; font: 10px var(--sans); }
+.output-workflow p svg { width: 12px; height: 14px; }
