@@ -29,7 +29,7 @@ export function Header() {
   useCurrentSection(nav)
   return (
     <header className="site-header">
-      <a className="brand" href="#main-content" aria-label="BetterCalc — ראש העמוד">
+      <a className="brand" href="#main-content" aria-label="BetterCalc - ראש העמוד">
         <img className="brand__logo" src={logo} width={120} height={20} alt="" />
       </a>
       <nav className="primary-nav" aria-label="ניווט ראשי" ref={nav}>

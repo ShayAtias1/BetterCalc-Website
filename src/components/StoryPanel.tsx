@@ -45,7 +45,7 @@ export function StoryPanel({ panelRef }: { panelRef?: Ref<HTMLDivElement> }) {
             <div className="calib-field">
               <span className="calib-field__label">אורך אמיתי</span>
               <span className="calib-field__value">
-                <span className="calib-field__empty" aria-hidden="true">—</span>
+                <span className="calib-field__empty" aria-hidden="true">-</span>
                 <span className="calib-field__filled"><bdi dir="ltr">{REFERENCE.label}</bdi></span>
               </span>
               <span className="calib-field__unit">מ׳</span>
@@ -91,7 +91,7 @@ export function StoryPanel({ panelRef }: { panelRef?: Ref<HTMLDivElement> }) {
                 <th scope="row">סה״כ {WORK_ITEM}</th>
                 <td colSpan={3} className="ledger__num">
                   <span className="ledger__total-cell">
-                    <span className="ledger__total-pending" aria-hidden="true">—</span>
+                    <span className="ledger__total-pending" aria-hidden="true">-</span>
                     <span className="ledger__total-value"><bdi dir="ltr">{TOTAL}</bdi><span className="ledger__unit">מ״ר</span></span>
                   </span>
                 </td>

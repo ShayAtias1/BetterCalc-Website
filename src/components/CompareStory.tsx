@@ -128,7 +128,7 @@ export const CompareExport = memo(function CompareExport() {
         <Preview name="compare-report-p1" className="doc__page c-doc__page" width={1428} height={1140} alt="עמוד 1 בדוח ההשוואה: תוכנית המקור והגרסה המעודכנת זו על זו, עם מקרא וסימוני הריסה (1) ובנייה חדשה (2), כל אחד 0.75 מ״ר" />
       </figure>
       <figure className="doc c-doc c-doc--table">
-        <Preview name="compare-report-p2-table" className="doc__page" width={1804} height={444} alt="עמוד 2 בדוח ההשוואה: טבלת שטחי הריסה ובנייה — הריסה 0.75 מ״ר, בנייה חדשה 0.75 מ״ר, סה״כ כללי 1.5" />
+        <Preview name="compare-report-p2-table" className="doc__page" width={1804} height={444} alt="עמוד 2 בדוח ההשוואה: טבלת שטחי הריסה ובנייה - הריסה 0.75 מ״ר, בנייה חדשה 0.75 מ״ר, סה״כ כללי 1.5" />
         <figcaption className="doc__detail-label c-doc__label">עמוד <bdi dir="ltr">2</bdi> · טבלת שטחי הריסה ובנייה</figcaption>
       </figure>
     </div>

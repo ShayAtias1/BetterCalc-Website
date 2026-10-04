@@ -57,7 +57,7 @@ export const ExportProof = memo(function ExportProof({ storytelling = false }: {
                 <tr key={row} data-header={row === 1 || row === 7 || undefined}>
                   <th scope="row" className="xl__row" dir="ltr">{row}</th>
                   {COLUMNS.map((col) => {
-                    const value = sheet.cells[`${col}${row}`] ?? ''
+                    const value = (sheet.cells[`${col}${row}`] ?? '').replace(/\s*—\s*/g, ' - ').trim()
                     return <td key={col} className={isNumber(value) ? 'xl__num' : undefined}>{value}</td>
                   })}
                 </tr>

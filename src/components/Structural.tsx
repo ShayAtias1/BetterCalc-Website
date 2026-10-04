@@ -7,7 +7,7 @@ import { ProductBrowser } from './product/ProductBrowser'
 
 const STRUCTURAL_COPY: Partial<Record<DemoMode, { title: string; description: string }>> = {
   concrete: { title: 'בטון', description: 'מעבר לתקרה שבדוגמה: אזורי ואלמנטי בטון עם גאומטריה ניתנת לעריכה וסיכומי כמויות לפי תוכנית ופרויקט.' },
-  'mesh-bars': { title: 'רשתות ומוטות', description: 'לצד פריסת הרשת שבדוגמה, אפשר לכמת מוטות ישרים לפי שטח וגם מוטות בודדים — לפי פרטי העבודה.' },
+  'mesh-bars': { title: 'רשתות ומוטות', description: 'לצד פריסת הרשת שבדוגמה, אפשר לכמת מוטות ישרים לפי שטח וגם מוטות בודדים - לפי פרטי העבודה.' },
   stirrups: { title: 'חישוקים', description: 'מעבר לפריסת הקו שבדוגמה: פריסת חישוקים בתוך שטח וצורות נוספות. צורת החישוק עצמה מופיעה גם בדוחות וב־Excel.' },
 }
 

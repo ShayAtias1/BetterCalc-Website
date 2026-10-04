@@ -45,12 +45,12 @@ export function ComparePanel({ panelRef, origReadout, revReadout, revSlider, onR
         <div className="chapter" data-chapter="work">
           <p className="chapter-index"><bdi dir="ltr" className="chapter-index__num">07</bdi><span className="chapter-index__sep">/</span>סימון שינויים</p>
           <h2 className="chapter__title">השינוי ברור. עכשיו מסמנים את העבודה.</h2>
-          <p className="chapter__body">בודקים חזותית, מודדים ומסמנים בעצמכם את השינויים שזיהיתם — כל סימון נכנס לטבלת השינויים.</p>
+          <p className="chapter__body">בודקים חזותית, מודדים ומסמנים בעצמכם את השינויים שזיהיתם - כל סימון נכנס לטבלת השינויים.</p>
         </div>
         <div className="chapter" data-chapter="export">
           <p className="chapter-index"><bdi dir="ltr" className="chapter-index__num">08</bdi><span className="chapter-index__sep">/</span>ייצוא</p>
           <h2 className="chapter__title">מהשינוי בתוכנית לדוח שאפשר לעבוד איתו.</h2>
-          <p className="chapter__body">תוכנית מקור, גרסה מעודכנת, סימוני הריסה ובנייה חדשה — בדוח <bdi dir="ltr">PDF</bdi> אחד.</p>
+          <p className="chapter__body">תוכנית מקור, גרסה מעודכנת, סימוני הריסה ובנייה חדשה - בדוח <bdi dir="ltr">PDF</bdi> אחד.</p>
         </div>
       </div>
 

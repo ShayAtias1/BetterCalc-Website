@@ -13,7 +13,7 @@ export function HeroCopy({ copyRef }: { copyRef?: Ref<HTMLDivElement> }) {
         <ol className="hero-flow" aria-label="איך זה עובד">
           <li><bdi dir="ltr">PDF</bdi></li><li>כיול</li><li>כמויות</li>
         </ol>
-        <p className="hero-copy__lead">מדידה וחישוב כמויות לגמרים, בטון וזיון ישירות על התוכנית. משווים גרסאות ומייצאים דוחות <bdi dir="ltr">PDF</bdi> וכמויות ל־<bdi dir="ltr">Excel</bdi> — בדפדפן, בלי <bdi dir="ltr">CAD</bdi>.</p>
+        <p className="hero-copy__lead">מדידה וחישוב כמויות לגמרים, בטון וזיון ישירות על התוכנית. משווים גרסאות ומייצאים דוחות <bdi dir="ltr">PDF</bdi> וכמויות ל־<bdi dir="ltr">Excel</bdi> - בדפדפן, בלי <bdi dir="ltr">CAD</bdi>.</p>
         <a className="primary-action" href={APP_URL}><span>פתחו את <bdi dir="ltr">BetterCalc</bdi></span><span className="primary-action__arrow" aria-hidden="true">←</span></a>
         <a className="hero-secondary-action" href="#takeoff">ראו איך זה עובד <span aria-hidden="true">↓</span></a>
       </div>
