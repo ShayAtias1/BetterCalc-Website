@@ -2,13 +2,14 @@
 .devices .product-heading__title {
   font-family: var(--sans);
   font-weight: 760;
-  letter-spacing: -.046em;
+  letter-spacing: .015em;
   line-height: .95;
   word-spacing: normal;
   font-stretch: normal;
   text-align: start;
   direction: rtl;
 }
+.devices-title__accent { color: var(--blue); }
 .field-story { --field-stage-height: calc(100svh - var(--header-height)); height: calc(var(--field-stage-height) + var(--field-travel, 180svh)); max-width: 1500px; margin-inline: auto; }
 .field-story__stage { position: sticky; top: var(--header-height); height: var(--field-stage-height); display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 16px; padding-block: 20px; }
 .field-story__axis { display: grid; grid-template-columns: repeat(3, 1fr); list-style: none; padding: 0; margin: 0; border-block-start: 1px solid var(--ink); }

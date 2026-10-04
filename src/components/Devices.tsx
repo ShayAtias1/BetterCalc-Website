@@ -37,8 +37,7 @@ export function Devices() {
   return (
     <section className="landing-section devices" id="field" aria-labelledby="devices-title">
       <header className="product-heading">
-        <p className="product-heading__eyebrow">במשרד ובשטח</p>
-        <h2 className="product-heading__title" id="devices-title">במשרד ובשטח</h2>
+        <h2 className="product-heading__title" id="devices-title">במשרד <span className="devices-title__accent">ובשטח</span></h2>
         <p className="product-heading__lead">סביבת עבודה מלאה במחשב, עריכת כמויות בטאבלט וכלים ממוקדים לבדיקה ולמדידה בטלפון.</p>
       </header>
       <div className={`field-story${staticPresentation ? ' field-story--static' : ''}`} ref={track}>

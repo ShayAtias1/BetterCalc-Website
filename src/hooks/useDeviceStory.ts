@@ -75,10 +75,10 @@ export function useDeviceStory() {
         })
         const hardware = elements.map(group => group.querySelector<HTMLElement>('.device-frame')!)
         const ratios = [1.6, 4 / 3, 390 / 844]
-        const limits = [1100, 850, window.innerWidth <= 639 ? Math.min(190, groupWidth * .55) : 300]
+        const limits = [1100, 850, window.innerWidth <= 639 ? Math.min(150, groupWidth * .42) : 220]
         hardware.forEach((device,index) => {
           const available = Math.max(120, height - captions[index].offsetHeight - 36)
-          const base = Math.min(groupWidth, available * ratios[index], limits[index])
+          const base = Math.min(index === 1 ? groupWidth * .85 : groupWidth, available * ratios[index], limits[index])
           device.style.width = `${base}px`
         })
         const pose = (index:number,x:number,opacity:number): Pose => ({x,y:Math.max(0,(height-elements[index].offsetHeight)/2),scale:1,opacity,copyOpacity:1})
@@ -99,7 +99,7 @@ export function useDeviceStory() {
       const bases = [
         Math.min(visualWidth - 24, width * .68, (height - 40) * 1.6, 1100),
         Math.min(visualWidth - 24, width * .56, (height - 36) * 4 / 3, 850),
-        Math.min(visualWidth - 24, (height - 24) * 390 / 844, 260),
+        Math.min(visualWidth - 24, (height - 24) * 390 / 844, 220),
       ].map((value) => Math.max(1, value))
       const widths = bases.map((base) => copyWidth + gap + base)
       elements.forEach((group, index) => {
@@ -109,10 +109,10 @@ export function useDeviceStory() {
       })
       const centered = bases.map((base) => anchor - base / 2 - copyWidth - gap)
       const pose = (index: number, x: number, scale: number, opacity: number, copyOpacity: number): Pose => ({ x, y: Math.max(0, (height - elements[index].offsetHeight * scale) / 2), scale, opacity, copyOpacity })
-      // Supporting groups stay left of the incoming copy; no screen overlaps the active UI.
-      const desktopSecondary = .45
-      const desktopFinal = .3
-      const tabletFinal = .4
+      // Previous devices leave at their readable size rather than shrinking into miniature mockups.
+      const desktopSecondary = 1
+      const desktopFinal = 1
+      const tabletFinal = 1
       const tabletHistoryEnd = Math.max(0, centered[2] - gap)
       const tabletHistoryStart = tabletHistoryEnd - widths[1] * tabletFinal
       poses = [

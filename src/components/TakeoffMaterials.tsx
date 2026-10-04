@@ -17,12 +17,11 @@ export function TakeoffMaterials() {
   const active = MODES.find(item => item.mode === mode)!
   return <div className="takeoff-materials" id="structural" role="region" aria-labelledby="takeoff-materials-title">
     <header className="takeoff-materials__head">
-      <h2 id="takeoff-materials-title">גם בטון וזיון, ישירות על התוכנית.</h2>
+      <h2 id="takeoff-materials-title"><span>גם בטון וזיון</span><span className="takeoff-materials__accent">ישירות על התכנית.</span></h2>
       <div className="takeoff-materials__modes" role="group" aria-label="בחירת נושא">
         {MODES.map(item => <button key={item.mode} type="button" aria-pressed={mode === item.mode} onClick={() => choose(item.mode)}>{item.title}</button>)}
       </div>
       <p>{active.description}</p>
-      {mode === 'mesh-bars' && <button className="takeoff-materials__adjust" type="button" aria-pressed={phase === 3} onClick={() => setPhase(phase === 3 ? 2 : 3)}>הזזת יריעה לדוגמה / פריסה מקורית</button>}
     </header>
     <ProductBrowser modes={[mode]} initialMode={mode} deviceFrame="macbook" hideDescription omitResultFor={[mode]}
       story={{ mode, phase, playing: false, onSelect: choose, onReplay: () => setPhase(2) }} />
