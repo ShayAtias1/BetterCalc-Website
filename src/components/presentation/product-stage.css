@@ -1,0 +1,25 @@
+.product-stage { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px var(--col-gap); align-items: start; width: 100%; max-width: var(--product-stage-width, 1500px); margin-inline: auto; padding-block-start: 24px; border-block-start: 1px solid var(--ink); background: repeating-linear-gradient(to right, var(--rule-faint) 0 1px, transparent 1px calc(100% / 12)); }
+.product-stage__main { grid-column: 1 / span 10; min-width: 0; }
+.product-stage__rail { grid-column: 11 / -1; padding-inline-start: 16px; border-inline-start: 1px solid var(--rule); }
+.product-stage__rail-label { margin: 0 0 16px; font-size: .8rem; color: var(--muted); }
+.product-stage__rail dl { margin: 0; }
+.product-stage__metric { padding-block: 16px; border-block-start: 1px solid var(--rule); }
+.product-stage__metric dt { color: var(--muted); font-size: .85rem; }
+.product-stage__metric dd { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; margin: 8px 0 0; color: var(--ink); font-size: .85rem; }
+.product-stage__metric bdi { font-family: var(--mono); font-size: clamp(1.2rem, 1.8vw, 1.8rem); color: var(--blue); }
+.product-stage__caption { grid-column: 1 / span 10; padding-block-start: 16px; border-block-start: 1px solid var(--rule); }
+.product-stage__caption p { margin: 0; font-size: .9rem; line-height: 1.6; }
+@media (max-width: 1000px) {
+  .product-stage__main, .product-stage__rail, .product-stage__caption { grid-column: 1 / -1; }
+  .product-stage__rail { border-inline-start: 0; padding-inline-start: 0; }
+  .product-stage__rail dl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--col-gap); }
+}
+@media (max-width: 639px) {
+  .product-stage { display: flex; flex-direction: column; gap: 20px; padding-block-start: 16px; }
+  .product-stage__main, .product-stage__main > .product-browser { display: contents; }
+  .product-stage__main .product-browser__frame { order: 1; width: 100%; }
+  .product-stage__rail { order: 2; width: 100%; }
+  .product-stage__main .product-browser__explanation { order: 3; padding: 0; }
+  .product-stage__caption { order: 4; width: 100%; }
+  .product-stage__rail dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
