@@ -17,7 +17,7 @@ export function Structural() {
         <h2 className="product-heading__title" id="structural-title"><span>מהאלמנט בתוכנית </span><span>לכמויות בטון וזיון.</span></h2>
         <p className="product-heading__lead">מסמנים את העבודה, מגדירים את המידות ואת פרטי הזיון ובודקים את הכמויות. מרכזים את התוצאות לפי תוכנית ופרויקט ומייצאים לדוח.</p>
       </header>
-      <ProductBrowser modes={['concrete', 'mesh-bars', 'stirrups']} initialMode="concrete" omitExplanationFor={['concrete']} renderModeDescription={(mode) => {
+      <ProductBrowser modes={['concrete', 'mesh-bars', 'stirrups']} initialMode="concrete" omitExplanationFor={['concrete']} omitResultFor={['mesh-bars', 'stirrups']} renderModeDescription={(mode) => {
         const copy = STRUCTURAL_COPY[mode]
         return copy ? <><h3>{copy.title}</h3><p>{copy.description}</p></> : null
       }} />
