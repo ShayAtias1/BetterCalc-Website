@@ -147,6 +147,15 @@ export function useStructuralStory() {
     const measure = () => {
       if (disposed) return
       const header = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 56
+      if (mobilePresentation) {
+        const indexHeight = pinned.querySelector('.structural-mobile__index')?.getBoundingClientRect().height ?? 44
+        const groups = Array.from(pinned.querySelectorAll<HTMLElement>('.structural-mobile__group'))
+        const contentHeight = Math.max(0, ...groups.map(group =>
+          Array.from(group.children).reduce((height, child) => height + child.getBoundingClientRect().height, 0) + 32))
+        // Fit the pinned viewport to its content so its release doesn't leave an empty band.
+        const height = Math.min(window.innerHeight - header, indexHeight + 12 + 24 + contentHeight)
+        chapter.style.setProperty('--structural-stage-height', `${height}px`)
+      }
       start = chapter.getBoundingClientRect().top + window.scrollY - header
       travel = Math.max(1, chapter.offsetHeight - pinned.offsetHeight)
       settle(scrollProgress())
@@ -202,6 +211,7 @@ export function useStructuralStory() {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onResize)
       controller.current = null
+      chapter.style.removeProperty('--structural-stage-height')
     }
   }, [staticPresentation, mobilePresentation])
 
