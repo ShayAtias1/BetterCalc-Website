@@ -191,8 +191,12 @@ html { scroll-padding-top: calc(var(--header-height) + 20px); }
 .structural-capabilities p, .device-proof p, .desktop-role p { margin: 0; line-height: 1.65; }
 .device-proof { display: grid; grid-template-columns: minmax(0, 3fr) minmax(220px, 1fr); align-items: start; gap: clamp(24px, 4vw, 64px); }
 .device-proof figure { margin: 0; min-width: 0; }
-.device-proof__frame { background: var(--panel); padding: 8px; border: 1px solid var(--rule); border-radius: 16px; box-shadow: 0 24px 48px -32px rgba(13,18,25,.35); }
-.device-proof__frame img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.device-proof__frame { width: 100%; margin-inline: auto; background: var(--panel); padding: 8px; border: 1px solid var(--rule); border-radius: 16px; box-shadow: 0 24px 48px -32px rgba(13,18,25,.35); }
+.device-proof__frame img { display: block; width: 100%; height: auto; object-fit: contain; border-radius: 8px; }
+.device-proof__tablet .device-proof__frame { max-width: 720px; }
+.device-proof__phone .device-proof__frame { max-width: 220px; }
+.device-proof__tablet img { aspect-ratio: 4 / 3; }
+.device-proof__phone img { aspect-ratio: 390 / 844; }
 .device-proof figcaption { margin-block-start: 24px; }
 .device-proof__phone { max-width: 310px; }
 .desktop-role { display: grid; grid-template-columns: auto minmax(180px, 1fr) 2fr; align-items: baseline; gap: 24px; border-block-start: 1px solid var(--rule); padding-block-start: 28px; margin-block-start: 36px; }
@@ -207,5 +211,6 @@ html { scroll-padding-top: calc(var(--header-height) + 20px); }
 @media (max-width: 639px) {
   .structural-capabilities, .device-proof, .desktop-role { grid-template-columns: 1fr; }
   .device-proof__phone { width: min(100%, 290px); margin-inline: auto; }
+  .device-proof__phone .device-proof__frame { max-width: 180px; }
   .device-proof__tablet .device-proof__frame { padding: 4px; border-radius: 10px; }
 }
