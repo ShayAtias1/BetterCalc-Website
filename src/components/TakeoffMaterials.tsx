@@ -18,12 +18,16 @@ export function TakeoffMaterials() {
   return <div className="takeoff-materials" id="structural" role="region" aria-labelledby="takeoff-materials-title">
     <header className="takeoff-materials__head">
       <h2 id="takeoff-materials-title"><span>גם בטון וזיון</span><span className="takeoff-materials__accent">ישירות על התכנית.</span></h2>
+    </header>
+    <div className="takeoff-materials__body">
+      <aside className="takeoff-materials__rail">
       <div className="takeoff-materials__modes" role="group" aria-label="בחירת נושא">
         {MODES.map(item => <button key={item.mode} type="button" aria-pressed={mode === item.mode} onClick={() => choose(item.mode)}>{item.title}</button>)}
       </div>
       <p>{active.description}</p>
-    </header>
+      </aside>
     <ProductBrowser modes={[mode]} initialMode={mode} hideDescription omitResultFor={[mode]}
       story={{ mode, phase, playing: false, onSelect: choose, onReplay: () => setPhase(2) }} />
+    </div>
   </div>
 }
