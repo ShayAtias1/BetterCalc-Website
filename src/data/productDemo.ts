@@ -15,7 +15,7 @@ export const PRODUCT_DEMOS = {
     asset: 'finishes',
     label: { he: 'גמרים', en: 'Finishes' },
     steps: { he: ['תוכנית מכוילת', 'סימון חדר', 'פרטי עבודה וכמויות'], en: ['Calibrated plan', 'Mark a room', 'Work items and quantities'] },
-    description: { he: 'מסמנים חדר, מגדירים ריצוף וחיפוי ומקבלים כמות לפי השטח, ההיקף והפתחים.', en: 'Mark a room, define flooring and cladding, and review quantities from area, perimeter and openings.' },
+    description: { he: 'פרטי הריצוף והחיפוי מוצגים במפקח הפריטים לצד התוכנית.', en: 'Flooring and cladding specifications appear in the item inspector beside the plan.' },
     result: { he: 'בדוגמה המצולמת: שטח 12.65 מ״ר · היקף 14.32 מ׳ · חיפוי נטו 32.47 מ״ר לאחר ניכוי פתח של 1.89 מ״ר · פחת 0%.', en: 'Captured example: area 12.65 m² · perimeter 14.32 m · net cladding 32.47 m² after a 1.89 m² opening deduction · waste 0%.' },
   },
   concrete: {
