@@ -51,3 +51,9 @@
 @media (prefers-reduced-motion: reduce) {
   .product-browser *, .product-browser *::before, .product-browser *::after { animation: none !important; transition: none !important; }
 }
+
+.product-browser--focused .product-browser__plan .product-browser__layer { object-fit: contain; background: var(--sheet); }
+.product-browser--focused .product-browser__body { grid-template-columns: 360fr 800fr; aspect-ratio: 1160 / 880; }
+@media (max-width: 639px) {
+  .product-browser--focused .product-browser__body { display: block; aspect-ratio: auto; }
+}

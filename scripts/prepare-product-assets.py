@@ -21,6 +21,9 @@ for mode in ['finishes', 'concrete', 'mesh', 'stirrups']:
     left, top = max(0, min(xs)-100), max(0, min(ys)-110)
     right, bottom = min(image.width, max(xs)+100), min(image.height, max(ys)+110)
     image.crop((left, top, right, bottom)).save(out / f'{mode}-phone-focus.webp', 'WEBP', quality=92, method=6)
+    for phase in [0, 1, 2] + ([3] if mode == 'mesh' else []):
+        frame = Image.open(source / f'{mode}-{phase}-plan.png').convert('RGB')
+        frame.crop((left, top, right, bottom)).save(out / f'{mode}-{phase}-focus.webp', 'WEBP', quality=92, method=6)
 (out / 'provenance.json').write_text(json.dumps({
     'source': 'BetterCalc repository demo apartment PDF; freshly captured actual Hebrew UI',
     'plan': manifest['plan'], 'desktopViewport': manifest['viewport'],
