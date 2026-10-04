@@ -8,6 +8,7 @@ import { Preview } from './Preview'
 import { PlanDrawing } from './PlanDrawing'
 import { RevisionDrawing } from './RevisionDrawing'
 import '../compare.css'
+import './mobile-compare.css'
 
 
 function SheetTab({ code, file }: { code: string; file: string }) {
@@ -160,7 +161,7 @@ export function CompareStory() {
   )
 
   const controls = useCompareScroll(refs, true)
-  useSwipeControl({ strip, handle, bounds: controls.bounds, get: controls.getSwipe, set: controls.setSwipe })
+  useSwipeControl({ strip, handle, bounds: controls.bounds, get: controls.getSwipe, set: controls.setSwipe, mobileTouchIntent: true })
 
   return (
     <section ref={section} className="compare" id="compare" data-stage="intro" data-reached="intro" aria-labelledby="compare-title">

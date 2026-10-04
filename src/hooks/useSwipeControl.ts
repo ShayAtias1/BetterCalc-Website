@@ -15,11 +15,13 @@ type SwipeControlOptions = {
   get: () => number
   set: (value: number) => void
   enabled?: boolean
+  /** Phone/tablet touch starts on the handle and locks only after horizontal intent. */
+  mobileTouchIntent?: boolean
 }
 
 const STEP = 0.05
 
-export function useSwipeControl({ strip, handle, bounds, get, set, enabled = true }: SwipeControlOptions) {
+export function useSwipeControl({ strip, handle, bounds, get, set, enabled = true, mobileTouchIntent = false }: SwipeControlOptions) {
   useEffect(() => {
     const stripEl = strip.current
     const handleEl = handle.current
@@ -28,6 +30,8 @@ export function useSwipeControl({ strip, handle, bounds, get, set, enabled = tru
     let dragging = false
     let frame = 0
     let pendingX = 0
+    let touchStart: { id: number; x: number; y: number } | null = null
+    let touchPointer: number | null = null
 
     const commit = () => {
       frame = 0
@@ -36,6 +40,11 @@ export function useSwipeControl({ strip, handle, bounds, get, set, enabled = tru
     }
     const onDown = (event: PointerEvent) => {
       if (event.button !== 0) return
+      if (mobileTouchIntent && event.pointerType === 'touch' && window.innerWidth <= 900) {
+        if (event.currentTarget !== handleEl) return
+        touchStart = { id: event.pointerId, x: event.clientX, y: event.clientY }
+        return
+      }
       dragging = true
       pendingX = event.clientX
       try {
@@ -48,12 +57,27 @@ export function useSwipeControl({ strip, handle, bounds, get, set, enabled = tru
       if (!frame) frame = requestAnimationFrame(commit)
     }
     const onMove = (event: PointerEvent) => {
+      if (touchStart && touchStart.id === event.pointerId) {
+        const dx = Math.abs(event.clientX - touchStart.x)
+        const dy = Math.abs(event.clientY - touchStart.y)
+        if (dy > 8 && dy >= dx) { touchStart = null; return }
+        if (dx <= 8 || dx <= dy) return
+        dragging = true
+        touchPointer = event.pointerId
+        touchStart = null
+        handleEl.setPointerCapture(event.pointerId)
+        stripEl.dataset.dragging = 'true'
+        stripEl.dataset.used = 'true'
+      }
       if (!dragging) return
       pendingX = event.clientX
       if (!frame) frame = requestAnimationFrame(commit)
     }
     const onUp = () => {
       dragging = false
+      touchStart = null
+      if (touchPointer !== null && handleEl.hasPointerCapture(touchPointer)) handleEl.releasePointerCapture(touchPointer)
+      touchPointer = null
       delete stripEl.dataset.dragging
     }
     const onKey = (event: KeyboardEvent) => {
@@ -80,6 +104,7 @@ export function useSwipeControl({ strip, handle, bounds, get, set, enabled = tru
       el.addEventListener('pointercancel', onUp)
     })
     handleEl.addEventListener('keydown', onKey)
+    handleEl.addEventListener('lostpointercapture', onUp)
 
     return () => {
       cancelAnimationFrame(frame)
@@ -89,9 +114,11 @@ export function useSwipeControl({ strip, handle, bounds, get, set, enabled = tru
         el.removeEventListener('pointerup', onUp)
         el.removeEventListener('pointercancel', onUp)
       })
+      onUp()
       handleEl.removeEventListener('keydown', onKey)
+      handleEl.removeEventListener('lostpointercapture', onUp)
     }
-  }, [strip, handle, bounds, get, set, enabled])
+  }, [strip, handle, bounds, get, set, enabled, mobileTouchIntent])
 }
 
 /** Accessible value text for the swipe slider: revision on the left of the divider, original on the right. */

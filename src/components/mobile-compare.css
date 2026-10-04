@@ -1,0 +1,32 @@
+/* The mobile timeline is 3.36 viewport units; desktop choreography is unchanged. */
+@media (max-width: 900px) {
+  .compare:not(.compare--static) { --travel: 336svh; }
+  .compare:not(.compare--static) .story-panel { inset: auto 0 0; width: auto; height: clamp(320px, 44svh, 380px); padding: 16px var(--gutter) calc(12px + env(safe-area-inset-bottom)); }
+  .compare:not(.compare--static) .compare-question { display: block; }
+  .compare:not(.compare--static) .compare-question__title { font-size: clamp(2.1rem, 8vw, 3.5rem); }
+  .compare:not(.compare--static) .compare-question__lead { max-width: 34em; padding: 0; margin-top: 16px; font-size: .95rem; }
+  .compare:not(.compare--static) .story-panel__status { display: none; }
+  .compare:not(.compare--static) .chapter-index { margin-bottom: 8px; font-size: .8rem; }
+  .compare:not(.compare--static) .chapter__title { font-size: clamp(1.55rem, 6vw, 2rem); line-height: 1.05; }
+  .compare:not(.compare--static) .chapter .chapter__body { display: block; max-width: 42em; font-size: .8rem; line-height: 1.4; margin-top: 8px; }
+  .compare:not(.compare--static) .differences { margin-top: 8px; }
+  .compare:not(.compare--static) .differences__label { display: none; }
+  .compare:not(.compare--static) .differences__list { gap: 2px; }
+  .compare:not(.compare--static) .differences__list li { font-size: .76rem; }
+  .compare:not(.compare--static) .panel-foot { padding-top: 12px; }
+  .compare:not(.compare--static) .layers > div { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+  .compare:not(.compare--static) .layers__head, .compare:not(.compare--static) .layers__slider { grid-column: 1 / -1; }
+  .compare:not(.compare--static) .layers__row { padding-block: 4px; font-size: .8rem; }
+  .compare:not(.compare--static) .layers__slider { padding-top: 4px; }
+  .compare:not(.compare--static) .layers__slider input { min-height: 44px; }
+  .compare:not(.compare--static) .layers__code { display: none; }
+  .compare:not(.compare--static) .c-divider__strip { left: -29px; width: 58px; touch-action: pan-y; }
+  .compare:not(.compare--static) .c-divider__line { left: 28px; }
+  .compare:not(.compare--static) .c-divider__handle { width: 58px; height: 58px; touch-action: pan-y; }
+  .compare:not(.compare--static) .c-export { inset: calc(var(--header-height) + 16px) 16px calc(clamp(320px, 44svh, 380px) + 16px); }
+  .compare:not(.compare--static) .c-doc { width: 100%; }
+  .compare:not(.compare--static) .c-doc--table { display: none; }
+  .compare:not(.compare--static) .changes__table thead { display: none; }
+  .compare:not(.compare--static)[data-reached~='export'] .changes__table, .compare:not(.compare--static)[data-reached~='export'] .changes__tools { display: none; }
+  .compare:not(.compare--static):not([data-reached~='export']) .changes__export { display: none; }
+}
