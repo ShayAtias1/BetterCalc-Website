@@ -1,6 +1,6 @@
 # BetterCalc Website Blueprint — Package 1
 
-This replaces the earlier scroll-story blueprint. The older room-only scope, doubled demo quantity, long pinned chapters and wheel damping are superseded. The current product facts and this document govern future website work.
+This preserves Package 1 product facts while restoring the original scroll-story experience from `df01201`, immediately before `fed471d`. The older room-only scope and doubled demo quantity remain superseded. Decisions about replacing or tuning the original motion are deferred until the new content and real visual assets are complete.
 
 ## Positioning and identity
 
@@ -10,11 +10,11 @@ Hero headline: **מתוכנית PDF לכמויות.** Supporting copy covers fin
 
 ## Seven-section architecture
 
-1. Hero in normal flow, with existing plan evidence.
+1. Original pinned Hero/takeoff progression: calibration, rooms, quantities and export, with current messaging and CTAs.
 2. From Plan to Quantities: upload → calibrate → mark → calculate → report.
 3. Finishes: flooring/cladding, perimeter quantities, openings/deductions, waste, editable geometry.
 4. Concrete & Reinforcement: three stable groups for concrete, mesh/bars and stirrups.
-5. Revision Compare: one stable aligned plan example, overlay opacity and user-controlled swipe.
+5. Original pinned Revision Compare progression: alignment, overlay, guided/user-controlled swipe, manual changes and PDF output.
 6. At the Desk and On Site: complete desktop workspace, real tablet field editing, phone review/items/quantities/simple measurement and annotation.
 7. Consolidated Reports / Audience / Final CTA: existing real PDF and Excel evidence, compact audience statement, direct outcome-led invitation.
 
@@ -38,17 +38,19 @@ Users inspect differences and author their own markings. The example difference 
 
 The verified current demo flooring total is **49.46 m²**: 12.74 + 13.11 + 23.61, at 0% waste. The old doubled demo total must never be reused. Order quantities depend on configured work items, deductions and waste.
 
-Use the existing real report detail and workbook excerpt together. The full old report plan contains printed area labels that differ from the demonstrated takeoff; Package 1 shows its quantity detail rather than that ambiguous full-plan preview. Comparison marks are manually authored: demolition 0.75 m², construction 0.75 m².
+Use the existing real report detail and workbook excerpt together in the compact Reports section. The restored story export stages retain the original full report/stack visuals. The source report plan contains printed area labels that differ from the demonstrated takeoff values; those printed labels must not be used as quantity truth. Comparison marks are manually authored: demolition 0.75 m², construction 0.75 m².
 
 General finishes/concrete/reinforcement PDF and Excel outputs can be described. Existing visual evidence currently covers finishes and comparison; actual Structural output assets remain for Package 2.
 
-## Native scrolling and responsive composition
+## Restored motion and responsive composition
 
-All sections are in normal document flow. No scroll-linked camera movement, pinned timelines or wheel interception. Product information and controls remain available while the section is visible.
+The original `useStoryScroll`, `useCompareScroll` and `useWheelDamping` implementations are restored directly from git history, without timeline, camera, wheel-scale or easing changes. `App.css` retains the original takeoff/sticky/choreography rules, and `compare.css` restores the original guided presentation. Hero copy and CTA updates are integrated into the original composition rather than replacing it.
 
-Keep transitions subtle, typically 180–280 ms. Respect reduced motion. User-directed dragging and range controls remain usable without automated movement.
+The pinned stories retain their original export stages. The added workflow, finishes, Structural, device and compact Reports/Audience/CTA sections remain, with no large new animations. They separate the original two chapters in document flow but do not alter either chapter's internal motion.
 
-Tablet/phone navigation uses a compact jump menu. Phone composition follows copy → plan/example → result. Retain explanatory text and report evidence rather than removing content to fit a viewport-height stage. Tablets use their own intermediate grid composition; tablet field editing receives visual emphasis.
+Desktop retains the rich original experience. Reduced-motion visitors and phones below 640px use the original static figures, retaining readable explanations, report evidence and manual comparison controls. Tablet/phone jump navigation, touch targets, tablet-specific new-section layouts and the focused finishes crop remain. Responsive additions must not disable desktop story transforms or sticky stages.
+
+Do not tune scroll speed, shorten sticky travel or redesign camera choreography yet. Final pacing evaluation comes after the new product content and real assets are complete.
 
 ## Package boundaries
 

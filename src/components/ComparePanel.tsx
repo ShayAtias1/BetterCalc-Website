@@ -29,9 +29,9 @@ export function ComparePanel({ panelRef, origReadout, revReadout, revSlider, onR
         <div className="chapter" data-chapter="overlay">
           <p className="chapter-index" data-reveal><bdi dir="ltr" className="chapter-index__num">05</bdi><span className="chapter-index__sep">/</span>שכבות</p>
           <h2 className="chapter__title" data-reveal>שתי תוכניות. אחת על השנייה.</h2>
-          <p className="chapter__body" data-reveal>מיישרים את הגרסאות ומשווים אותן באותו קנה מידה.</p>
+          <p className="chapter__body" data-reveal>ממפים עמודים, מיישרים את הגרסאות ומשווים אותן באותו קנה מידה.</p>
           <div className="differences">
-            <p className="differences__label">מה רואים בשכבות:</p>
+            <p className="differences__label">הבדלים שנבחרו להמחשה בדוגמה:</p>
             <ol className="differences__list">
               {DIFFERENCES.map((text) => <li key={text}>{text}</li>)}
             </ol>
@@ -39,13 +39,13 @@ export function ComparePanel({ panelRef, origReadout, revReadout, revSlider, onR
         </div>
         <div className="chapter" data-chapter="swipe">
           <p className="chapter-index"><bdi dir="ltr" className="chapter-index__num">06</bdi><span className="chapter-index__sep">/</span>החלקה</p>
-          <h2 className="chapter__title">רואים מיד מה השתנה.</h2>
+          <h2 className="chapter__title">בודקים מה השתנה.</h2>
           <p className="chapter__body">גוררים את קו ההשוואה: משמאל גרסה B, מימין תוכנית המקור.</p>
         </div>
         <div className="chapter" data-chapter="work">
           <p className="chapter-index"><bdi dir="ltr" className="chapter-index__num">07</bdi><span className="chapter-index__sep">/</span>סימון שינויים</p>
           <h2 className="chapter__title">השינוי ברור. עכשיו מסמנים את העבודה.</h2>
-          <p className="chapter__body">מסמנים בעצמכם מה הורסים ומה בונים — כל סימון נכנס לטבלת השינויים.</p>
+          <p className="chapter__body">בודקים חזותית, מודדים ומסמנים בעצמכם את השינויים שזיהיתם — כל סימון נכנס לטבלת השינויים.</p>
         </div>
         <div className="chapter" data-chapter="export">
           <p className="chapter-index"><bdi dir="ltr" className="chapter-index__num">08</bdi><span className="chapter-index__sep">/</span>ייצוא</p>

@@ -4,15 +4,17 @@ Standalone Hebrew RTL React + TypeScript + Vite marketing site. Package 1 preser
 
 ## Page structure
 
-1. Hero — PDF-to-quantities positioning, application CTA and workflow link.
+1. Hero / Takeoff story — original pinned calibration, rooms, quantities and export choreography, with current product positioning and CTAs.
 2. From Plan to Quantities — upload, calibrate, mark, calculate, report.
 3. Finishes — flooring/cladding, perimeter quantities, openings/deductions, waste and editable geometry.
 4. Concrete & Reinforcement — concrete, mesh/bars, stirrups.
-5. Revision Compare — stable aligned overlay and user-controlled swipe.
+5. Revision Compare — original pinned alignment, overlay, guided/user-controlled swipe, manual markings and report story.
 6. At the Desk and On Site — desktop authoring, tablet field editing, phone review/simple tools.
 7. Reports / Audience / Final CTA — consolidated real output evidence.
 
-`src/App.tsx` composes focused section components. Shared design tokens remain in `src/index.css`; normal-flow section layouts live in `src/landing.css`. Comparison is in `src/components/CompareStory.tsx` and `src/compare.css`, with pointer/touch/keyboard interaction in `src/hooks/useSwipeControl.ts`. There are no pinned story stages, scroll-linked cameras, or custom wheel damping. Reduced-motion visitors receive the same content and manually operated controls without animation.
+`src/App.tsx` composes focused section components. Shared design tokens remain in `src/index.css`; added product section layouts live in `src/landing.css`. The original motion infrastructure is restored from `df01201` (immediately before Package 1): `useStoryScroll`, `useCompareScroll`, `useWheelDamping`, the original comparison CSS and stage composition. Hero/takeoff composition now lives in `TakeoffStory.tsx`, with updated copy in `Hero.tsx`. Desktop retains the original camera keyframes, stage thresholds, sticky travel, transitions and wheel damping without tuning. Structural/device sections remain stable.
+
+Reduced-motion visitors and phones below 640px use the original static story figures with readable explanatory content and manually operated comparison controls. Tablet/phone navigation and Package 1 intermediate layouts remain. The broader workflow/finishes/Structural sections now separate the original two story chapters; each story retains its internal timing and choreography. Decisions on final pacing and motion redesign are deferred until content and real assets are complete.
 
 All application CTAs use `APP_URL` in `src/data/site.ts` and the label “פתחו את BetterCalc”. Navigation uses normal anchors with fixed-header scroll offsets and a compact tablet/phone menu.
 
@@ -31,7 +33,7 @@ Cloud/Auth/accounts, sync, collaboration, billing, automatic AI quantities and a
 - `assets-source/` contains the source demo plans and real reports; these originals are not deployed.
 - `PlanDrawing.tsx` and `RevisionDrawing.tsx` are extracted from the two existing vector demo PDFs. Plan geometry is preserved; conflicting printed room-area numerals are omitted from the website drawing.
 - `src/data/qto.ts` and `src/data/qtoWorkbook.ts` contain the verified demo quantities. The correct flooring total is **49.46 m²**, with **0% waste**: 12.74 + 13.11 + 23.61. A previous demo added tiling twice per room; its doubled total is obsolete.
-- Report preview PNG/AVIF files in `public/assets/report-previews/` come from real PDF exports. Package 1 uses the quantity detail excerpt and comparison table, alongside the existing workbook excerpt.
+- Report preview PNG/AVIF files in `public/assets/report-previews/` come from real PDF exports. The compact Reports section uses the quantity detail excerpt and comparison table, alongside the existing workbook excerpt. The restored animated stories also use the original full report/stack compositions from the same existing assets; printed room-area labels on the source report plan are not the demonstrated takeoff values.
 - `src/data/compare.ts` contains the plan pair, authored observations and manual demo markings. Demolition and construction marks each measure 0.75 m² in the comparison report.
 
 The existing extraction/render scripts are asset maintenance tools. Use them only when asset regeneration is separately authorized and source reports have been updated.
@@ -40,7 +42,7 @@ The existing extraction/render scripts are asset maintenance tools. Use them onl
 
 `ProductGroup` accepts a `visual` React node. `Structural` and `Devices` accept keyed `visuals` maps for concrete / mesh-bars / stirrups and desktop / tablet / phone. Until real screenshots are supplied, those areas show useful workflow text, not fake UI or visible implementation placeholders. The Hero and Finishes use existing plan components and can later receive real workspace screenshots.
 
-No new screenshots, illustrations or mockups were created for Package 1. No build, tests, lint, screenshots or browser QA were run for this package, as requested. Manual review is pending.
+No new screenshots, illustrations or mockups were created for Package 1 or the motion restoration. No build, tests, lint, screenshots or browser QA were run for either change, as requested. Manual review is pending.
 
 ## Local development
 

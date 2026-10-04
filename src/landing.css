@@ -107,14 +107,15 @@ html { scroll-padding-top: calc(var(--header-height) + 20px); }
   .device-groups .product-group:nth-child(2) { grid-row: 1; }
 }
 
-/* Native page scrolling and compact navigation on tablet/phone. */
-:root { --header-height: 64px; }
+/* Package 1 navigation remains independent of the restored storytelling. */
+:root { --header-height: 56px; }
 .header-action { min-height: 44px; }
 .primary-nav a { padding-inline: clamp(10px, 1.3vw, 20px); }
 .mobile-nav { display: none; }
 .site-footer__app { min-height: 44px; }
 .site-footer__nav a { display: inline-flex; align-items: center; min-height: 44px; }
 @media (max-width: 1050px) {
+  :root { --header-height: 64px; }
   .site-header { grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; }
   .primary-nav { display: none; }
   .mobile-nav { display: block; justify-self: end; }
@@ -152,4 +153,36 @@ html { scroll-padding-top: calc(var(--header-height) + 20px); }
   .site-header .brand__logo { height: 13px; }
   .header-action { font-size: .7rem; }
   .mobile-nav summary { padding-inline: 4px; font-size: .7rem; }
+}
+
+/* Restore the original story CSS unchanged; these additions only retain the new CTA
+   and readable static fallbacks. No desktop timeline/camera/timing overrides. */
+.hero-secondary-action { display: flex; align-items: center; gap: 12px; width: fit-content; min-height: 44px; margin-block-start: 8px; color: var(--ink); font-size: .9rem; }
+.hero-secondary-action:hover { color: var(--blue); }
+@media (max-width: 639px), (prefers-reduced-motion: reduce) {
+  .static-figure .story-panel { height: auto; min-height: 0; }
+  .static-figure .chapter .chapter__body { display: block; }
+  .static-figure .ledger__opt { display: table-cell; }
+  .static-figure .ledger__table thead { display: table-header-group; }
+  .static-figure[data-reached~='export'] .ledger tbody { display: table-row-group; }
+  .static-figure .xl__grid tbody tr { display: table-row; }
+  .static-figure .doc__detail { display: block; }
+  .static-figure.compare .changes__table { display: table; }
+  .static-figure.compare .changes__tools { display: flex; }
+  .static-figure.compare .ledger__caption { display: flex; }
+  .static-figure.compare .c-doc--table { display: block; }
+}
+@media (max-width: 639px) {
+  .static-hero .hero-copy__title { font-size: clamp(2.8rem, 13vw, 5rem); }
+  .static-figure .story-panel { padding: 24px var(--gutter); }
+  .static-figure .chapter__body { margin-block-end: 16px; line-height: 1.55; }
+  .static-figure .export-proof { height: auto; display: grid; gap: 24px; padding: 24px var(--gutter); }
+  .static-figure .export-proof .doc { position: relative; inset: auto; width: 100%; transform: none; }
+  .static-figure .export-proof .doc__detail { position: relative; inset: auto; width: 100%; margin: 16px 0 0; transform: none; }
+  .static-figure .doc__detail img { width: 100%; height: auto; }
+  .static-figure .xl { overflow-x: auto; font-size: 11px; }
+  .static-figure .xl__tabs { flex-wrap: wrap; }
+  .static-figure.compare .c-export { height: auto; display: grid; gap: 24px; padding: 24px var(--gutter); }
+  .static-figure.compare .c-doc { position: relative; inset: auto; width: 100%; transform: none; }
+  .static-figure.compare .c-doc img { width: 100%; height: auto; }
 }
