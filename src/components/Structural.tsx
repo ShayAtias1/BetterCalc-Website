@@ -31,7 +31,7 @@ export function Structural() {
           <ProductBrowser modes={STRUCTURAL_MODES} initialMode="concrete" deviceFrame="macbook"
             story={{ ...state, onSelect: select, onReplay: replay }}
             omitExplanationFor={['concrete']} omitResultFor={['mesh-bars', 'stirrups']}
-            renderSelector={({ mode, phase, transition, panelId, selectMode, selectPhase }) => (
+            renderSelector={({ mode, phase, transition, panelId, adjustmentControl, selectMode, selectPhase }) => (
               <div className="structural-index">
                 {STRUCTURAL_MODES.map((item, index) => {
                   const expanded = mode === item
@@ -53,7 +53,7 @@ export function Structural() {
                       <ol>{structuralSteps(item).map((label, step) => <li key={label}>
                         <button type="button" aria-pressed={expanded && phase === step} tabIndex={expanded ? 0 : -1} style={{ '--step-emphasis': transition ? (expanded && phase === step ? incoming : 0) + (transition.fromMode === item && transition.fromPhase === step ? 1 - incoming : 0) : expanded && phase === step ? 1 : 0 } as CSSProperties} onClick={() => selectPhase(step)}><bdi dir="ltr">0{step + 1}</bdi><span>{label}</span></button>
                       </li>)}</ol>
-                      <div className="product-browser__mode-description"><h3>{copy?.title}</h3><p>{copy?.description}</p></div>
+                      <div className="product-browser__mode-description"><h3>{copy?.title}</h3><p>{copy?.description}</p>{expanded && item === 'mesh-bars' && adjustmentControl}</div>
                     </div></div></div>
                   </div>
                 })}

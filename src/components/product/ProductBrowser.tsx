@@ -18,7 +18,7 @@ type Props = {
   renderModeDescription?: (mode: DemoMode) => ReactNode
   /** Optional owner for a scroll story; all visuals and controls use its single state. */
   story?: { mode: DemoMode; phase: number; playing: boolean; transition?: { fromMode: DemoMode; fromPhase: number; progress: number }; onSelect: (mode: DemoMode, phase: number) => void; onReplay: () => void }
-  renderSelector?: (context: { mode: DemoMode; phase: number; transition?: { fromMode: DemoMode; fromPhase: number; progress: number }; panelId: string; selectMode: (mode: DemoMode) => void; selectPhase: (phase: number) => void }) => ReactNode
+  renderSelector?: (context: { mode: DemoMode; phase: number; transition?: { fromMode: DemoMode; fromPhase: number; progress: number }; panelId: string; adjustmentControl: ReactNode; selectMode: (mode: DemoMode) => void; selectPhase: (phase: number) => void }) => ReactNode
   deviceFrame?: DeviceKind
 }
 
@@ -70,6 +70,7 @@ export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes
     else { setPhase(0); setPlaying(true) }
   }
   const choosePhase = (next: number) => { if (story) { story.onSelect(mode, next); return }; setPlaying(false); setPhase(next) }
+  const adjustmentControl = demo.adjustment ? <button className="product-browser__adjust" type="button" aria-pressed={phase === 3} onClick={() => choosePhase(phase === 3 ? 2 : 3)}>{demo.adjustment[locale]}</button> : null
   const sceneLabel = `${demo.label[locale]} · ${demo.steps[locale][Math.min(phase, 2)]}${phase >= 2 ? ` · ${demo.result[locale]}` : ''}`
 
   const capture = (captureMode: DemoMode, capturePhase: number) => {
@@ -101,7 +102,7 @@ export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes
 
   return (
     <div className={`product-browser product-browser--${variant}${deviceFrame ? ' product-browser--device' : ''}${renderModeDescription || renderSelector ? ' product-browser--side-selector' : ''}`} dir={he ? 'rtl' : 'ltr'}>
-      {modes.length > 1 && (renderSelector ? <aside className="product-browser__mode-rail">{renderSelector({ mode, phase, transition, panelId, selectMode: chooseMode, selectPhase: choosePhase })}</aside> : renderModeDescription ? (
+      {modes.length > 1 && (renderSelector ? <aside className="product-browser__mode-rail">{renderSelector({ mode, phase, transition, panelId, adjustmentControl, selectMode: chooseMode, selectPhase: choosePhase })}</aside> : renderModeDescription ? (
         <aside className="product-browser__mode-rail">
           <ProductDemoTabs modes={modes} selected={mode} locale={locale} panelId={panelId} onSelect={chooseMode} orientation="vertical" numbered />
           <div className="product-browser__mode-description" aria-live="polite">{renderModeDescription(mode)}</div>
@@ -117,9 +118,9 @@ export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes
           <button className="product-browser__replay" type="button" onClick={replay} disabled={playing}>{he ? 'הדגמה חוזרת' : 'Replay'}</button>
         </div>
       </div>
-      {!omitExplanationFor.includes(mode) && (!omitResultFor.includes(mode) || demo.adjustment || failed || (!renderModeDescription && !renderSelector && !hideDescription)) && <div className="product-browser__explanation">
+      {!omitExplanationFor.includes(mode) && (!omitResultFor.includes(mode) || (demo.adjustment && !renderSelector) || failed || (!renderModeDescription && !renderSelector && !hideDescription)) && <div className="product-browser__explanation">
         {!renderModeDescription && !renderSelector && !hideDescription && <p>{demo.description[locale]}</p>}
-        {demo.adjustment && <button className="product-browser__adjust" type="button" aria-pressed={phase === 3} onClick={() => choosePhase(phase === 3 ? 2 : 3)}>{demo.adjustment[locale]}</button>}
+        {!renderSelector && adjustmentControl}
         {!omitResultFor.includes(mode) && <p className="product-browser__result" role="status" aria-live="polite">{phase >= 2 ? demo.result[locale] : demo.steps[locale][phase]}</p>}
         {failed && <p role="alert">{he ? 'לא ניתן להציג חלק מצילומי ההדגמה.' : 'Some demonstration images could not be displayed.'}</p>}
         {!omitResultFor.includes(mode) && <small>{he ? 'מצבים קבועים שצולמו ב־BetterCalc עם תוכנית דמו. סימון ופרטי העבודה מוגדרים בידי המשתמש.' : 'Fixed states captured in BetterCalc using a demo plan. Geometry and work specifications are defined by the user.'}</small>}
