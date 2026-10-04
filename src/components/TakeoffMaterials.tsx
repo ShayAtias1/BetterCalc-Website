@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ProductBrowser } from './product/ProductBrowser'
 import type { DemoMode } from '../data/productDemo'
+import { useMaterialsStory } from '../hooks/useMaterialsStory'
 import './takeoff-materials.css'
 
 const MODES = [
@@ -14,7 +15,27 @@ export function TakeoffMaterials() {
   const [mode, setMode] = useState<DemoMode>('concrete')
   const [phase, setPhase] = useState(2)
   const choose = (next: DemoMode, nextPhase = 2) => { setMode(next); setPhase(nextPhase) }
+  const mobileStory = useMaterialsStory()
   const active = MODES.find(item => item.mode === mode)!
+  if (mobileStory.mobile) return <div className="takeoff-materials" id="structural" role="region" aria-labelledby="takeoff-materials-title">
+    <div className="materials-story" ref={mobileStory.track}>
+      <div className="materials-story__stage" ref={mobileStory.stage}>
+        <header className="takeoff-materials__head">
+          <h2 id="takeoff-materials-title"><span>גם בטון וזיון</span><span className="takeoff-materials__accent">ישירות על התכנית.</span></h2>
+        </header>
+        <ol className="materials-story__axis" dir="ltr" aria-label="נושאי בטון וזיון">
+          {MODES.map((item, index) => <li key={item.mode} aria-current={mobileStory.active === index ? 'step' : undefined}><bdi>0{index + 1}</bdi><span dir="rtl">{item.title}</span></li>)}
+        </ol>
+        <div className="materials-story__scene" ref={mobileStory.scene}>
+          {MODES.map((item, index) => <article className="materials-story__group" key={item.mode} aria-hidden={mobileStory.active !== index} inert={mobileStory.active !== index}>
+            <p>{item.description}</p>
+            <ProductBrowser modes={[item.mode]} initialMode={item.mode} hideDescription omitResultFor={[item.mode]}
+              story={{ mode: item.mode, phase: 2, playing: false, onSelect: () => {}, onReplay: () => {} }} />
+          </article>)}
+        </div>
+      </div>
+    </div>
+  </div>
   return <div className="takeoff-materials" id="structural" role="region" aria-labelledby="takeoff-materials-title">
     <header className="takeoff-materials__head">
       <h2 id="takeoff-materials-title"><span>גם בטון וזיון</span><span className="takeoff-materials__accent">ישירות על התכנית.</span></h2>
