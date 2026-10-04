@@ -60,8 +60,10 @@ export function useDeviceStory() {
 
     const measure = () => {
       if (disposed) return
+      chapter.style.removeProperty('--field-stage-height')
+      const header = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 56
       const width = field.clientWidth
-      const height = field.clientHeight
+      let height = field.clientHeight
       mobile = window.innerWidth <= 900
       elements.forEach(group => group.querySelector<HTMLElement>('.device-frame')?.style.removeProperty('width'))
       if (mobile) {
@@ -81,6 +83,12 @@ export function useDeviceStory() {
           const base = Math.min(index === 1 ? groupWidth * .85 : groupWidth, available * ratios[index], limits[index])
           device.style.width = `${base}px`
         })
+        if (window.innerWidth <= 639) {
+          const axis = chapter.querySelector('.field-story__axis')?.getBoundingClientRect().height ?? 44
+          const content = Math.max(...elements.map(group => group.offsetHeight))
+          chapter.style.setProperty('--field-stage-height', `${Math.min(window.innerHeight - header, content + axis + 40)}px`)
+          height = field.clientHeight
+        }
         const pose = (index:number,x:number,opacity:number): Pose => ({x,y:Math.max(0,(height-elements[index].offsetHeight)/2),scale:1,opacity,copyOpacity:1})
         const left = -groupWidth - 24
         const right = width + 24
@@ -121,7 +129,6 @@ export function useDeviceStory() {
         [pose(0, Math.min(width * .06, tabletHistoryStart - gap) - widths[0] * desktopFinal, desktopFinal, .5, 0), pose(1, tabletHistoryStart, tabletFinal, .65, 0), pose(2, centered[2], 1, 1, 1)],
       ]
       }
-      const header = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 56
       start = chapter.getBoundingClientRect().top + window.scrollY - header
       travel = Math.max(1, chapter.offsetHeight - chapter.firstElementChild!.clientHeight)
       apply()
@@ -140,6 +147,7 @@ export function useDeviceStory() {
       cancelAnimationFrame(resizeFrame)
       elements.forEach((device) => { device.style.removeProperty('width'); device.style.removeProperty('transform'); device.style.removeProperty('opacity'); device.style.removeProperty('visibility'); device.style.removeProperty('grid-template-columns'); device.style.removeProperty('column-gap'); device.querySelector<HTMLElement>('.device-frame')?.style.removeProperty('width') })
       field.style.removeProperty('--device-center')
+      chapter.style.removeProperty('--field-stage-height')
       captions.forEach((caption) => caption.style.removeProperty('opacity'))
     }
   }, [staticPresentation])
