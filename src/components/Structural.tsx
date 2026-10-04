@@ -31,13 +31,16 @@ export function Structural() {
           <ProductBrowser modes={STRUCTURAL_MODES} initialMode="concrete" deviceFrame="macbook"
             story={{ ...state, onSelect: select, onReplay: replay }}
             omitExplanationFor={['concrete']} omitResultFor={['mesh-bars', 'stirrups']}
-            renderSelector={({ mode, phase, panelId, selectMode, selectPhase }) => (
+            renderSelector={({ mode, phase, transition, panelId, selectMode, selectPhase }) => (
               <div className="structural-index">
                 {STRUCTURAL_MODES.map((item, index) => {
                   const expanded = mode === item
                   const copy = STRUCTURAL_COPY[item]
+                  const incoming = transition?.progress ?? 1
+                  const openness = expanded ? incoming : transition?.fromMode === item && transition.fromMode !== mode ? 1 - incoming : 0
+                  const modeEmphasis = transition?.fromMode === mode && expanded ? 1 : openness
                   return <div className="structural-index__mode" key={item}>
-                    <button type="button" data-structural-mode id={`${panelId}-${item}`} aria-expanded={expanded} aria-controls={`${panelId}-${item}-steps`}
+                    <button type="button" data-structural-mode id={`${panelId}-${item}`} aria-expanded={expanded} style={{ '--mode-emphasis': modeEmphasis } as CSSProperties} aria-controls={`${panelId}-${item}-steps`}
                       onClick={() => selectMode(item)} onKeyDown={(event) => {
                         const delta = event.key === 'ArrowDown' ? 1 : event.key === 'ArrowUp' ? -1 : 0
                         const next = event.key === 'Home' ? 0 : event.key === 'End' ? STRUCTURAL_MODES.length - 1 : delta ? (index + delta + STRUCTURAL_MODES.length) % STRUCTURAL_MODES.length : null
@@ -46,12 +49,12 @@ export function Structural() {
                         selectMode(STRUCTURAL_MODES[next])
                         event.currentTarget.closest('.structural-index')?.querySelectorAll<HTMLButtonElement>('[data-structural-mode]')[next]?.focus()
                       }}><bdi dir="ltr">0{index + 1}</bdi><span>{copy?.title}</span></button>
-                    <div className="structural-index__expanded" id={`${panelId}-${item}-steps`} hidden={!expanded}>
+                    <div className="structural-index__expanded" id={`${panelId}-${item}-steps`} aria-hidden={!expanded} style={{ '--accordion-open': transition?.fromMode === mode && expanded ? 1 : openness, '--accordion-track': `${transition?.fromMode === mode && expanded ? 1 : openness}fr` } as CSSProperties}><div className="structural-index__clip"><div className="structural-index__content">
                       <ol>{structuralSteps(item).map((label, step) => <li key={label}>
-                        <button type="button" aria-pressed={expanded && phase === step} onClick={() => selectPhase(step)}><bdi dir="ltr">0{step + 1}</bdi><span>{label}</span></button>
+                        <button type="button" aria-pressed={expanded && phase === step} tabIndex={expanded ? 0 : -1} style={{ '--step-emphasis': transition ? (expanded && phase === step ? incoming : 0) + (transition.fromMode === item && transition.fromPhase === step ? 1 - incoming : 0) : expanded && phase === step ? 1 : 0 } as CSSProperties} onClick={() => selectPhase(step)}><bdi dir="ltr">0{step + 1}</bdi><span>{label}</span></button>
                       </li>)}</ol>
                       <div className="product-browser__mode-description"><h3>{copy?.title}</h3><p>{copy?.description}</p></div>
-                    </div>
+                    </div></div></div>
                   </div>
                 })}
               </div>

@@ -66,3 +66,22 @@
   .structural-story .product-browser__frame, .structural-story .product-browser__explanation { grid-column: 1 / span 8; }
   .structural-story .product-browser__mode-rail { grid-column: 9 / -1; }
 }
+
+/* Scroll owns overlap and accordion extent; do not add a second timed animation. */
+.structural-story .product-browser__blend { position: relative; }
+.structural-story .product-browser__blend-out { position: absolute; inset: 0; pointer-events: none; }
+.structural-story .product-browser__blend[data-blending] .product-browser__layer { transition: none; }
+.structural-story .structural-index__expanded { display: grid; grid-template-rows: var(--accordion-track, 0fr); padding: 0; opacity: var(--accordion-open, 0); }
+.structural-index__clip { min-height: 0; overflow: hidden; }
+.structural-index__content { padding: 4px 0 20px; }
+.structural-index__expanded[aria-hidden='true'] { pointer-events: none; }
+.structural-story .structural-index__mode > button {
+  color: color-mix(in srgb, var(--blue) calc(var(--mode-emphasis, 0) * 100%), var(--ink));
+  border-inline-start-color: color-mix(in srgb, var(--blue) calc(var(--mode-emphasis, 0) * 100%), transparent);
+  background: color-mix(in srgb, var(--blue-wash) calc(var(--mode-emphasis, 0) * 100%), transparent);
+}
+.structural-story .structural-index__expanded li button {
+  color: color-mix(in srgb, var(--blue) calc(var(--step-emphasis, 0) * 100%), var(--ink));
+  border-inline-start-color: color-mix(in srgb, var(--blue) calc(var(--step-emphasis, 0) * 100%), transparent);
+  background: color-mix(in srgb, var(--blue-wash) calc(var(--step-emphasis, 0) * 100%), transparent);
+}

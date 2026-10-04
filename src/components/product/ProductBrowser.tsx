@@ -17,8 +17,8 @@ type Props = {
   /** Place the existing mode selector and active copy in a technical side rail. */
   renderModeDescription?: (mode: DemoMode) => ReactNode
   /** Optional owner for a scroll story; all visuals and controls use its single state. */
-  story?: { mode: DemoMode; phase: number; playing: boolean; onSelect: (mode: DemoMode, phase: number) => void; onReplay: () => void }
-  renderSelector?: (context: { mode: DemoMode; phase: number; panelId: string; selectMode: (mode: DemoMode) => void; selectPhase: (phase: number) => void }) => ReactNode
+  story?: { mode: DemoMode; phase: number; playing: boolean; transition?: { fromMode: DemoMode; fromPhase: number; progress: number }; onSelect: (mode: DemoMode, phase: number) => void; onReplay: () => void }
+  renderSelector?: (context: { mode: DemoMode; phase: number; transition?: { fromMode: DemoMode; fromPhase: number; progress: number }; panelId: string; selectMode: (mode: DemoMode) => void; selectPhase: (phase: number) => void }) => ReactNode
   deviceFrame?: DeviceKind
 }
 
@@ -72,25 +72,36 @@ export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes
   const choosePhase = (next: number) => { if (story) { story.onSelect(mode, next); return }; setPlaying(false); setPhase(next) }
   const sceneLabel = `${demo.label[locale]} · ${demo.steps[locale][Math.min(phase, 2)]}${phase >= 2 ? ` · ${demo.result[locale]}` : ''}`
 
-  const screen = (
+  const capture = (captureMode: DemoMode, capturePhase: number) => {
+    const captured: DemoSpec = PRODUCT_DEMOS[captureMode]
+    return (
     <div className="product-browser__screen" role="img" aria-label={sceneLabel}>
       <img className="product-browser__app-header" src={productAsset('application-header')} alt="" aria-hidden="true" />
       <div className="product-browser__body" dir="ltr">
         <div className="product-browser__inspector">
-          {[0, 1, 2, ...(demo.adjustment ? [3] : [])].map((step) => <img key={step} className={`product-browser__layer ${phase === step ? 'is-current' : ''}`} src={productAsset(`${demo.asset}-${step}-inspector`)} alt="" aria-hidden="true" onError={() => setFailed(true)} />)}
+          {[0, 1, 2, ...(captured.adjustment ? [3] : [])].map((step) => <img key={step} className={`product-browser__layer ${capturePhase === step ? 'is-current' : ''}`} src={productAsset(`${captured.asset}-${step}-inspector`)} alt="" aria-hidden="true" onError={() => setFailed(true)} />)}
         </div>
         <div className="product-browser__plan">
-          {[0, 1, 2, ...(demo.adjustment ? [3] : [])].map((step) => <img key={step} data-step={step} className={`product-browser__layer ${phase === step ? 'is-current' : ''}`} src={productAsset(`${demo.asset}-${step}-plan`)} alt="" aria-hidden="true" onError={() => setFailed(true)} />)}
-          <img className="product-browser__phone-focus" src={productAsset(`${demo.asset}-phone-focus`)} alt="" aria-hidden="true" />
-          {demo.shape && <img className="product-browser__shape" src={productAsset(demo.shape)} alt="" aria-hidden="true" />}
+          {[0, 1, 2, ...(captured.adjustment ? [3] : [])].map((step) => <img key={step} data-step={step} className={`product-browser__layer ${capturePhase === step ? 'is-current' : ''}`} src={productAsset(`${captured.asset}-${step}-plan`)} alt="" aria-hidden="true" onError={() => setFailed(true)} />)}
+          <img className="product-browser__phone-focus" src={productAsset(`${captured.asset}-phone-focus`)} alt="" aria-hidden="true" />
+          {captured.shape && <img className="product-browser__shape" src={productAsset(captured.shape)} alt="" aria-hidden="true" />}
         </div>
       </div>
     </div>
-  )
+    )
+  }
+
+  const transition = story?.transition
+  const screen = story ? (
+    <div className="product-browser__blend" data-blending={transition ? 'true' : undefined}>
+      {transition && <div key="outgoing" className="product-browser__blend-out" aria-hidden="true" style={{ opacity: 1 - transition.progress }}>{capture(transition.fromMode, transition.fromPhase)}</div>}
+      <div key="incoming" style={{ opacity: transition?.progress ?? 1, transform: `translateX(${transition ? (1 - transition.progress) * 4 : 0}px)` }}>{capture(mode, phase)}</div>
+    </div>
+  ) : capture(mode, phase)
 
   return (
     <div className={`product-browser product-browser--${variant}${deviceFrame ? ' product-browser--device' : ''}${renderModeDescription || renderSelector ? ' product-browser--side-selector' : ''}`} dir={he ? 'rtl' : 'ltr'}>
-      {modes.length > 1 && (renderSelector ? <aside className="product-browser__mode-rail">{renderSelector({ mode, phase, panelId, selectMode: chooseMode, selectPhase: choosePhase })}</aside> : renderModeDescription ? (
+      {modes.length > 1 && (renderSelector ? <aside className="product-browser__mode-rail">{renderSelector({ mode, phase, transition, panelId, selectMode: chooseMode, selectPhase: choosePhase })}</aside> : renderModeDescription ? (
         <aside className="product-browser__mode-rail">
           <ProductDemoTabs modes={modes} selected={mode} locale={locale} panelId={panelId} onSelect={chooseMode} orientation="vertical" numbered />
           <div className="product-browser__mode-description" aria-live="polite">{renderModeDescription(mode)}</div>
