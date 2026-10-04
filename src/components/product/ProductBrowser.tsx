@@ -34,6 +34,14 @@ export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes
     return () => { clearTimeout(select); clearTimeout(result); media.removeEventListener('change', settle) }
   }, [playing, mode])
 
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 639px)')
+    const settlePhone = () => { if (media.matches) { setPhase(2); setPlaying(false) } }
+    settlePhone()
+    media.addEventListener('change', settlePhone)
+    return () => media.removeEventListener('change', settlePhone)
+  }, [])
+
   const replay = () => {
     if (reduced()) { setPhase(2); return }
     setPhase(0); setPlaying(true)

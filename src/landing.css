@@ -186,3 +186,39 @@ html { scroll-padding-top: calc(var(--header-height) + 20px); }
   .static-figure.compare .c-doc { position: relative; inset: auto; width: 100%; transform: none; }
   .static-figure.compare .c-doc img { width: 100%; height: auto; }
 }
+
+/* Product proof rides inside the existing hero rig. The original hooks, camera keys,
+   sticky travel and scroll stages are intentionally untouched. */
+.hero-product-browser { position: absolute; inset: 0; z-index: 2; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 450ms var(--ease-out), visibility 450ms; }
+.story[data-stage='hero'] .hero-product-browser { opacity: 1; visibility: visible; pointer-events: auto; }
+.story[data-stage='hero'] .sheet { opacity: 0; }
+.hero-product-browser .product-browser { width: 100%; }
+.hero-product-browser .product-browser__body { aspect-ratio: 1384 / 880; }
+.hero-product-browser .product-browser__frame { box-shadow: none; }
+.finishes-edit-note { margin: 28px 0 0; max-width: 54em; line-height: 1.65; border-inline-start: 2px solid var(--blue); padding-inline-start: 20px; }
+.structural-capabilities { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-block-start: 36px; padding-block-start: 28px; border-block-start: 1px solid var(--rule); }
+.structural-capabilities h3, .device-proof h3, .desktop-role h3 { margin: 0 0 14px; color: var(--ink); font-size: 1.4rem; }
+.structural-capabilities p, .device-proof p, .desktop-role p { margin: 0; line-height: 1.65; }
+.device-proof { display: grid; grid-template-columns: minmax(0, 3fr) minmax(220px, 1fr); align-items: start; gap: clamp(24px, 4vw, 64px); }
+.device-proof figure { margin: 0; min-width: 0; }
+.device-proof__frame { background: var(--panel); padding: 8px; border: 1px solid var(--rule); border-radius: 16px; box-shadow: 0 24px 48px -32px rgba(13,18,25,.35); }
+.device-proof__frame img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.device-proof figcaption { margin-block-start: 24px; }
+.device-proof__phone { max-width: 310px; }
+.desktop-role { display: grid; grid-template-columns: auto minmax(180px, 1fr) 2fr; align-items: baseline; gap: 24px; border-block-start: 1px solid var(--rule); padding-block-start: 28px; margin-block-start: 36px; }
+.desktop-role .step-number, .desktop-role h3 { margin: 0; }
+@media (min-width: 640px) and (max-width: 1000px) {
+  .structural-capabilities { grid-template-columns: 1fr 1fr; }
+  .structural-capabilities article:last-child { grid-column: 1 / -1; }
+  .device-proof { grid-template-columns: minmax(0, 2fr) minmax(200px, 1fr); gap: 24px; }
+  .desktop-role { grid-template-columns: 1fr 2fr; }
+  .desktop-role .step-number { grid-column: 1 / -1; }
+}
+@media (max-width: 639px) {
+  .structural-capabilities, .device-proof, .desktop-role { grid-template-columns: 1fr; }
+  .device-proof__phone { width: min(100%, 290px); margin-inline: auto; }
+  .device-proof__tablet .device-proof__frame { padding: 4px; border-radius: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-product-browser { transition: none; }
+}

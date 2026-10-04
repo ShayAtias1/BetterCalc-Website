@@ -38,11 +38,27 @@ Cloud/Auth/accounts, sync, collaboration, billing, automatic AI quantities and a
 
 The existing extraction/render scripts are asset maintenance tools. Use them only when asset regeneration is separately authorized and source reports have been updated.
 
-## Package 2 asset slots
+## Package 2 interactive product proof
 
-`ProductGroup` accepts a `visual` React node. `Structural` and `Devices` accept keyed `visuals` maps for concrete / mesh-bars / stirrups and desktop / tablet / phone. Until real screenshots are supplied, those areas show useful workflow text, not fake UI or visible implementation placeholders. The Hero and Finishes use existing plan components and can later receive real workspace screenshots.
+`src/components/product/ProductBrowser.tsx` is one reusable visual demonstration. `ProductDemoTabs` supplies keyboard-accessible user selection; `src/data/productDemo.ts` defines Hebrew/English-ready mode labels, fixed workflow steps and captured result descriptions. Separate real plan/inspector layers reveal geometry and update the inspector over a short user-triggered sequence. Step buttons and Replay give explicit control; no mode cycling, embedded product, website quantity engine or new animation dependency is involved.
 
-No new screenshots, illustrations or mockups were created for Package 1 or the motion restoration. No build, tests, lint, screenshots or browser QA were run for either change, as requested. Manual review is pending.
+Four modes: Finishes, Concrete, Mesh & Bars and Stirrups. Mesh additionally switches between actual captured automatic and manually adjusted sheet layouts; this example changes placement, not the sheet count. The actual rectangular stirrup editor shape remains visible with the line-distribution result. Dedicated Bars playback is intentionally not included: the Mesh mode demonstrates one clear reinforcement workflow while existing copy retains Straight Bars Area and Individual Bars coverage.
+
+The Hero uses Finishes inside the existing `PlanSheet` camera rig and hands back to the original plan at the original story stage. The original scroll hooks, timings, wheel behavior and Compare choreography are unchanged. Finishes uses a focused crop of the same demonstration; Structural has one browser switching between its three groups. Small phones receive a stable focused final state and readable results, rather than a squeezed desktop inspector. Reduced motion disables transitions and settles directly on the selected result.
+
+Device proof consists of real touch-layout captures: tablet at 1024×768 with a selected editable room and open inspector, and phone at 390×844 with the Items review, quantities and Show on Plan action. These are actual adaptive product layouts, not desktop mockups. The tablet is the primary visual. No synchronization imagery or claims are added.
+
+### Capture provenance
+
+- Source product: the adjacent `../BetterCalc` working tree, based on commit `780447f` at capture time.
+- Source drawing: `demo/assets/BetterCalc_Demo_Apartment_A_Floor_Plan.pdf` only. No customer/project files were used.
+- `scripts/capture-product-demo.mjs` opens isolated Playwright contexts against the BetterCalc dev server on port 5193. It seeds a clean demo using current product store/constructors/mutations and the known sample outline, then captures the real renderer, UI and adaptive device states. It does not change BetterCalc source or calculations.
+- Capture originals and state/quantity provenance live in `assets-source/product-demo/`; optimized WebP fragments and focused crops are in `public/assets/product-demo/`.
+- `scripts/prepare-product-assets.py` uses Pillow for faithful crops and WebP optimization. It does not retouch/reconstruct product UI.
+- New interactive sample quantities are 12.65 m² area, 14.32 m perimeter, 32.47 m² net cladding, 2.53 m³ concrete, 12 mesh sheets and 17 stirrups. These are taken from the currently rendered product state. The **49.46 m²** legacy takeoff story and report remain a separate existing dataset; do not combine its totals with this newly seeded demonstration.
+- Existing PDF/Excel report evidence remains unchanged. No new Structural exports or fake report/spreadsheet interfaces were created.
+
+No build, tests or lint suites were run. Browser use was confined to producing and inspecting product capture assets; no broad browser QA was performed. Nothing was pushed.
 
 ## Local development
 

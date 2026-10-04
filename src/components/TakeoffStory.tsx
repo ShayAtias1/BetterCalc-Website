@@ -2,6 +2,7 @@ import { PlanSheet } from './PlanSheet'
 import { StoryPanel } from './StoryPanel'
 import { ExportProof } from './ExportProof'
 import { HeroCopy } from './Hero'
+import { ProductBrowser } from './product/ProductBrowser'
 import { useStoryScroll } from '../hooks/useStoryScroll'
 
 export function MotionStory() {
@@ -13,7 +14,7 @@ export function MotionStory() {
       <span className="story-anchor" id="takeoff" aria-hidden="true" />
       <div ref={stage} className="story__stage">
         <HeroCopy copyRef={heroCopy} />
-        <PlanSheet ref={rig} register={register} probe />
+        <PlanSheet ref={rig} register={register} probe heroVisual={<ProductBrowser modes={['finishes']} initialMode="finishes" variant="hero" />} />
         <ExportProof storytelling />
         <StoryPanel panelRef={panel} />
       </div>
@@ -44,7 +45,7 @@ export function StaticStory() {
       <section className="static-hero" data-stage="hero" data-reached="hero" aria-labelledby="hero-title">
         <HeroCopy />
         <div className="static-hero__plan">
-          <PlanSheet probe />
+          <ProductBrowser modes={['finishes']} initialMode="finishes" variant="hero" />
         </div>
       </section>
       <StaticFigure stage="calibrated" reached={CALIBRATED} label="כיול" id="takeoff" />

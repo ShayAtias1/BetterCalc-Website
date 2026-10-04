@@ -52,10 +52,20 @@ Desktop retains the rich original experience. Reduced-motion visitors and phones
 
 Do not tune scroll speed, shorten sticky travel or redesign camera choreography yet. Final pacing evaluation comes after the new product content and real assets are complete.
 
-## Package boundaries
+## Package 2 — interactive product proof
 
-Package 1 uses existing assets only. Future Hero/workspace, finishes, concrete, Mesh Layout, stirrup/output and device screenshots belong to Package 2. `Structural` and `Devices` expose keyed visual slots; their default workflow content remains useful without images.
+The reusable ProductBrowser presents actual captured plan/inspector states in a neutral application frame. User selection switches Finishes / Concrete / Mesh & Bars / Stirrups; step buttons and replay reveal the fixed workflow without an embedded application or duplicate quantity engine. No continuous mode autoplay. CSS transitions explain selection, geometry and resulting inspector changes, and then settle.
 
-Cloud/Auth/accounts, cloud projects, automatic sync, collaboration, billing, automatic AI quantities and automatic revision detection must not be marketed. Production PDF viewing uses PDFium primarily, with PDF.js fallback/export where appropriate; do not present website SVG extraction as the live viewer.
+Hero defaults to Finishes inside the original camera rig; at the original handoff stage the original vector plan takes over. This does not alter camera keys, sticky durations, stage thresholds or wheel behavior. Finishes uses a focused variant; Structural uses one shared browser and concise supporting group summaries. Compare retains its restored choreography.
 
-No build, tests, lint, browser QA or screenshots were run during Package 1. The user will review manually. Keep future verification scoped and separately authorized.
+Real tablet/phone touch-layout captures replace the text-only device visuals. Tablet editing is primary; phone Items/quantities/Show on Plan is secondary. Phone product-browser demonstrations use a focused static final state and readable result text. Reduced motion settles immediately. No fake device UI or synchronization imagery.
+
+Source: the adjacent BetterCalc working tree (base commit `780447f` at capture), isolated browser data, existing repository apartment demo PDF only. Originals and state manifest are saved under `assets-source/product-demo/`; optimized WebP assets and provenance under `public/assets/product-demo/`. Capture and preparation scripts are saved under `scripts/`.
+
+The newly captured sample records show 12.65 m² room area, 14.32 m perimeter, 32.47 m² net cladding, 2.53 m³ concrete, 12 mesh sheets and 17 stirrups. Preserve the separate **49.46 m²** legacy story/report dataset; never label it as the new interactive sample total. Printed source-plan room labels are drawing content, not calculated quantities.
+
+Mesh playback focuses on physical sheets, bottom/top reinforcement, procurement and an actual manual placement adjustment. Dedicated Straight/Individual Bars playback and new Structural report/Excel captures remain deferred to avoid overcrowding this package. Existing copy retains those capabilities and the existing real report evidence remains.
+
+Cloud/Auth/accounts, cloud projects, automatic sync, collaboration, billing, automatic AI quantities and automatic revision detection must not be marketed. Production PDF viewing uses PDFium primarily, with PDF.js fallback/export where appropriate; website SVG extraction remains an explanatory asset.
+
+No build, tests or lint suites were run. Browser use was limited to product asset production, not broad QA. Final scroll/pacing decisions remain deferred until website content and visuals are complete.
