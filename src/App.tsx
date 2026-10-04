@@ -2,7 +2,6 @@ import { useSyncExternalStore } from 'react'
 import './App.css'
 import { Header } from './components/Header'
 import { MotionStory, StaticStory } from './components/TakeoffStory'
-import { Finishes } from './components/Finishes'
 import { CompareStory, StaticCompare } from './components/CompareStory'
 import { Structural } from './components/Structural'
 import { Devices } from './components/Devices'
@@ -30,7 +29,6 @@ function App() {
       <Header />
       <main id="main-content">
         {staticPresentation ? <StaticStory /> : <MotionStory />}
-        <Finishes />
         <Structural />
         {staticPresentation ? <StaticCompare /> : <CompareStory />}
         <Devices />

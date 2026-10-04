@@ -30,7 +30,7 @@ export function StoryPanel({ panelRef }: { panelRef?: Ref<HTMLDivElement> }) {
         <div className="chapter" data-chapter="quantities">
           <p className="chapter-index"><bdi dir="ltr" className="chapter-index__num">03</bdi><span className="chapter-index__sep">/</span>כמויות</p>
           <h2 className="chapter__title">מהתוכנית לכתב כמויות.</h2>
-          <p className="chapter__body">הכמויות מרוכזות לפי חדר. הכמות להזמנה תלויה בפריטי העבודה, בניכויים ובפחת שהגדרתם.</p>
+          <p className="chapter__body">הכמויות מרוכזות לפי חדר. ריצוף, חיפוי וכמויות לפי היקף - עם פתחים, ניכויים ופחת לפי פרטי העבודה.</p>
         </div>
         <div className="chapter" data-chapter="export">
           <p className="chapter-index"><bdi dir="ltr" className="chapter-index__num">04</bdi><span className="chapter-index__sep">/</span>ייצוא</p>
