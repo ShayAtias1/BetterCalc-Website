@@ -226,3 +226,9 @@ html { scroll-padding-top: calc(var(--header-height) + 20px); }
 @media (max-width: 1000px) {
   .finishes, .structural, .devices { --product-stage-width: 1240px; }
 }
+
+/* Match the approved Finishes section intro rhythm without changing its visuals. */
+.landing-section.structural, .landing-section.devices { padding-block: clamp(64px, 7vw, 96px); }
+@media (max-width: 639px) {
+  .landing-section.structural, .landing-section.devices { padding-block: 52px; }
+}

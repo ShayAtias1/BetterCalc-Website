@@ -1,36 +1,18 @@
 import { ProductBrowser } from './product/ProductBrowser'
 import { ProductStage } from './presentation/ProductStage'
+import './product-heading.css'
 import './finishes.css'
-
-// Reference values from the existing captured final state, not live website calculations.
-const CAPTURED_METRICS = [
-  { label: 'חיפוי נטו לאחר ניכוי פתח', value: '32.47', unit: 'מ״ר' },
-  { label: 'היקף החדר', value: '14.32', unit: 'מ׳' },
-  { label: 'שטח ריצוף', value: '12.65', unit: 'מ״ר' },
-  { label: 'פתח לניכוי', value: '1.89', unit: 'מ״ר' },
-]
 
 export function Finishes() {
   return (
     <section className="landing-section finishes" id="finishes" aria-labelledby="finishes-title">
-      <header className="finishes__heading">
-        <p className="finishes__eyebrow">גמרים <span aria-hidden="true">/</span> פרטי עבודה</p>
-        <h2 className="finishes__title" id="finishes-title"><span>ריצוף וחיפוי,</span><span>עד לפרטי הכמות.</span></h2>
-        <p className="finishes__lead">ריצוף לפי שטח וחיפוי קירות לפי היקף וגובה, עם פתחים וניכויים. מגדירים פחת לכל פריט עבודה ובודקים את הכמות להזמנה.</p>
+      <header className="product-heading">
+        <p className="product-heading__eyebrow">גמרים <span aria-hidden="true">/</span> פרטי עבודה</p>
+        <h2 className="product-heading__title" id="finishes-title"><span>ריצוף וחיפוי,</span><span>עד לפרטי הכמות.</span></h2>
+        <p className="product-heading__lead">ריצוף לפי שטח וחיפוי קירות לפי היקף וגובה, עם פתחים וניכויים. מגדירים פחת לכל פריט עבודה ובודקים את הכמות להזמנה.</p>
       </header>
-      <ProductStage
-        annotations={<>
-          <p className="product-stage__rail-label">ערכים ממצב הדמו הסופי</p>
-          <dl>{CAPTURED_METRICS.map((metric) => (
-            <div className="product-stage__metric" key={metric.label}>
-              <dt>{metric.label}</dt>
-              <dd><bdi dir="ltr">{metric.value}</bdi><span>{metric.unit}</span></dd>
-            </div>
-          ))}</dl>
-        </>}
-        caption={<p>התוכנית השתנתה או הסימון צריך תיקון? עורכים את הגאומטריה ובודקים את הכמויות המעודכנות.</p>}
-      >
-        <ProductBrowser modes={['finishes']} initialMode="finishes" variant="focused" deviceFrame="desktop" />
+      <ProductStage>
+        <ProductBrowser modes={['finishes']} initialMode="finishes" variant="focused" deviceFrame="desktop" omitExplanationFor={['finishes']} />
       </ProductStage>
     </section>
   )

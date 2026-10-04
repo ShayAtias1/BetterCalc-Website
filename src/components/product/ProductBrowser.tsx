@@ -9,12 +9,14 @@ type Props = {
   initialMode?: DemoMode
   locale?: DemoLocale
   variant?: 'workspace' | 'hero' | 'focused'
+  /** Presentation only: omit the text footer for these demo modes. */
+  omitExplanationFor?: readonly DemoMode[]
   deviceFrame?: DeviceKind
 }
 
 /** A visual demonstration using separately captured real plan and inspector states.
  * Modes and steps select fixed assets; this component is not a takeoff engine. */
-export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes', locale = 'he', variant = 'workspace', deviceFrame }: Props) {
+export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes', locale = 'he', variant = 'workspace', deviceFrame, omitExplanationFor = [] }: Props) {
   const [mode, setMode] = useState<DemoMode>(modes.includes(initialMode) ? initialMode : modes[0])
   const [phase, setPhase] = useState(2)
   const [playing, setPlaying] = useState(false)
@@ -83,13 +85,13 @@ export function ProductBrowser({ modes = ALL_DEMO_MODES, initialMode = 'finishes
           <button className="product-browser__replay" type="button" onClick={replay} disabled={playing}>{he ? 'הדגמה חוזרת' : 'Replay'}</button>
         </div>
       </div>
-      <div className="product-browser__explanation">
+      {!omitExplanationFor.includes(mode) && <div className="product-browser__explanation">
         <p>{demo.description[locale]}</p>
         {demo.adjustment && <button className="product-browser__adjust" type="button" aria-pressed={phase === 3} onClick={() => choosePhase(phase === 3 ? 2 : 3)}>{demo.adjustment[locale]}</button>}
         <p className="product-browser__result" role="status" aria-live="polite">{phase >= 2 ? demo.result[locale] : demo.steps[locale][phase]}</p>
         {failed && <p role="alert">{he ? 'לא ניתן להציג חלק מצילומי ההדגמה.' : 'Some demonstration images could not be displayed.'}</p>}
         <small>{he ? 'מצבים קבועים שצולמו ב־BetterCalc עם תוכנית דמו. סימון ופרטי העבודה מוגדרים בידי המשתמש.' : 'Fixed states captured in BetterCalc using a demo plan. Geometry and work specifications are defined by the user.'}</small>
-      </div>
+      </div>}
     </div>
   )
 }

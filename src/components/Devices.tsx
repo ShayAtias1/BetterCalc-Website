@@ -1,13 +1,14 @@
+import './product-heading.css'
 import { productAsset } from '../data/productDemo'
 
 export function Devices() {
   return (
     <section className="landing-section devices" id="field" aria-labelledby="devices-title">
-      <div className="section-heading">
-        <p className="section-kicker">במשרד ובשטח</p>
-        <h2 id="devices-title">עבודה עם התוכנית, גם באתר.</h2>
-        <p>סביבת עבודה מלאה במחשב, עריכת כמויות בטאבלט וכלים ממוקדים לבדיקה ולמדידה בטלפון.</p>
-      </div>
+      <header className="product-heading">
+        <p className="product-heading__eyebrow">במשרד ובשטח</p>
+        <h2 className="product-heading__title" id="devices-title"><span>עבודה עם התוכנית, </span><span>גם באתר.</span></h2>
+        <p className="product-heading__lead">סביבת עבודה מלאה במחשב, עריכת כמויות בטאבלט וכלים ממוקדים לבדיקה ולמדידה בטלפון.</p>
+      </header>
       <div className="device-proof">
         <figure className="device-proof__tablet">
           <div className="device-proof__frame"><img src={productAsset('tablet-real-ui')} width={2048} height={1536} alt="ממשק BetterCalc האמיתי בטאבלט: חדר מסומן עם ידיות עריכה, פרטי השטח וההיקף ומפקח פתוח לצד התוכנית" loading="lazy" decoding="async" /></div>
